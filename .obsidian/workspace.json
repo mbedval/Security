@@ -1,0 +1,198 @@
+{
+  "main": {
+    "id": "a6cc7596280e4dd7",
+    "type": "split",
+    "children": [
+      {
+        "id": "307d338ca157aeca",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f0622e1c56b549ce",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Abbreviates.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "0986e52e4277fc14",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Security/Open Systems Interconnection.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "e25ff4722e84cfaa",
+    "type": "split",
+    "children": [
+      {
+        "id": "67f7086d68d114f9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "85c2d5699432f91b",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "9191415c48b1b9b2",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "4fe5e6753f3d481f",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "4b1b3f083f9676b8",
+    "type": "split",
+    "children": [
+      {
+        "id": "d69ff3db52020981",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0fdcbb2fcd7fd51a",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Security/Open Systems Interconnection.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": true,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "0796884d933c26ee",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Security/Open Systems Interconnection.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "c2755946afa958f3",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "f7d7f17c3307bba8",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Security/Open Systems Interconnection.md"
+              }
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "0986e52e4277fc14",
+  "lastOpenFiles": [
+    "OSI-model-layers-attacks-Stackscale.jpg.avif",
+    "Untitled.md",
+    "Security/Open Systems Interconnection.md",
+    "Abbreviates.md",
+    "Security",
+    "Module 04_Enumeration.md",
+    "Module 01_Introduction to ethical Hacking.md",
+    "Tools_Usage/Metasploit.md",
+    "Tools_Usage/Hping3.md",
+    "Module 03_Scanning Networks.md",
+    "Module 02_Footprinting and Reconnaissance.md",
+    "Tools_Usage/toolsList.md",
+    "Tools_Usage/Nmap.md",
+    "Tools_Usage/theHarvester.md",
+    "Popular Ports.md",
+    "Footprinting.md",
+    "Index.md",
+    "Module 20_Cryptography.md",
+    "Module 19_Cloud Computing.md",
+    "Module 18_IoT and OT Hacking.md",
+    "Module 17_Hacking Mobile Platform.md",
+    "Module 16_Hacking Wireless Networks.md",
+    "Module 15_SQL Injection.md",
+    "Module 14_Hacking Web Application.md",
+    "Module 13_Hacking Web Servers.md",
+    "Module 12_Evading Web Applications.md",
+    "Module 11_Session Hijacking.md",
+    "Pasted image 20240309105925.png",
+    "Untitled.canvas",
+    "Tools_Usage"
+  ]
+}
