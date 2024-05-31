@@ -1,9 +1,9 @@
 Notes #Learning #CeH12
 
-[[Module 01_Introduction to ethical Hacking]]: 
-[[Module 02_Footprinting and Reconnaissance]] 
+[[01_Introduction to ethical Hacking]]: 
+[[Footprinting and Reconnaissance]] 
 [[Module 03_Scanning Networks]] 
-[[Module 04_Enumeration]] 
+[[Enumeration]] 
 [[Module 05_Vulnerability Analysis]]
 [[Module 06 System Hacking]] 
 [[Module 07_Malware Threats]] 

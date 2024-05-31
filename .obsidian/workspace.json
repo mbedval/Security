@@ -13,28 +13,14 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Abbreviates.md",
-                "mode": "source",
-                "backlinks": true,
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "0986e52e4277fc14",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Security/Open Systems Interconnection.md",
+                "file": "M04_Enumeration/Enumeration.md",
                 "mode": "source",
                 "backlinks": true,
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -100,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Security/Open Systems Interconnection.md",
+                "file": "M04_Enumeration/Enumeration.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -117,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Security/Open Systems Interconnection.md",
+                "file": "M04_Enumeration/Enumeration.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -140,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Security/Open Systems Interconnection.md"
+                "file": "M04_Enumeration/Enumeration.md"
               }
             }
           }
@@ -162,19 +148,22 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "0986e52e4277fc14",
+  "active": "85c2d5699432f91b",
   "lastOpenFiles": [
-    "OSI-model-layers-attacks-Stackscale.jpg.avif",
-    "Untitled.md",
-    "Security/Open Systems Interconnection.md",
+    "M02_Footprinting and Reconnaissance/Footprinting and Reconnaissance.md",
+    "M04_Enumeration/Enumeration.md",
+    "M02_Footprinting and Reconnaissance",
+    "M01_Introduction to ethical hacking",
+    "M04_Enumeration",
     "Abbreviates.md",
+    "OSI-model-layers-attacks-Stackscale.jpg.avif",
+    "Security/Open Systems Interconnection.md",
+    "Untitled.md",
     "Security",
-    "Module 04_Enumeration.md",
-    "Module 01_Introduction to ethical Hacking.md",
+    "M01_Introduction to ethical hacking/01_Introduction to ethical Hacking.md",
     "Tools_Usage/Metasploit.md",
     "Tools_Usage/Hping3.md",
     "Module 03_Scanning Networks.md",
-    "Module 02_Footprinting and Reconnaissance.md",
     "Tools_Usage/toolsList.md",
     "Tools_Usage/Nmap.md",
     "Tools_Usage/theHarvester.md",
