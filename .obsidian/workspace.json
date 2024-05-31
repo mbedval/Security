@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "307d338ca157aeca",
+        "id": "a6e6468466cb52b8",
         "type": "tabs",
         "children": [
           {
-            "id": "f0622e1c56b549ce",
+            "id": "45580ce97cdb4cf1",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "M04_Enumeration/Enumeration.md",
+                "file": "README.md",
                 "mode": "source",
                 "backlinks": true,
                 "source": false
@@ -86,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "M04_Enumeration/Enumeration.md",
+                "file": "README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "M04_Enumeration/Enumeration.md",
+                "file": "README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "M04_Enumeration/Enumeration.md"
+                "file": "README.md"
               }
             }
           }
@@ -148,38 +148,39 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "85c2d5699432f91b",
+  "active": "45580ce97cdb4cf1",
   "lastOpenFiles": [
+    "Index.md",
+    "README.md",
     "M02_Footprinting and Reconnaissance/Footprinting and Reconnaissance.md",
-    "M04_Enumeration/Enumeration.md",
+    "Security/Popular Ports.md",
+    "Templates.md",
+    "M04_Enumeration/SNMP Enumeration.md",
+    "dfdf.md",
+    "[NMAP.md",
+    "Tools_Usage/Nmap.md",
+    "Tools_Usage/SNMPWalk.md",
+    "M04_Enumeration/02 Enumerating User Accounts.md",
+    "M04_Enumeration/03 Enumerating Shared Resources.md",
+    "Security/Open Systems Interconnection.md",
+    "M04_Enumeration/01 NetBIOS Enumeration.md",
+    "Security/OSI-model-layers-attacks-Stackscale.jpg.avif",
+    "M04_Enumeration/00_Enumeration.md",
     "M02_Footprinting and Reconnaissance",
     "M01_Introduction to ethical hacking",
     "M04_Enumeration",
     "Abbreviates.md",
-    "OSI-model-layers-attacks-Stackscale.jpg.avif",
-    "Security/Open Systems Interconnection.md",
-    "Untitled.md",
     "Security",
     "M01_Introduction to ethical hacking/01_Introduction to ethical Hacking.md",
     "Tools_Usage/Metasploit.md",
     "Tools_Usage/Hping3.md",
     "Module 03_Scanning Networks.md",
     "Tools_Usage/toolsList.md",
-    "Tools_Usage/Nmap.md",
     "Tools_Usage/theHarvester.md",
-    "Popular Ports.md",
     "Footprinting.md",
-    "Index.md",
     "Module 20_Cryptography.md",
     "Module 19_Cloud Computing.md",
     "Module 18_IoT and OT Hacking.md",
-    "Module 17_Hacking Mobile Platform.md",
-    "Module 16_Hacking Wireless Networks.md",
-    "Module 15_SQL Injection.md",
-    "Module 14_Hacking Web Application.md",
-    "Module 13_Hacking Web Servers.md",
-    "Module 12_Evading Web Applications.md",
-    "Module 11_Session Hijacking.md",
     "Pasted image 20240309105925.png",
     "Untitled.canvas",
     "Tools_Usage"

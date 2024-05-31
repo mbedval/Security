@@ -369,4 +369,24 @@ Performance and accuracy can be achieved by reducing the scan timing by techniqu
 	It is always advisable to run Nmap from the host's local network to the target within internal network, External Scanning is obligatory when performing firewall testing or when the network should be monitored from the external attacker's viewpoint.
 7. Increase Available Bandwidth and CPU Time
 	By Increasing the available bandwidth or CPU power, the NMap scan time can be reduced. This can be done by installing a new data line or stopping any running applications. Nmap is controlled by its own congestion control algorithms, so that network flooding can be prevented. This improves its accuracy. The Nmap bandwidth usage can be tested by running it in the verbose mode -v.
-8. 
+
+### Enumerating SNMP using NMAP
+NMAP: using snmp-info NSE script against SNMP remote server to retrieve information related to the hosted SNMP services.
+
+Using snmp-processes script to retrieve information related to the hosted SNMP services. 
+```
+nmap -sU -p 161 --script=snmp-processes <Target IP Address>
+```
+This command will list of all running SNMP processes along with the associated ports on the target host.
+
+To retrieve information regarding SNMP server type and operating system details  
+```
+nmap -sU -P 161 --script=snmp-sysdescr <TargetIPAdress>
+
+```
+
+To Retrieves a list of all the applications running on the target machine.
+```
+nmap -sU -p 161 --script=snmp32-software <TargetIpAddress>
+```
+
