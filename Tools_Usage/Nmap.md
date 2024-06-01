@@ -1,3 +1,5 @@
+Usage: #Enumeration
+
 Network Administrators can use NMAP for inventory a network managing services upgrade schedules, and monitoring host or service uptime.
 It is used to extract information such as live hosts on the network, open ports, services (Application name and version), types of packet filters/firewalls, as well as operating systems and versions used.
 By Creating map of network, It sends specially crafted packets to the target host and then analyzes the responses to accomplish its goal.

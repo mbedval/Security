@@ -1,3 +1,6 @@
+
+Usage: #Enumeration 
+
 [SNMPWalk](https://ezfive.com ) : 
 SNMPWalk is a command-line tool that allows attackers to scan numerous SNMP nodes instantly and identify a set of variables that are available for accessing the target network. 
 

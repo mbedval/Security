@@ -48,5 +48,5 @@ Tools
 3. [PRTG Network Monitor](https://www.paessler.com)
 4. [[SNMPWalk]]
 5. [[Nmap#Enumerating SNMP using NMAP|NMAP]]
-6. [SNMP-check]( https://www.nothink.org) : allows one to enumerate the SNMP devices and place the output in very human-readable and friendly format.
-7. SoftPerfect Network Scanner: Software Network scanner discovers shared folders and retrieves practically any information about network devices via WMI, SNMP, HTTP, SSH and PowerShell.
+7. [SNMP-check]( https://www.nothink.org) : 
+1. SoftPerfect Network Scanner: Software Network scanner discovers shared folders and retrieves practically any information about network devices via WMI, SNMP, HTTP, SSH and PowerShell.
