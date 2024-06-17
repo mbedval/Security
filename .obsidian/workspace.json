@@ -4,50 +4,23 @@
     "type": "split",
     "children": [
       {
-        "id": "278b4fac67362f3e",
+        "id": "eb72b61bb126a1f9",
         "type": "tabs",
         "children": [
           {
-            "id": "c048f720f78fbcf8",
+            "id": "16057f5acbc5b96d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tools_Usage/00_toolsList.md",
-                "mode": "source",
-                "backlinks": true,
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "51338f4419ecd356",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "M04_Enumeration/06.2 NFS Enumeration.md",
-                "mode": "source",
-                "backlinks": true,
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "ac49cafe7232f84e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "M04_Enumeration/06.1 NTP Enumeration.md",
+                "file": "CeHV11_notes/module01.md",
                 "mode": "source",
                 "backlinks": true,
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -113,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "M04_Enumeration/06.1 NTP Enumeration.md",
+                "file": "CeHV11_notes/module01.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -130,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "M04_Enumeration/06.1 NTP Enumeration.md",
+                "file": "CeHV11_notes/module01.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -153,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "M04_Enumeration/06.1 NTP Enumeration.md"
+                "file": "CeHV11_notes/module01.md"
               }
             }
           }
@@ -175,12 +148,22 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "ac49cafe7232f84e",
+  "active": "16057f5acbc5b96d",
   "lastOpenFiles": [
-    "M04_Enumeration/06.2 NFS Enumeration.md",
+    "CeHV11_notes/Untitled 3.md",
+    "CeHV11_notes/module01.md",
+    "CeHV11_notes/Untitled 2.md",
+    "CeHV11_notes/Untitled 1.md",
+    "Pasted image 20240616164702.png",
+    "CeHV11_notes",
+    "2024-06-16.md",
     "Tools_Usage/00_toolsList.md",
-    "M04_Enumeration/06.1 NTP Enumeration.md",
     "M04_Enumeration/00_Enumeration.md",
+    "M04_Enumeration/07.1 SMTP Enumeration.md",
+    "M04_Enumeration/07.2 DNS Enumeration.md",
+    "M04_Enumeration/06.2 NFS Enumeration.md",
+    "M02_Footprinting and Reconnaissance/Footprinting and Reconnaissance.md",
+    "M04_Enumeration/06.1 NTP Enumeration.md",
     "images",
     "images/Pasted image 20240531185710.png",
     "images/Pasted image 20240531185508.png",
@@ -195,22 +178,13 @@
     "Tools_Usage/Nmap.md",
     "README.md",
     "Index.md",
-    "M02_Footprinting and Reconnaissance/Footprinting and Reconnaissance.md",
     "Security/Popular Ports.md",
     "Templates.md",
-    "dfdf.md",
-    "[NMAP.md",
-    "M04_Enumeration/02 Enumerating User Accounts.md",
-    "M04_Enumeration/03 Enumerating Shared Resources.md",
-    "Security/Open Systems Interconnection.md",
-    "M04_Enumeration/01 NetBIOS Enumeration.md",
     "Security/OSI-model-layers-attacks-Stackscale.jpg.avif",
     "M02_Footprinting and Reconnaissance",
     "M01_Introduction to ethical hacking",
     "M04_Enumeration",
-    "Abbreviates.md",
     "Security",
-    "M01_Introduction to ethical hacking/01_Introduction to ethical Hacking.md",
     "Pasted image 20240309105925.png",
     "Untitled.canvas",
     "Tools_Usage"
