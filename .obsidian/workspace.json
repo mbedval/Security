@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CeHV11_notes/module01.md",
+                "file": "CeHV11_notes/Module02.md",
                 "mode": "source",
                 "backlinks": true,
                 "source": false
@@ -86,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CeHV11_notes/module01.md",
+                "file": "CeHV11_notes/Module02.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CeHV11_notes/module01.md",
+                "file": "CeHV11_notes/Module02.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CeHV11_notes/module01.md"
+                "file": "CeHV11_notes/Module02.md"
               }
             }
           }
@@ -150,8 +150,10 @@
   },
   "active": "16057f5acbc5b96d",
   "lastOpenFiles": [
-    "CeHV11_notes/Untitled 3.md",
+    "CeHV11_notes/0Outline.md",
+    "CeHV11_notes/Module02.md",
     "CeHV11_notes/module01.md",
+    "CeHV11_notes/Untitled 3.md",
     "CeHV11_notes/Untitled 2.md",
     "CeHV11_notes/Untitled 1.md",
     "Pasted image 20240616164702.png",
@@ -179,7 +181,6 @@
     "README.md",
     "Index.md",
     "Security/Popular Ports.md",
-    "Templates.md",
     "Security/OSI-model-layers-attacks-Stackscale.jpg.avif",
     "M02_Footprinting and Reconnaissance",
     "M01_Introduction to ethical hacking",
