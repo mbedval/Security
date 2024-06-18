@@ -1,5 +1,129 @@
 Usage: #Enumeration
 
+NMAP Features
+- Host discovery
+- Port and service discovery
+- Operating system and service fingerprinting
+- Enumeration
+- MAC address detection
+- Vulnerability and exploit detection
+
+NAMP Hel
+
+
+#### NMAPS Options
+
+| Scan Option                                | Description                                                                                                                                                                                                                                                                                                         |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| -h                                         |                                                                                                                                                                                                                                                                                                                     |
+| -V                                         |                                                                                                                                                                                                                                                                                                                     |
+| -d                                         | Enable debugging to view all steps                                                                                                                                                                                                                                                                                  |
+| -PR                                        | - Send an ARP (Address resolution protocol ) request to a target for a response<br>- ARPs are not usually blocked by firewalls<br>- Defaults discovery method for any nmap scan on an ethern                                                                                                                        |
+| -PS\<portlist\>                            | - Disover hosts by sending a TCP SYNC to specified port/s <br>- Default is port 80<br>- Any response (SYN, ACK, RST ) demonstrates the target is up<br>- Syntax indicates no space between -PS and the port list<br>- Will be followed by port scan unless the '-sn' opti                                           |
+| -sn                                        | - No Port Scan<br>- Discovery only <br>- Use combination of <br>-  -  - ICMP ECHO<br>-  -  - TCP SYN to port 443<br>-  -  - TCP ACK to port 80<br>-  -  -  ICMP timestamp reques                                                                                                                                    |
+| -sS<br><br>\** Requires root privilege \** | - TCP SYN Scan<br>- Send TCP SYN to target for response to check<br>- Check for TCP 3-way handshake<br>- - - If port is open, will respond with SYN ACK<br>- - - RST if port                                                                                                                                        |
+| -sT                                        | TCP connect scan<br>- Complete TCP 3-way handshake for non-                                                                                                                                                                                                                                                         |
+| -sU                                        | UDP Scan<br>- Can be very slow<br>- Ports that respond are open<br>- Ports that donot respond are displayed as open \| filtered (unknown)<br>- A port might be open but not respond to an empty UDP probe packet<br>Port that send ICMP unreachable (type 3 code 3)                                                 |
+| -sL                                        | List Scan<br>- List the target(s) that will be scanned<br>- Attempts to return IP addresses and names for targets<br>- Good for passive reco                                                                                                                                                                        |
+| -sV                                        | Probe open ports for service version<br>- Can help disambiguate                                                                                                                                                                                                                                                     |
+| -p \<portRange\>                           | Scan Only Specified p                                                                                                                                                                                                                                                                                               |
+| -p U:PortRange T:PortRange                 | U Represents UDP Ports<br>T Represents                                                                                                                                                                                                                                                                              |
+| -r                                         | Scan ports consecutively and no                                                                                                                                                                                                                                                                                     |
+| --top-ports \<Num\>                        | where 'Num' how many ports to be scanned example top                                                                                                                                                                                                                                                                |
+| -6                                         | Scan IPv6                                                                                                                                                                                                                                                                                                           |
+| -iL \<inputFileName.txt\>                  | scan host list                                                                                                                                                                                                                                                                                                      |
+| --exclude 192.168.1.100                    | Exclude certain hosts from provided ip range                                                                                                                                                                                                                                                                        |
+| -n                                         | Do not resolve names (t                                                                                                                                                                                                                                                                                             |
+| -R                                         | Try to resolve all name with re                                                                                                                                                                                                                                                                                     |
+| -F  (Fast mode)                            | scan fewer ports th                                                                                                                                                                                                                                                                                                 |
+| -O                                         | Enable OS detection, now alway                                                                                                                                                                                                                                                                                      |
+| -A                                         | Enable OS detection, services version detection, script scanning, and                                                                                                                                                                                                                                               |
+| --version-intensity                        | Use with -sV<br>--- Specified level of interrogation from 0 (light), to 9 (Attempt a                                                                                                                                                                                                                                |
+| --script =\<scriptName\>                   | Use NSE script (ie. b                                                                                                                                                                                                                                                                                               |
+| -sC                                        | Scan using all defau                                                                                                                                                                                                                                                                                                |
+| -v                                         | Increase verbosity                                                                                                                                                                                                                                                                                                  |
+| -vv                                        | Very verb                                                                                                                                                                                                                                                                                                           |
+| -oN  / -oX / -oS / -oG / -oA               | Save output file into type N= normal, X=XML, S=Script Kiddie, G=Grepable                                                                                                                                                                                                                                            |
+| -sA                                        | ACK Scan<br>Find out if a host/network is protected by a firewall<br>--- Filtered results indicate firewall is ON<br>--- Unfiltered results indicates port is accessible but might be open or closed<br>-- Run with -A option to determine if accessible ports are actually open or closed (name -sA -A scanme.org) |
+
+```
+nmap -p 80 192.168.1.50
+nmap -p 1024-3000 192.168.1.0/24 
+nmap -p U:53,111,137   T:21-25,80,443 192.168.1.0/24
+```
+#### NMAP STEALTH SCAN
+
+| Stealth Options | Description                                                                                                                                                                                                    |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| -sS             | The Original "Stealth" scan<br>Half-Open Scan<br>--- Do not Complete TCP handshake<br>--- if response is SYN_ACK send RST<br>--- This is less likely to be logged by the target<br>--- Might, however, be noti |
+| -Pn             | Skip discovery<br>--- Assume all hosts are online for port scan<br>--- Useful if targets have their firewall up and only offer services on unu                                                                 |
+|                 |                                                                                                                                                                                                                |
+```
+nmaps -sS 192.168.1.50
+nmaps -Pn -p- 192.168.1.0/24
+```
+
+
+#### NMAP FIN, NULL and XMAS SCANS
+
+|     |                                                                                                                                                                                     |
+| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| -sF | FIN scan<br>--- Raises only a FIN flag<br>--- Can be used to disambiguate results of other scans                                                                                    |
+| -sN | Null Scan<br>--- No flags rasied<br>--- Can sometimes penetrate firewall and edge routers<br>--- An open port will discard with no response<br>--- A closed port will send a RST    |
+| -sX | XMAS Scan<br>--- Raise FIN, URG, PSH Flags <br>Note: Useful to sneak through some stateless firewalls. Works against most UNIX-based systems, but not Microsoft and only some Cisco |
+#### NMAP ZOMBIE and BOUNCE SCANS
+
+| Stealth Option                              | Description                                                                                                                                                                                                                                                          |
+| ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| -sI \<zombilCandidate\>                     | Find a zombie <br>-- The target is the zombie candidate                                                                                                                                                                                                              |
+| -sI \<zombieTarget> \<zombieTarget><br><br> | Conduct a blind TCP Port Scan(idle scan)<br>--- Assume the target is UP<br>--- Scan all TCP ports<br>--- Use the "zombie" host to obtain information about open ports on the targets.                                                                                |
+| -b \<ftpRelay\> \<FtpTarget\>               | Conduct an FTP bounce scan<br>--- Exploit FTP proxy connections (usingthe port command)<br>--- A user asks a "middle man" FTP server to send files to another FTP server<br>--- Because of widespread abuse, the FTP relay feature has been disabled by most vendors |
+
+```
+nmap -sI server.example.com
+
+nmap -sI -Pn -p- zombie.example.com www.company.com
+
+namp -Pn -b ftp.microsoft.com google.com
+
+```
+
+
+#### NMAP DECOYS and SPOOFING
+
+| Stealth option                               | Decription                                                                                                                                                                                                                              |
+| -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| -f                                           | Split packets (include pings) into 8-byte fragments<br>--- make it more difficult for packet filtering firewalls and intrusion detection to detect the purpose of packets<br>--- MTU is the maximum fragement size                      |
+| -D                                           | Used to mask a port scan by using decoys <br>--- Creates bogus packets from the decoys so the actual attacker blends in with the crowd<br>--- Appears that both the decoys and the actual attackers are performing attacks              |
+| -e \<interface\>                             | specify the interface NMAP should use                                                                                                                                                                                                   |
+| -S \<spoofed source address \>               | Spoof the source address<br>--- Will not return useful reports to you<br>--- Can be used to confuse and IDS or the target administrator                                                                                                 |
+| --spoof-mac \[ vendor Type \| MAC Address \] | Use  bogus source hardware address<br>--- You can specify a random MAC based on vendor, or explicitly specify the MAC Address<br>--- Hides actual source of Scan<br>--- Good with ARP ping scan (since ARP will broadcast its response) |
+| --Source-port \<portNumber\>                 | Use a specific source port number (spoof source port)<br>--- Dupes packet filters configured to trust that port <br>--- Same as -g \<Port number\> options                                                                              |
+| --randomize-hosts                            | Randomize the order of the hosts being scanned                                                                                                                                                                                          |
+| --proxies \<proxy1 : port , proxy2 : port \> | Relay TCP connections through a chain of HTTP or SOCKS4 proxies<br>--- Especially useful on the Internet                                                                                                                                |
+```
+namp -D 192.168.1.10 192.168.1.15 192.168.1.30 192.200.1.100
+nmap -e eth0 192.200.1.100
+nmap -e eth0 -S www.google.com 192.200.1.100
+nmap -sT -Pn -spoof-mac apple 192.200.1.100
+nmap -sT -PN -spoof-mac B7:B1:F9:A0:D4:28 192.200.1.100
+nmap -source-port 53 192.200.1.100
+nmap --randomize-hosts 192.168.1.36
+nmap --proxies http://192.168.1.30:8080 http://192.168.1.40 192.200.1.100
+
+```
+
+#### NMAP TIMING
+
+| Stealth Option | Example                                                                                                                                                                                                                                |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| -T \<0-5\>     | Use different timing templates to throttle the speed of your queries<br>--- T3 is default<br>--- T0 is slowest while T5 if fastest<br><br>names labels this T0=paranoid, T1=sneaky, T2=polite, T3=normal , T4=Aggressive and T5=insane |
+|                |                                                                                                                                                                                                                                        |
+```
+nmap 192.200.1.0/24 -T 2
+```
+
+
 Network Administrators can use NMAP for inventory a network managing services upgrade schedules, and monitoring host or service uptime.
 It is used to extract information such as live hosts on the network, open ports, services (Application name and version), types of packet filters/firewalls, as well as operating systems and versions used.
 By Creating map of network, It sends specially crafted packets to the target host and then analyzes the responses to accomplish its goal.
@@ -10,10 +134,7 @@ installation on UBUNTU
 sudo apt install ettercap-graphical nmap -y
 ```
 
-NMAP Allows
-1. Host Discovery
-2. Port and Service Discovery
-3. 
+
 
 #### Hosts Discover (with NMAP)
 It is primary task in the network scanner process. Host discovery provides an accurate status of the systems in the network to avoid scanning every port on every system.

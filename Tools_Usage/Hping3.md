@@ -1,5 +1,18 @@
+- Command Line networking scanning
+- Packet Crafting
+- Can perform various scan types
+- Used for:
+	- Host discovery
+	- Network security auditory 
+	- Firewall testing
+	- Manual path MTU discovery
+	- Advanced Traceroute
+	- Remote uptime estimating
+	- TCP/IP stack auditing
+
 Command Line network scanning and packet crafting tool for the TCP/IP Protocol
 It can be used for network security auditing, firewall testing, manual path MTU discovery, advanced traceroute, remote OS fingerprinting, remote uptime guessing, TCP/IP stacks auditing, etc.
+
 
 It handles fragmentation as well as arbitrary packet body and size, and it can be used to transfer encapsulated files under the supported protocols.
 It also support idle host scanning. 

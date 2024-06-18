@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CeHV11_notes/Module02.md",
+                "file": "CeHV11_notes/Module03.md",
                 "mode": "source",
                 "backlinks": true,
                 "source": false
@@ -49,7 +49,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#Enumeration",
+                "query": "TELNET",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -86,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CeHV11_notes/Module02.md",
+                "file": "CeHV11_notes/Module03.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CeHV11_notes/Module02.md",
+                "file": "CeHV11_notes/Module03.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CeHV11_notes/Module02.md"
+                "file": "CeHV11_notes/Module03.md"
               }
             }
           }
@@ -150,6 +150,12 @@
   },
   "active": "16057f5acbc5b96d",
   "lastOpenFiles": [
+    "Tools_Usage/Nmap.md",
+    "CeHV11_notes/Module03.md",
+    "Tools_Usage/Hping3.md",
+    "Pasted image 20240618180826.png",
+    "Pasted image 20240618180348.png",
+    "Security/Popular Ports.md",
     "CeHV11_notes/0Outline.md",
     "CeHV11_notes/Module02.md",
     "CeHV11_notes/module01.md",
@@ -175,12 +181,7 @@
     "M04_Enumeration/04 Enumeration SNMP.md",
     "Tools_Usage/PacketFence.md",
     "Tools_Usage/snmp-check.md",
-    "Tools_Usage/Hping3.md",
     "Tools_Usage/SNMPWalk.md",
-    "Tools_Usage/Nmap.md",
-    "README.md",
-    "Index.md",
-    "Security/Popular Ports.md",
     "Security/OSI-model-layers-attacks-Stackscale.jpg.avif",
     "M02_Footprinting and Reconnaissance",
     "M01_Introduction to ethical hacking",
