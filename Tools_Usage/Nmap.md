@@ -124,6 +124,29 @@ nmap 192.200.1.0/24 -T 2
 ```
 
 
+#### NMAP REPORTED PORT STATES
+
+| Reported State  | Description                                                                                                                                                                                         |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Open            | This port is actively accepting TCP, UDP and SCTP connections<br>Open ports are the ones that are directly vulnerable to attacks<br>They show available services on a network                       |
+| Closed          | Target responds (usually with RST) but there is no application listening on that port<br>Useful for identifying that the host exist and for OS detection                                            |
+| Filtered        | NMAP can't determine if the port is open because the probe is being blocked by a firewall or router rules<br>Usually no response or "Destination unreachable"                                       |
+| Unfiltered      | Port is accessible but NMAP doesn't know if its open or closed<br>Only used in ACK scan which is used to map firewall rulesets<br>Other scan types can be used to identify whether the port is open |
+| Open/Filtered   | NMAP is unable to determine between open and filtered<br>The port is open but gives no response<br>No response could mean that the probe was dropped by a packet filter of any response is blocked  |
+| Closed/Filtered | Nmap is unable to determine whether port is closed or filtered Only Used in the IP ID idle scan.                                                                                                    |
+
+#### CUSTOMIZED TCP PACKETS
+
+
+| Technique    | Purpose                                                                                                       |
+| ------------ | ------------------------------------------------------------------------------------------------------------- |
+| ACK Scan     | --- MAP out firewall rulesets<br>--- Determine if firewall is stateful or stateless                           |
+| SYN/FIN Scan | --- Sets both the SYN and FIN bits<br>--- A good way to bypass a rule that drops packets with ONLY SYN raised |
+```
+nmap -sS --scanflags SYNFIN -T4 www.scanme.org
+```
+
+
 Network Administrators can use NMAP for inventory a network managing services upgrade schedules, and monitoring host or service uptime.
 It is used to extract information such as live hosts on the network, open ports, services (Application name and version), types of packet filters/firewalls, as well as operating systems and versions used.
 By Creating map of network, It sends specially crafted packets to the target host and then analyzes the responses to accomplish its goal.

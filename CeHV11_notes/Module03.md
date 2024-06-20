@@ -409,14 +409,132 @@ HPING2 / [[Hping3]]
 - Also a GUI version (Zenmap) for Windows
 
 [[Nmap]]
-- 3.6.1 Activity - Nmap Basic Scans
-- 3.6.2 Activity - Host Discovery with Nmap
-- 3.6.3 - Activity - Nmap Version Detection
-- 3.6.4 Activity - Nmap Idle (Zombie) Scan
-- 3.6.5 Activity - Nmap FTP Bounce Scan
-- 3.6.6 - Activity - NMAP Scripts
+
 ### - 3.7 Firewall and IDS Evasion
-- 3.7.1 Activity - Nmap Advanced Scans
+- NMAP Port States
+- Packet Fragmentation
+- Source Manipulation
+- Decoys
+- Timing
+- Packet Customization
+- Firewaking
+
+#### FIREWALLS AND SCANNING
+- Each firewall configuration presents its own challenges to scanning
+- If you are scanning a network "Black box" style you donot know which, if any, firewall type you will encounter
+- If you can infer which type you're encountering this will give you and advantage in a pentest
+- You'll have a better idea of:
+	- Which techniques to not spend too much time on
+	- Other approaches you should consider to break into the network
+
+
+#### SOURCE ROUTING
+- Usually routers dynamically choose the best router to send the packet to its destination
+- The IP header OPTIONS field allows the sender to specify the route
+- Admins often disable source routing support on routers for security reasons
+- Attacker specify source routing as folows
+	- The sender can specify
+		- EXACTLY which hops a packet must pass through (strick source routing)
+		- SOME of the hops a packet much pass through (Loose source Routing)
+	- Specified in the \[Options\] field
+	- You can specify up to 9 hops
+	- Useful if you know there is an alternate route you can use to go around a firewall
+		- Perhaps a dialup connection that would ordinarily not be used
+
+> Wireshark can capture that Source Source Routing was sent in the IP header of the captured packet/
+> Two source routes were inserted into the header, one of it is sender's outbound address.
+
+#### SOURCE PORT MANIPULATION
+- A stateless firewall might be configured to allow packets through that appear to be from a server.
+- E.g set the TCP source port to 80 makes the packet appear to come from a webserver.
+```
+nmap -A -T4 -Pn -g 80 -sS 192.168.1.200
+```
+  
+#### IP ADDRESS DECOYS
+-  Generates "noise" you can hide in
+- Multiple IP addresses appear to be scanning a target simultaneously
+- This makes it very difficult for the IDs or sysadmin to determine who the real attacker is
+- You can explicitly specify source addresses or allow the scanner to randomly generate addresses
+
+#### ID ADDRESS SPOOFING
+- Used when you want an intermediate machine to "respond" to a victim
+- You craft the packet so its source address is actually the victim's address
+- Common in Denial-of-Service attacks
+
+#### TIMING
+- A very slow scan will just appear as random noise to the IDS
+- It will fall below the threshold necessary to fire an alert
+- Make sure addresses and ports are targeted in random order
+- A SIEM might detect a very slow scan whereas an IDS might not
+
+#### PACKET FRAGENTATION
+- The attacker splits the probe packets into several smaller fragments
+	- Then sends them to the target network
+	- The packet is then reassmbled at the final destination
+- The IDS/Firewall processes each packet separately
+	- Doesn't recognize that the packet is malicious
+	- The payload fragments are each too short to match a known signature
+- IDSes are often configured to skip fragmented packets during scanning
+
+#### ACK SCAN TO DETERMINE IF A FIREWALL IS STATEFULL OR STATELESS
+- A stateless firewall will be easier to get past than a stateful one
+- A stateless firewall will block SYN packets based on port number
+	- However, it is far less likely to block ACK packets because those could be a response to an outgoing connection
+	- Perform separate SYN and ACK scans against the same ports
+	- IF the SYN shows some ports open and some closed AND the ACK shows all ports unfiltered, the firewalls is likely stateless or disabled
+- A stateful firewall will know from its state table if the ACK is legitimate or NOT
+	- if an ACK scan shows at least some ports as "Filtered" then it is likely a  stateful firewall
+
+EXAMPLE
+simple packet filter might have higher level ports open for Window 10 machine with windows defender firewall OFF
+
+```
+scan -sS IpWindow10Host  // results list of open ports and close ports
+namp -sA IpWindow10Host  // results that ports are (unfiltered)
+```
+
+simple packet filter might have higher level ports open for Window 10 machine with windows defender firewall ON
+
+
+```
+scan -sS IpWindow10Host  // results that ports are (filtered)
+namp -sA IpWindow10Host  // results that ports are (filtered)
+```
+
+
+#### SCANNING THE FIREWALL ITSELF VS SCANNING PAST THE FIREWALL
+- Port scanning the firewall's front-facing IP might show ports the firewall itself uses own ports
+- A firewall that NATs an port forwards will present the target ports as if they are its own ports
+- To distinguish between a permitted port and the firewall's management port
+	- Open a browser to that port
+	- Banner grab that port
+	- Use nmap -sV to interrogate that port
+
+#### NULL, FIN, XMAS SCANS
+- These are little more stealthy than a SYN scan
+- They can sneak past some stateless firewalls and packet filtering routers
+- With SYN bit off, they can go past rules that looks for SYN raised and ACK set to 0
+- You'll need to add -sV to disambiguate open | filtered ports.
+
+| Technique | Purpose                                                                               |
+| --------- | ------------------------------------------------------------------------------------- |
+| FIN SCAN  | Sets only the FIN bit - breaks the rules of TCP, should be accompanied by ACK         |
+| NULL SCAN | Does not set any TCP bits - breaks the rules ; every packets should have some bit set |
+| XMAS scan | FIN, URG, PSH raise - illogical combination                                           |
+
+| Probe Response                                       | Assigned State   |
+| ---------------------------------------------------- | ---------------- |
+| No response received (even after retransmissions)    | Open \| filtered |
+| TCP RST packet                                       | closed           |
+| ICMP unreachable error (type 3, code 1,2,3,9,10, 13) | filtered         |
+
+#### UDP SCAN
+- 
+
+
+
+
 ### - 3.8 Proxies
 ### - 3.9 Scanning Countermeasures
 ### - 3.10 Scanning Networks Review
