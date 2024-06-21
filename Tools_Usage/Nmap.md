@@ -146,6 +146,11 @@ nmap 192.200.1.0/24 -T 2
 nmap -sS --scanflags SYNFIN -T4 www.scanme.org
 ```
 
+Adding service versioning to a UDP scan helps disambiguate the responses
+```
+nmap -sUV -T4 scanme.nmap.org
+```
+
 
 Network Administrators can use NMAP for inventory a network managing services upgrade schedules, and monitoring host or service uptime.
 It is used to extract information such as live hosts on the network, open ports, services (Application name and version), types of packet filters/firewalls, as well as operating systems and versions used.

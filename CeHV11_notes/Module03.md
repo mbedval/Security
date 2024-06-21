@@ -530,11 +530,310 @@ namp -sA IpWindow10Host  // results that ports are (filtered)
 | ICMP unreachable error (type 3, code 1,2,3,9,10, 13) | filtered         |
 
 #### UDP SCAN
-- 
+- UDP Scan works by sending a UDP packet to every targeted port
+- For most ports, this packet will be empty (no payload)
+- For a few of the more common ports a protocol-specific payload will be sent
+- Based on the response, or lack thereof, the port is assigned to one of four states.
 
 
+| Proble Response                                             | Assigned State   |
+| ----------------------------------------------------------- | ---------------- |
+| Any UDP response from target port (unusal)                  | Open             |
+| No Response received (even after retransmissions)           | Open \| filtered |
+| ICMP Port unreachable error ( type 3, code 3)               | Closed           |
+| Other ICMP unreachable erros (type 3, code 1 ,2,9,10 or 13) | filtered         |
+> UDP scanning is very slow because Nmap must wait for timeout on each port. A Linux kernel will also rate-limit ICMP destination unreachable messages to 1 /second
+
+#### About UDP OPEN | Filtered Status
+- The biggest challenges with UDP scanning is that open ports rarely respond to empty probes.
+- Those ports for which NMAP has a protocol-specific payload are more likely to get a response and be marked open.
+- For the rest, the target TCP / IP stack simply passes the empty packet up to a listening application
+	- which usually discards it immediately as invalid
+- If ports in all other states would respond, then open ports could all be deduced by elimination
+- Unfortunately, firewall and filtering devices also drop packets without responding
+- If Nmap receives no response after several attempts , it cannot determine whether the port is open or filtered or filtered by  firewall.
+#### FIREWALKING
+
+- Used to determine exactly which device permits/ blocks a port
+- Good for probing past a firewall into an internal network
+- Can eb used to probe past multiple daisy-chained firewalls
+- You can manipulate the IP TTL in a scan to distinguish between:
+	- A Protected server that does not have that port open
+	- An Intermediate firewall that blocks the port from being reached by the scanner.
+- A firewall will return ICMP Type 11 , Code 0 (Time Exceeded) if
+- The port is allowed
+- The probe TTL expires at the firewall
+	- Probe must be sent to a live final target
+	- Does not matter  if the final target actually listens on that port
+- NMap itself will report the port status as filtered
+	- It's looking for TCP response, not an ICMP response
+- A firewalker will notice the ICMP response and report the port as permitted
+
+#### AUTOMATED FIREWALKING
+- Linux tools such as firewalk and Nmap firewalk script attempt to automate the firewalking process
+- Steps:
+	- Use a TCP-based traceroute to first establish the number of hops to the target firewall you are probing ("ramp up" period)
+	- Send a probe with TTL that expires at the firewall to see if the firewall will:
+		- Return an ICMP tTL exceeded error (port allowed)
+		- Send no response (port disallowed)
+	- Send a probe with TTL + 1 by 1 until all firewalls in the path are tested and:
+		- Either the max top count is reached
+		- Or a server actually responds to the probe
+- Because the tool is searching for ICMP errors, it is not necessary to actually reach the protected host server
+- If there are multiple packet filtering routers / firewalls in the path, they are all tested
+> NOTE: these tools assume three are multiple hops between the attackers and the target firewall. They many not work as expected in all scenarios.
+
+```
+firewalk -S8079 -8081 ii etch0 -pTCP 192.168.1.1 192.168.0.1 
+Scan TCP Port 8079 to 8080 send probes out eth0, no name resolution, firewall (target is) is 192.168.1.1, server (metric) is 192.168.0.1
+
+
+sudo nmap --script=firewalk --traceroute scanme.nmap.org 
+simple nmap scan of the server
+```
 
 
 ### - 3.8 Proxies
+
+#### PROXY SERVERS
+ - A proxy server is an intermediary between
+	 - Internal user and Internet resource
+	 - -----
+ - Use an online proxy to:
+	 - Hide source IP Address to avoid discovery
+		 - Increase privacy
+		 - Conduct anonymous hacking attacks
+		 - Mask the source of an attack by impersonating a false source
+	 - Remotely access intranet and websites resources that are normally protected
+	 - Interrupt all requests sent by a user and re-route them to a different destinations, making it see only the proxy server address
+	 - Chain multiple proxy servers to avoid detection
+
+#### PROXY APPOACHES
+- ##### Edge Proxy
+	- Typically used by private  organization to protect their internal network
+	- Forward proxy
+		- And edge firewall or separate proxy server fetches content from the Internet on behalf of internal clients
+	- Reverse Proxy: An edge firewall fetches content from the private network/DMZ on behalf on Internet clients
+- ##### Anonymizer
+	- People use anonymizers to
+		- Surf anonymously
+		- Hack anonymously
+		- Bypass censorship or regional firewalls
+		- Evade surveillance or restriction based on their IP
+- ##### Proxy Chaining
+	- The use of multiple proxies, in series, to fulfill a request 
+		- The Client connect to proxy and makes a request 
+		- That proxy makes a connection to another proxy making the same request
+		- That proxy might connect to ta third proxy, etc
+		- This is repeated through as many proxies as desired
+		- At the end, the last proxy fetches the requested content
+		- The requested content is passed back through the entire chain, ultimately given to the client.
+	- You can use as many proxy server as you want.
+	- The more proxies you use , the harder  it is to trace the activity back to you.
+
+- VPN
+	- Your original packets are encrypted and encapsulated (hidden) inside other packets  
+	- A client app on your computer / phone starts the VPN
+		- Your traffic is encapsulated and encrypted from the very start
+	- You send your traffic to a VPN server on the Internet, in some other part of the world
+	- That server then:
+		- discard the outer packaging
+		- decrypts your original packets
+		- gives your packets a source IP addresses from its own network
+		- Sends your unencrypted packets out on the Internet to their final destination
+	- Your traffics looks like it originated from where the VPN servers is
+		- Not where you actually are
+	- VPN Components
+		- VPN Clients apps running on your computer/ phone
+		- VPN server of your choosing (somewhere on the Internet)
+		- VPN Protocol to encapsulate and encrypt your data
+		- Common protocols todays:
+			- IPSEC
+			- SSTP
+				- Secure Socket Tunneling protocol
+				- HTTP/TLS
+			- OpenVPN
+				- TLS-Encrypted payload over TCP or UDP
+		- Legacy Protocols
+			- L2TP : Encapsulated + Encapsulating Security Payload (ESP)
+			- PPTP: 
+				- Point to Point Tunneling Protocol
+				- Generating routing Encapsulation (GRE) + Point-to-point (PPP)
+##### ANONYMIZERS and ONLINE VPNs
+#UltraVPN #TunnelBear #TotalVPN #HostSpotSheild #NordNPN #ExpressVPN #CyberGhost #IPVanish #SaferVPN #PrivateVPN #SurfShark #Norton #ZenMate #ProtonVPN
+
+Additional privacy recommendations
+- Increase privacy settings on your browser including private / incoginto browsing
+- Clear Cookies and history on your browser
+- Use a Search engine such as DuckDuckGo that does not track your history
+
+#### TOR
+- AKA the Orion Router
+- A Free and open source software for enabling anonymous communication
+- Directs Internet traffic through a worldwide overlay network
+	- Over 6000 relays
+	- Conceals a user's location and usage from network surveillance and traffic analysis
+	- Your route changes every 10 minutes
+- Makes it more difficult to trace internet activity to the user
+- Intended use is to protect personal privacy
+	- Unfortunately has also become home to "dark web" criminal activity
+- A TOR browser aims to make all users look the same
+	- Making it difficult to fingerprint your based on your browser or device 
+	- Easy to set up and use
+	- Download a TOR browser and use it
+- ONION SITES
+	- WebSites address that end in ".onion"
+	- Not Like normal domains names
+	- You can't access them with a normal web browser
+	- Addresses that end with ".onion" point to TOR hidden services on the "deep web"
+- TOR ARCHITECTURE
+	- client having consensus from directory authority.
+	- Access though network of voluntary TOR Relays 
+	- In thir TOR Relays their will be Guard --> Middle --> Exit.
+	- Exit talks to Desitnation Host
+	- 
+
+
+#### DIFFERENCE BETWEEN PROXY AND VPN
+- They functionally accomplish the same thing, hide your true origin, but the mechanisms however are quite different
+- Proxy fetches content on your behalf while you "Wait at home", While The VPN server decrypts your original traffic and sends it unencrypted to its final destination 
+- Traditionally (once upon time) Proxy connection were not encrypted
+- Todays however, most anonymizers uses VPns
+	- VPN from you to the first proxy
+	- VPN between proxies
+	- Clear unencrypted connected from the last proxy to the web (resource) server
+
+##### PROXY TOOLS
+- Proxy Switcher
+	- Hides your IP Address from the website you visit
+- Proxy workbench
+	- A proxy server that display data passing through it in real time
+	- You can examine TCP/IP Connections, View history, save to a afile, view a socket connections diagram
+
+- Tor
+	- Routing through the deep web for privacy protection, defence against network surveillance / traffic analysis
+
+- CyberGhost
+	- Anonymous browsing and access to blocked / censored content
+	- Replaces the user's original IP with an address of their choice
+	
+##### Tools to test web apps by capturing and manipulating your browser's interaction with the server. Following tools run on your own computer
+- BurpSuite : 
+- Charles : 
+- Fiddler : 
+
+- Proxifier
+- SocksChain
+
+##### For mobile Devices
+- Shadownsocks
+- CyberGhost VPN
+- Hotspot sheild
+- Netshade
+- Proxy Managers:- Client app to manage your various proxy/ VPN connections
+- Server Ultimate: Create a proxy ( and other services) on your mobile device
+
+
 ### - 3.9 Scanning Countermeasures
+- Scanning Counter measures
+	- Implement a software firewall on all devices
+	- Limit the number of open ports
+	- Block ICMP
+	- Configurre routers to disallow vulnerable features such as source routing and IP Fragments
+	- Use An IDS/IPS to monitor network traffic
+	- Patch hosts
+	- Conducts your own scans pre-emptively
+	- Ensures that the IDS, routers , and firewall firmware are updated to their latest releases
+	- Consider using a cloud-based SIEM to leverage more sophisticated / longer term traffic analysis
+	- In a high-security environment, consider hard coding MAC-to-IP Address mappings for each hosts
+
+- Spoofing Counter measures
+	- Do Not rely on IP-Based authentications
+	- Digitally sign all transmissions
+	- Use Stateful firewall with deep packet inspection
+	- Disallow source routing
+	- Disallow incoming packets that appear to come from your own network
+		- Spoofed source IP
+	- Be cautious when allowing traffic based on source port
+	- Hard-code ARP entries where practical
+	- Hard-code IP Addresses where practical
+	- Use switchport security
+	- Secure DNS server cache against pollution
+
+- Banner Grabbing Counter measures
+	- Disable or change the banner
+	- Display false /misleading banners
+	- make sure banner does not advertise the service version
+	- Add an "authorized users only" warning to a banner to protect yourself leggally 
+		- Especially for services that require a user to log on
+	- Turn off unnecessary services
+	- Hid file extensions from web pages such as .asp or .htm
+		- IIS can use tools like #PageXchanger to manage file extensions
+		- Apache can edit 'httpd.conf' with mod_negotiation directives.
+
+- Firewall Bypass Counter measures
+	- Use multilayer defence strategy
+	- Implement multiple firewall solutions at different levels
+	- Implement strong change management
+	- Stay on top of security patches / updates
+	- Set strong password policies and multifactor authentication
+	- Look for "side door" and "back door" that can bypass firewall
+		- Wi-FI access point
+		- VPN / Remote Access servers
+		- Private WAN Links / VPNs to other company sites
+		- "Sneakernet" (physically moving data in and out of the network on removable media)
+	- Perform your own firewall tests to ensure rules behave as desired
+	- Regularly perform penetration tests.
+
+
+
 ### - 3.10 Scanning Networks Review
+- Scanning is part of active reconnaissance
+- Scanning discovers possible targets on a network
+	- Live hosts
+	- Open ports
+	- Protocols
+	- Service and operating system and versions
+	- Can include banner grabbing
+- Ping seeps previously used ICMP echo requests to discover hosts discovery
+- Modern ping sweeps use ARP, TCP or some other protocol for host discovery
+- ICMP has numerous message types, which in turn may have codes
+- A port represents a process on the network
+- Both TCP and UDP use ports
+- Client and server processes each use their own port (typically not the same)
+- Server services listen on well-known ports 1-1023
+- Services may request additional registered ports (1024 - 49151) from their operating systems
+- A Client borrow dynamic ports (41952 - 65535 ) from their operating systems
+- A client port is returned to the OS when that client process is termincated
+- TCP uses Three-way handshake to establish sequence numbers and start a session (SYN, Syn-ACK, ACK)
+- TCP uses a four-way handshake to end a session (FIN, ACK, FIN, ACK)
+- A TCP SYN Scan (Aka steath or half-open scan) does not complete the handshake
+- A TCP connect scan (aka full or open scan) does complete the handshake
+- You can also scan raising various TCP Flags to test a firewall
+- You can perform a UDP port SCAN, but no handshake is involved, and you might not recieve any response from the target
+- Port Scanning is the immediate prelude to vulnerability -testing
+	- Some scanning tools perform discovery, port scanning, and vulnerability testing all in once comprehensive scan
+- Packet crafting manipulates TCP/UDP/IP headers to
+	- Probe open ports
+	- Test Firewalls / IDS
+- Anonymizers / proxies hide the source of a packet
+- You can use VPN to encrypt your connection to a proxy
+- Creating a network diagram gives you an overview of the entire target network
+	- Can be useful in planning your attack
+- You can fingerprint an OSs by examining its TCP or IP headers
+- You can banner grab to capture information about a network service and the OS it resides on
+- A list scan only performs DNS lookups, and does not actually scan the target
+- An FTP bounce scan uses a vulnerable FTP server to perform a scan against the real target
+- You can perform SSDP scans to identify vulnerable home and small office networks
+- Nmap is the primary scanning tool used by hackers
+- Zenmap is a GUI version of Nmap for windows
+- HPing can also perform scan and packet crafting
+- You can use a number of tactics to evade firewall and IDS detection when scanning
+	- Source routing
+	- Fragmentation
+	- Source port manipulation
+	- Decoys
+	- Address spoofing
+	- Slow timing
+- Raising various TCP Flags such as ACK, NULL, FIN and PSH/URG/FIN
+- Firewalking is the process of identifying which ports networks firewall will allow traffic through
