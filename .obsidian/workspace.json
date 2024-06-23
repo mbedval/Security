@@ -70,8 +70,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "4b1b3f083f9676b8",
@@ -149,12 +148,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "85c2d5699432f91b",
+  "active": "16057f5acbc5b96d",
   "lastOpenFiles": [
-    "M04_Enumeration/01 NetBIOS Enumeration.md",
-    "CeHV11_notes/Module04.md",
-    "CeHV11_notes/Difference Between.md",
     "CeHV11_notes/0Outline.md",
+    "CeHV11_notes/Module04.md",
+    "M04_Enumeration/01 NetBIOS Enumeration.md",
+    "CeHV11_notes/Difference Between.md",
     "Untitled.md",
     "CeHV11_notes/Module03.md",
     "Tools_Usage/Nmap.md",

@@ -291,4 +291,611 @@ Select name, version from Win32_Bios
 
 #### WMI ENUMERATION AND EXPLOIT TOOLS
 Enumeration
-#SolarWindsFreeWMIMonitor
+#SolarWindsFreeWMIMonitor #WMIExplorer (CodePlex) #WMIExplorerMarchVanOrsouw #Hyena #Powershell 
+Exploit
+#GitHub #WMIsploit #SharpStrike #WMEye #Powershell 
+#MetaSploit Exploit/windows/local/wmi , auxiliary/scanner/smb/impacket/wmiexec, exploits/windows/local/wmi_persistence
+
+#### 4.5 SNMP Enumeration
+
+#### SIMPLE NETWORK MANAGEMENT PROTOCOL (snmp)
+- Used to centrally monitor devices on a network
+- An SNMP manager polls agents for informtion
+	- Polling is done round style, on a regular interval (every few minutes)
+	- Manager is software on a server or workstation
+	- Agent is small software installed or build into a device OS
+- The manager uses a management Information Base (MIB) to know what types of information an agent can provide
+	- A MIB is a set of counters (Object IDs ) relevant to the device
+#### SNMP Security
+- SNMP has several versions that are still in use
+	- v1, v2, v2c all communicate in clear text
+	- v3 is encrypted
+	- Not all device support for v3
+- Both the manager and agent are configured with a simple authentication mechanism called the "community string"
+	- Simple text string
+	- An agent will only respond to  a manager that has the same community string
+	- There are two default community strings
+		- Public - for read-only queries
+		- Private - for read/write communications
+		- Many administrators do not change the default community strings
+	- SNMP Ports
+		- UDP 161 : Manager queries and agent replies
+		- UDP 162 : Agents "raise traps" (send pre-configured alerts) to the manager
+
+#### SNMP Components
+- Managed Device
+	- Router, switch, hub, firewall, computer, server service (DHCP, DNS, etc) printer, IoT device
+- Agent
+	- Software installed on managed devices
+	- Responds o the NMS
+- Network Management Systems (NMS)
+	- Typically software installed on a dedicated computer
+
+#### OBJECT IDENTIFIER (OID)
+- Represents a single "question" and SMNP manager can ask an agent
+- Identifies a very specific, unique counter on a device
+- Has a corresponding name and data type
+- When queried by manager agent will return a value
+
+#### Management Information Base (MIB)
+- A collection of OIDs stored in a text file
+- A set of questions that an SNMP manager can ask a device regarding its status
+- Standardized vendor-neutral MIBs define functionality common to all devices of the same type
+- The manufacturer creates additional MIBs specific to their products
+- An agent might use multiple MIBs to monitor one device
+- Most SNMP managers have MIBs already installed
+	- Vendor-neutral MIBs
+	- Vendor-specific MIBs for popular products
+
+#### MIB HIERARCHY
+- All OIDs, regardless of manufacturer, are part of a global hierarchy
+- Each OID is unique
+- The SNMP manager must know what MIBs the agent is using
+	- At least know a starting OID to query
+	- The manager can then repeatedly issue a “get-next” command
+	- The agent will provide information about successive OIDs
+	- The manager does not need to OIDs for every single counter on the device
+
+#### SNMP ENUMERATION
+- SNMP is a good target for enumeration
+- Often the defaults are not changed:
+	- Community strings
+	- Encryption levels
+- Most versions use clear-text communications
+	- Microsoft devices don’t even support the encrypted version
+	- You might be able to sniff community strings and manager-agent communications
+- Many SNMP management tools include a feature to discover all the MIBs installed on
+- the agents
+- You can also “walk” the MIB
+	- Start at a single common OID
+	- Repeatedly ask the device to “get-next” until it runs out of OIDs to report on
+
+#### INFORMATION SNMP CAN ENUMERATE
+network devices, Hosts, user and groups, Services, Installed software, Network shares, Device configurations, IP and Mac addresses, ARP Tables, Routing tables, Vlans, Port and interface status, Network traffic, etc
+
+#### SNMP ENUMERATION TOOLS
+#SolarWindsFreeWMIMonitor  #NMAPScripts #MetasploitSNMPauxiliaryModules #snmpwalk #snmpget #SNMPScanner #getIF #Observium #OpUtils #OIDViewSNMPMIBBrowser #iReasoningMIBbrowser #SNScan #SoftPerfectNetworkScanner #SNMPInformant #NetSNMP #NSauditorNeworkSecuritySpiceworks  
+```
+Syntax : snmpget [options] [community string] [hostname / address ] [OID]
+
+snmpget -v2c 127.0.0.1 -c public .1.3.6.1.2.1.1.5.0
+
+```
+
+### 4.6 LDAP ENUMERATION
+#### LIGHTWEIGHT DIRECTORY ACCESS PROTOCOL (LDAP)
+- The search and edit protocol for X.500-style directory service databases
+- TCP 389
+- Secure LDAP TCP 636
+- Clear text by default
+- Can be used to obtain a list of every object in the directory service database including:
+	- User, Group, and Computer accounts
+	- User department and contact information
+	- Group membership
+	- Network resource information
+- Directory Service Examples:
+	- Microsoft Active Directory Domain Services
+	- Novell eDirectory
+	- Open Software Foundation DCE Directory
+
+#### X.500 NAMING HIERARCHY
+LDAP Directory Tree
+	dc=net , dc.com, dc=org
+	 Organization dc=example
+		Organization Unit  OU= people, OU=servers
+			Person  udid   = mbedval
+
+#### LDAP ENUMERATION TOOLS
+- Active Directory Users and Computers
+- #SofterraLDAPAdministrator #LDPexe #Metasploit module ldap_hashdump
+- - LDP.exe #nmapNSEforLdap #jXplorer (www.jxplorer.org)
+- Responder (available on github)
+	- ` .Responder.py -I eth0 -rPv -I <server IP>`
+
+### 4.7 DNS ENUMERATION
+- Query a DNS server for its records:
+	- A, AAAA
+	- NS
+	- MX
+	- CNAME
+	- PTR
+	- SOA 
+- Obtain individual records or “zone transfer” the entire database file
+	- Exploit DNS AXFR (all transfer) vulnerability
+	- Some DNS servers will transfer their entire zone to any requestor without requiring authentication
+	- This saves the attacker time
+	- You can also just manually request all the various record types and end up with the same content
+
+#### DNS ENUMERATION TOOLS
+#Dig #FIERCE #NSLOOKUP #Host #dnsrecon  #dnsenum 
+- Metasploit auxiliary module dns_enum 
+- Nmap NSE script dns-brute
+- SecurityTrails advanced DNS enumeration
+
+```
+dnsrecon# ./dnsrecon.py -d cisco.com
+```
+
+##### NSLOOKUP EXAMPLES 
+```
+#Windows
+nslookup example.com
+nslookup -type=ns example.com
+nslookup -type=soa example.com
+nslookup -query=mx example.com
+nslookup -type=any example.com
+nslookup example.com ns1.nsexample.com
+nslookup 10.20.30.40
+nslookup -type=ptr 96.96.136.185.in-addr.arpa
+```
+##### DIG
+Unix/Linux tool for querying DNS
+```
+dig Hostname
+dig DomaiNameHere
+dig @DNS-server-name Hostname
+dig @DNS-server-name IPAddress
+dig @DNS-server-name Hostname|IPAddress type
+dig www.example.com A
+dig 74.125.236.167
+dig +short example.com MX
+dig +short example.com TXT
+dig +short example.com NS
+dig example.com ANY
+```
+
+##### DIG and FIERCE ZONE TRANSFER EXAMPLES
+- Try a zone transfer by guessing the domain that the server is authoritative for:
+`dig axfr @<DNS_IP> \<DOMAIN\>`
+-  Try to perform a zone transfer against every authoritative name server
+	- If it doesn’t work, launch a dictionary attack
+`fierce --domain <DOMAIN> --dns-servers <DNS_IP>`
+
+### 4.8 SMTP ENUMERATION
+
+#### How EMAIL WORKS
+ - ACME client uses SMTP to send email message to email server for acme.com
+- Local email server performs DNS lookup to find MX record and IP address (A/AAAA record) of email server for example.com
+- Acme.com email server uses SMTP to deliver message to example.com email server
+- Example.com email server puts message into example.com client mailbox
+- Example.com client later retrieves message using POP3, IMAP4, HTTP, or even RPC
+
+#### SMTP ENUMERATION
+- Simple Mail Transfer Protocol (SMTP) has three built-in commands
+	- VRFY – validates that an email address actually exists for a user
+	- EXPN – request or expand a mailing list into individual recipients
+	- RCPT TO – Specifies the actual recipient(s)
+- As an attacker, you can use the SMTP commands manually to enumerate valid email addresses
+
+##### SMTP ENUMERATION TOOLS
+#telnet #netcat #netScanToolsPro #smtp-user-enum #smtp-user-enum-py #kali-ismtp 
+- Metasploit auxiliary module smtp_enum
+- Nmap NSE script smtp-enum-users
+
+#### TELNET SMTP ENUMERATION EXAMPLE
+
+```
+telnet <email server> 25
+very test@example.com
+// if return code is 250, 251, 252 than The server has accepted the request and the user account is valid
+// if the received message code is 550: than the user account is invalid
+```
+
+#### SEND An EMAIL USING TELENT
+```
+telnet mail.example.com 25
+ehlo example.com
+mail from: username@example.com
+rcpt to: friend@hotmail.com, friend2@yahoo.com
+data
+Subject: My Telnet Test Email
+Hello,
+This is an email sent by using the telnet command.
+Your friend,
+Me
+.
+q 
+```
+
+#### METASPOIT SMTP ENUMERATION EXAMPLE
+- Create user.txt containing email address to be tested
+- Open Metasploit framework
+- In the Metasploit console enter commands
+```
+use auxiliary/scanner/smtp/smtp_enum
+set rhosts <email server IP>
+set rport 25
+set USER_FILE /root/Desktop/user.txt
+exploit
+```
+
+##### SMTP-USER-ENUM Example
+```
+smtp-user-enum -M VRFY -D example.com -u moo -t <email server IP>
+smtp-user-enum -M VERY -U /home/mbedval/Desktop/email.txt -t 192.168.1.100
+// suply list of usernames and verify if they exist
+```
+
+##### ISMTP Example
+Verify the email addresses supplied in the email.txt list actually exist
+```
+ismtp -h <email-server-IP>:255 -e /root/Desktop/email.txt
+```
+
+### 4.9 REMOTE CONNECTION ENUMERATION
+#### TELENT ENUMERATION
+- TCP 23
+- Used to obtain a command prompt of the remote host
+- Can also be used to banner grab 
+```
+	telnet <target> <port>
+```
+- Nmap has several telnet enumeration scripts
+	- Run all Nmap telnet scripts against a target:
+	```
+		nmap -n -sV -Pn --script "*telnet* and safe" -p 23 <target>
+	```
+	- Brute force password via telnet
+	```
+		Nmap –script telnet-brute <target>
+	```
+
+#### SSH ENUMERATION
+
+- TCP 22
+- Secure replacement for telnet
+- Client and server exchange public keys to create a session key
+- Includes Secure FTP (SFTP) and Secure Copy (SCP)
+- Login syntax = ssh \<username\>@\<hostname\>
+- Some SSH implementations have default usernames and passwords
+	- Example: jailbroken iPhone SSH service uses root / alpine
+- Nmap, Metasploit and Searchsploit have various tools for SSH enumeration and exploitation
+
+#### SSH ENUMERATION EXAMPLE
+
+- Use Nmap to determine if a host is running an SSH service
+- Use Nmap to query the version of SSH
+- Use a Metasploit module to enumerate SSH users
+- Check the Kali Searchsploit module to see if an enumeration (or other) exploit
+- exists for the SSH service
+- Search for nmap scripts related to SSH enumeration
+```
+NMAP <TargetIPAddress>
+Nmap -sC -sV <TargetIPAddress>
+// Using script from various scripts with nmap 
+ls /usr/share/nmap/scripts | grep ssh
+```
+
+- Use Metasploiit modules to enumerates SSH or login information
+```
+	search ssh_enumusers
+	search ssh_login
+```
+
+
+- Use the kali searchsploit module to search for version-specific exploits
+```
+kali:-# searchsploit openssh
+
+```
+##### RPCCLIENT COMMANDS
+
+| Command             | Interface | Description                                    |
+| ------------------- | --------- | ---------------------------------------------- |
+| Queryuser           | SAMR      | Retreive user information                      |
+| Querygroup          | SAMR      | Retrieve group information                     |
+| querydominfo        | SAMR      | Retrieve domain information                    |
+| enumdomusers        | SAMR      | Enumerate domain users                         |
+| enumdomgroups       | SAMR      | Enumerate domain users                         |
+| createdomuser       | SAMR      | create a domain user                           |
+| deletedomuser       | SAMR      | Delete a domain user                           |
+| lookupnames         | LSARPC    | Look up usernames to SID values                |
+| lookupsids          | LSARPC    | Look up SIDs to username (RID Cycling)         |
+| lsaaddacctraghts    | LSARPC    | Add right to a user account                    |
+| lsaremoveacctrights | LSARPC    | Remove rights from a user account              |
+| dsroledominfo       | LSARPC-DS | Get Primary domain information                 |
+| dsenumdomtrust      | LSARPC-DS | Enumerate trusted domains within and AD forest |
+
+
+> SAMR = Security Account Manager (SAM) Remote Protocl
+> LSARPC =Local Security Authority (Domain Policy) Remote Protocol
+
+##### RPCClient Examples
+```
+rpcclient -U Administrator%Password@123. 192.168.1.172
+//provides shell rpcclient $> 
+
+rpcclient $> srvinfo
+rpcclient $> enumdomusers
+
+
+```
+
+
+### 4.10 Website Enumeration
+### WHAT CAN A WEBSITE REVEAL
+
+- Usernames and passwords
+- Email addresses and contact information
+- Domain names, host names and IP addresses
+- Links and URLs
+- Technologies used by the organizations
+- Employee, customer and other confidential information
+- Internal resources
+- Potential vectors for attack
+- The simplest way to start website enumeration
+- View the HTML source of a web page
+- Attempt to open a browser to popular directory names
+- Note the HTTP response code:
+	- 404 = "Not Found“
+	- 403 = "Forbidden“
+	- 402 = "Payment Required“
+	- 401 = "Unauthorized" (Must authenticate first)
+	- 200 = "OK“
+
+#### NON-STANDARD PORTS
+- Some websites are deliverately configured to use non-standard ports
+- nmap -sV can detect this
+
+```
+nmap -PN -sT -sV -p0-65535 <target>
+```
+
+#### NMAP WEBSITE ENUMERATION SCRIPTS
+```
+nmap --script=http-enum <target>
+nmap --script=http-drupal-enum <target>
+nmap -–script=http-php-version <target>
+nmap --script=http-webdav-scan <target>
+nmap --script=http-wordpress-enum <target>
+```
+#### METASPLOIT WEBSITE SCANNING MODULES
+```
+Metasploit has 281 web scanning modules including:
+auxiliary/scanner/http/apache_userdir_enum
+auxiliary/scanner/http/tomcat_enum
+auxiliary/scanner/http/chromecast_webserver
+auxiliary/scanner/http/brute_dirs.
+auxiliary/scanner/http/dir_listing
+auxiliary/scanner/http/dir_scanner
+auxiliary/scanner/http/http_version
+auxiliary/scanner/http/wordpress_login_enum
+```
+
+#### WEBSITE ENUMERATION TOOLS
+##### ENUMERATION TECHNIQUE
+- Google Dorks
+- Word lists
+- Brute Forcing
+- Third party services
+- SSL Certificates
+- SSL Certificates
+- DNS Zone Transfer
+
+##### WEBTECHNOLGIEUSED
+- WhatWeb
+- Wappalyzer
+- NetCraft
+- IDServe
+
+
+
+##### SUBDOMAIN ENUMERATIONS
+- Wfuzz
+- WPSCan
+- Amass
+- Assetfinder
+- SubBrute
+- SubExractor
+- SubFinder
+- Sublist3r
+- PureDns
+
+##### HIDDENT OBJECTS ENUMERATION
+- DirBuster
+- DirB
+- dirsearch.py
+- GoBuster
+- Ffuf
+- Feroxbuster
+
+
+#### NTP ENUMERATON
+- Network Time Protocol (NTP) is used to synchronize clocks of network devices
+- UDP 123
+- Can maintain time to within 10 milliseconds over the public Internet
+- Attackers query NTP for
+	- List of hosts connected to NTP server
+	- Clients IP addresses, system names, and operating systems
+	- Internal IP addresses can be acquired if the NTP server is on the DMZ
+
+
+>Active Directory clients use Windows Time (not NTP) to synchronize their clocks to the domain
+The Active Directory PDC Emulator domain controller is the time source for the domain.
+It can synchronize to other sources via NTP
+
+```
+// Query a time server
+ntpupdate -q pool.ntp.org
+
+// Trace a chain of NTP servers back to the primary source
+ntptrac
+
+//moniter operation of the NTP server, request last 600 clients that connected to NTP time server
+ntpdc -n -c monlist <IP or Hostname of time server> 
+```
+
+##### NTP ENUMERATION TOOLS
+
+
+
+### 4.11 Other Enumeration Types
+
+- NTP Time Server Monitor
+- NTP Server Scanner
+- Nmap
+- Wireshark
+- AtomSync
+- NTPQuery
+- PresenTense NTP Auditor
+- PresenTense Time Server
+- PersenTense Time Client
+- NTP Time Server Monitor
+- LAN Time Analyser
+
+#### VOIP ENUMERATION
+
+- VoIP uses SIP (Session Initiation Protocol) to manage voice and video calls over IP
+	- TCP 5060 - Clear Text
+	- TCP 5061 - SIP-TLS (encrypted)
+- Data is carried by:
+	- Real-time Transport Protocol (RTP) UDP 5004
+	- and Real-time Transport Control Protocol (RTCP UDP 5005)
+- VoIP enumeration provides sensitive information such as:
+	- VoIP gateway (connects SIP system to PSTN)
+	- IP-PBX systems (routes calls inside the VoIP network)
+	- client software
+	- user phone extensions
+- This information can be used to launch various VoIP attacks such as:
+	- DoS, Session Hijacking, Caller ID spoofing, Eavesdropping, Spamming over Internet Telephony, VoIP phishing, etc.
+
+
+- Discover target VoIP information through:
+	- Google search and Shodan for public information
+	- Nmap and Sipvicious to map the internal VoIP network
+	- Wireshark to identify SIP users
+	- Job sites that list knowledge of a specific VoIP system as a skills requirement
+- Search for the following information:
+	- The public IP of the server
+	- The VoIP network / infrastructure
+	- Devices connected to the VoIP network, their open ports, and running services
+	- Users information (extension, the device information, and logs)
+	- Information about the VoIP server (model, vendor, OS, ports, etc.)
+
+##### GOOGLE DORCS to FIND VOID TARGETS
+
+| Google Dork                                              | Description                                      |
+| -------------------------------------------------------- | ------------------------------------------------ |
+| inurl:/voice/advanced/ intitle:Linksys SPA configuration | Finds the Linksys VoIP router configuration page |
+| inurl:”NetworkConfiguration” cisco                       | Find the Cisco phone details                     |
+| inurl:”ccmuser/logon.asp”                                | Find Cisco call manager                          |
+| intitle:asterisk.management.portal web-access            | Finds the Asterisk web mgmt portal               |
+| inurl:8080 intitle:”login” intext:”UserLogin” “English”  | VoIP login portals                               |
+| intitle:” SPA Configuration”                             | Search Linksys phones                            |
+#### SiPVICIOUS
+- A SIP auditing tool used to scan for and enumerate SIP devices and accounts
+- Sends SIP INVITE or OPTION packets looking for responses from live hosts
+	- Logs the results to a file
+- Attacks include:
+	- SIP flood, RTP flood, SIP enumeration, Digest leak, RTP Bleed and RTP inject, fuzzing
+
+```
+root@kali # svmp 192.168.1.0/24 -v
+```
+
+#### IPSEC ENUMERATION
+- IPSEC VPNs are digitally signed and optionally encrypted using DES, 3DES or AES
+- You can use nmap or other scanners to identify IPSEC VPN servers
+- Internet Key Exchange (IKE) is the handshake protocol used at the start of an IPSEC
+- session
+- You can also use 'ike-scan' and 'psk-crack' to try to capture and crack an IKE pre-shared key hash
+
+- #### IKE-SCAN
+- A command-line tool that uses the IKE protocol to discover, fingerprint and test IPsec VPN servers
+- Can do two things:
+	- Determine which hosts are running IKE
+		- This is done by displaying those hosts which respond to the IKE requests sent by ike-scan.
+	- Determine which IKE implementation the hosts are using
+		- Done by recording the times of the IKE response packets from the target hosts and comparing the observed retransmission backoff pattern against known patterns.
+	- Can identify VPNs from manufacturers including Checkpoint, Cisco, Microsoft, Nortel, and Watchguard
+
+
+#### PSK-CRACK
+- Attempts to crack IKE Aggressive Mode pre-shared keys
+	- Keys must have been previously gathered using ike-scan with the --pskcrack option
+- Can work in dictionary or brute-force mode
+
+
+#### DNS IPV6 GRINDING
+- You can identify IPv6 servers through DNS grinding
+- DNS grinding is a dictionary attack using a list of possible host names
+	- Uses AAAA requests
+- Grinding tools include:
+	- dnsdict6
+	- dnsrevenum6
+	- These are part of the thc-ipv6 tool suite
+```
+		sudo apt install thc-ipv6
+```
+
+
+IPV6 ENUMERATION EXAMPLE
+```
+dnsdict6 -4 -t 16 example.com 
+//start 16 thread for 798 words to enumerate website example.com
+```
+
+##### BGP
+- Border Gateway Protocol (BGP) is the routing protocol used on the Internet
+- ISPs use BGP to choose Internet routes
+	- BGP has slow convergence
+	- An entire Autonomous Systems is treated as a “hop”
+- Traffic between Internet-based networks is controlled by using BGP and autonomous system (AS) numbers
+- Organizations use BGP
+- IANA assigns AS numbers to RIRs
+- RIRs allocate numbers to ISPs and large organizations so that they can manage their IP router networks and upstream connections.
+- You can use whois and HE BGP Toolkit to enumerate:
+	- An organization’s AS numbers and IP addresses (referred to as “prefixes”)
+- Knowing IP addresses gives you targets to scan
+
+
+```
+whois -a "nintendo*"
+// whois query reveals netblocks and AS numbers for the company Nintendo
+```
+\
+
+- ### 4.12 Enumeration Countermeasures and Review
+
+
+ - When possible, use protocols that are encrypted, rather than clear text
+ - Disable NetBIOS and SMBv1
+- Change the SNMP community string
+- Disallow DNS zone transfers to unknown servers
+- Maintain separate DNS servers for internal and public records (split DNS)
+- Consider disabling VRFY and EXPN commands on your email server
+- Use file system and share permissions to restrict access to sensitive content
+- Perform your own enumeration to see what types of information an attacker can obtain
+	- Remediate when **possible**
+- Enumeration is systematic process of querying a target’s servers and services for information
+- Enumeration should appear to the server as a normal client making legitimate information  requests
+ - You can enumerate information about the OS, its services, users and groups, network information, machines names, configuration settings, installed apps and service banners.
+ - Many network protocols can be used for enumeration including:
+	- NetBIOS/SMB, FTP/TFTP, NFS
+	- SNMP
+	- Telnet, SSH, RPC
+	- SMTP
+	- HTTP, DNS,
+	- LDAP, SQL, NTP
+	- IPSEC, IPv6, SIP, BGP and others
+
