@@ -8,6 +8,7 @@ A NetBIOS name is unique 16 ASCII string used to identify the network devices ov
 > note: NetwBIOS name resolution is not supported by Microsoft for IPv6 (Internet protocol version 6)
 
 #### NetBIOS name list
+#NetBIOSNameList
 
 | Name     | NetBIOS Code | Type   | Information obtained                                                                       |
 | -------- | ------------ | ------ | ------------------------------------------------------------------------------------------ |

@@ -40,6 +40,7 @@
 - 2.11 Footprinting and Reconnaissance Review
 
 #### - **Module 3: Scanning Networks**
+[[Module03]]
 - 3.1 Scanning Concepts
 - 3.2 Discovery Scans
 - 3.2.1 Activity - ICMP ECHO and ARP Pings
@@ -64,6 +65,7 @@
 - 3.10 Scanning Networks Review
 
 #### - **Module 4: Enumeration**
+[[Module04]]
 - 4.1 Enumeration Overview
 - 4.2 SMB_NetBIOS_Enumeration
 - 4.2.1 Activity - Enumerate NetBIOS Information with Hyena
