@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CeHV11_notes/Module04.md",
+                "file": "CeHV11_notes/Module05.md",
                 "mode": "source",
                 "backlinks": true,
                 "source": false
@@ -86,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CeHV11_notes/Module04.md",
+                "file": "CeHV11_notes/Module05.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CeHV11_notes/Module04.md",
+                "file": "CeHV11_notes/Module05.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CeHV11_notes/Module04.md"
+                "file": "CeHV11_notes/Module05.md"
               }
             }
           }
@@ -150,8 +150,10 @@
   },
   "active": "16057f5acbc5b96d",
   "lastOpenFiles": [
-    "CeHV11_notes/0Outline.md",
+    "Pasted image 20240623185138.png",
     "CeHV11_notes/Module04.md",
+    "CeHV11_notes/Module05.md",
+    "CeHV11_notes/0Outline.md",
     "M04_Enumeration/01 NetBIOS Enumeration.md",
     "CeHV11_notes/Difference Between.md",
     "Untitled.md",
@@ -181,8 +183,6 @@
     "images/Pasted image 20240531185508.png",
     "M04_Enumeration/05 Enumeration LDAP.md",
     "Tools_Usage/ldapsearch.md",
-    "Untitled 1.md",
-    "M04_Enumeration/04 Enumeration SNMP.md",
     "Security/OSI-model-layers-attacks-Stackscale.jpg.avif",
     "M02_Footprinting and Reconnaissance",
     "M01_Introduction to ethical hacking",
