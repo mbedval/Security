@@ -309,3 +309,23 @@ The Attacker vector metric is scored in one of four levels (N A L P)
 - Sophos (https://www.sophos.com)
 
 ### 5.3 VULNERABILITY ANALYSIS REVIEW
+- You can perform vulnerability scans to identify weaknesses or lack of compliance 
+- Scanning can be passive or active
+- Vulnerability scanning tools can focus on hosts, network devices, cloud services or applications
+- Credentialed scans typically provide more information than uncredentialled scans
+- SCAP Scans are used to test a system for compliance
+- Scan results can return four different types of results
+	- True Positive : There is really a vulnerability
+	- True Negative : There is really no vulnerability
+	- False Positive : The scanner reports vulnerabilities that do not actually exist
+	- False Negative - the scanner fails to report vulnerabilities that actually exist
+- Vulnerability assessment should include both technical and non-technical targets (people, processes)
+- A vulnerability assessment should produce an actionable report
+- Common Vulnerability Scoring System (CVSS) ranks vulnerability severity on a scale of 1-10
+- CVSS identifies four attack vectors, network, adjacent, local, physical
+- The NATIONAL Vulnerability Database is a central repository of vulnerability information
+- Common Vulnerability and exposures (CVE) is an identification system used to precisely identify a specific vulnerability
+- CVEs are used by both malicious and ethical hackers
+- Vulnerability research should be an ongoing process
+- There are many sites and services dedicated to providing the latest vulnerability information
+- 

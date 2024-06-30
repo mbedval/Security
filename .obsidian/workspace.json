@@ -13,7 +13,20 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CeHV11_notes/Module05.md",
+                "file": "CeHV11_notes/Module06.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "fc1bf51a41e339ef",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Tools_Usage/NETCAT.md",
                 "mode": "source",
                 "backlinks": true,
                 "source": false
@@ -86,7 +99,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CeHV11_notes/Module05.md",
+                "file": "CeHV11_notes/Module06.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +116,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CeHV11_notes/Module05.md",
+                "file": "CeHV11_notes/Module06.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +139,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CeHV11_notes/Module05.md"
+                "file": "CeHV11_notes/Module06.md"
               }
             }
           }
@@ -150,9 +163,13 @@
   },
   "active": "16057f5acbc5b96d",
   "lastOpenFiles": [
+    "Tools_Usage/NETCAT.md",
+    "CeHV11_notes/Module06.md",
+    "Tools_Usage/Meterpreter.md",
+    "Tools_Usage/Metasploit.md",
+    "CeHV11_notes/Module05.md",
     "Pasted image 20240623185138.png",
     "CeHV11_notes/Module04.md",
-    "CeHV11_notes/Module05.md",
     "CeHV11_notes/0Outline.md",
     "M04_Enumeration/01 NetBIOS Enumeration.md",
     "CeHV11_notes/Difference Between.md",
@@ -177,12 +194,9 @@
     "M04_Enumeration/07.2 DNS Enumeration.md",
     "M04_Enumeration/06.2 NFS Enumeration.md",
     "M02_Footprinting and Reconnaissance/Footprinting and Reconnaissance.md",
-    "M04_Enumeration/06.1 NTP Enumeration.md",
     "images",
     "images/Pasted image 20240531185710.png",
     "images/Pasted image 20240531185508.png",
-    "M04_Enumeration/05 Enumeration LDAP.md",
-    "Tools_Usage/ldapsearch.md",
     "Security/OSI-model-layers-attacks-Stackscale.jpg.avif",
     "M02_Footprinting and Reconnaissance",
     "M01_Introduction to ethical hacking",
