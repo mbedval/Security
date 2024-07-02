@@ -464,4 +464,171 @@ Get-LocalUser -Name "Administrator" | Enable-LocalUser
 	- Rename-LocalUser
 	- Remove-LocalUser
 
-#  p712
+#  Local Windows Groups
+- Local Windows groups are also stored in the SAM
+- Attackers are most interested in the local administrators group
+- You can use many of the same tools to administer both users and groups
+- Net localgroup command
+- PowerShell cmdlets
+	- Get-LocalGroup
+	- Get-LocalGroupMember
+	- Add-LocalGroupMember
+
+#### WINDOWS NULL SESSION
+ - Originally used by Windows computers to trade Network Neighborhood browse lists (lists of computers on the network)
+- Machines would connect to each other’s IPC$ share with no username and no password
+- Hackers discovered how to manually create a null session and enumerate information - including system information, users, groups and shares
+- The original command was:
+```
+net use \\target\ipc$ "" /u: ""
+```
+- IPC$ is a hidden share
+	- It’s a process, not a directory
+	- Inter-process communication
+- The null session was one of Windows’ most debilitating vulnerabilities
+- Null sessions can be established through ports 135, 139, and 445
+- Now disabled by default, but can still be enabled manually or through group policy
+
+#### ENABLE NULL SESSIONS VIA GROUP POLICY
+ Null sessions are disabled by default, but can still be enabled in Group Policy
+- Open the Group Policy Editor
+- Navigate to:
+	- Computer Configuration\Windows Settings\Security Settings\Local Policies\Security Options
+- Disable the following settings:
+	- Network access: Restrict Anonymous access to Named Pipes and Shares
+	- Network access: Do not allow anonymous enumeration of SAM accounts
+	- Network access: Do not allow anonymous enumeration of SAM accounts and shares
+	- Network access: Shares that can be accessed anonymously
+- Enable the following settings:
+	- Network access: Let Everyone permissions apply to anonymous users
+	- Network access: Allow anonymous SID/Name translation
+
+#### MOST EXPLOITED WINDOWS VULNERABILITIES
+
+| Feature               | Description                                                                                                                                                                         | Exploits                                                                                                                             |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| LSA                   | "PetitPotal" windows local security Authority (LSA) spoofing vulnerability CVE-2021-36942, CVSS 5.3                                                                                 | - Metasploit petitpotam<br>- GitHub (6) repos                                                                                        |
+| MS Exchange 2013-2019 | "ProxyLogin" MS Exchance Server RCE Vuln                                                                                                                                            | - Meta exchange proxylogon_rece<br>- Github (57) repos                                                                               |
+| Print Spooler         | PrintNightmare, Windows print spooler RCE vulnerablity CVE-2021-1675 CVSS 8.8                                                                                                       | - Meta cve_2021_1675_printnightmare<br>- github (70) exploits                                                                        |
+| DCERPC Netlogon       | ZeroLogon, NetLogon Priviledge Escalation Vuln CVE-2020-1472, CVSS 8.8                                                                                                              | - Meta CVE_2020_1472_zerologon<br>- Github (54) repos                                                                                |
+| SMBv1                 | External Blue Windows SMB REmote Code Execution Vulnerability CVSS 8.1<br>CVE_2017-0143, CVE-2017-0144, CVE-2017-0145, CVE-2017-0146, CVE-2017-0148, MS17-010                       | Metasploit<br>ms17_010_externalblue,<br>ms17_010_psexec, etc.                                                                        |
+| Print Spooler         | • Microsoft Spooler Local Privilege Elevation Vuln<br>• CVE-2020-1048                                                                                                               | • Meta cve_2020_1048_printerdemon<br>• GitHub (2) exploit repos                                                                      |
+| Internet<br>Explorer  | • Scripting Engine Memory Corruption Vuln<br>• CVE-2018-8373                                                                                                                        | • Exploit-DB/exploits/42995                                                                                                          |
+| VBScript<br>Engine    | • Windows VBScript Engine RCE Vuln<br>• CVE-2018-8174                                                                                                                               | • GitHub CVE-2018-8174-msf<br>• Exploit-DB/exploits/44741                                                                            |
+| Windows               | • Windows Persistent Service Installer<br>• No CVE (2018)                                                                                                                           | • Metasploit local/persistence_service                                                                                               |
+| Internet<br>Explorer  | • MS Browser Memory Corruption RCE Vuln<br>• CVE-2017-8750                                                                                                                          | • GitHub bhdresh/CVE-2017-8759                                                                                                       |
+| DCOM/RPC<br>          | • Net-NTLMv2 Reflection DCOM/RPC (Juicy)<br>• CVE-2016-3225, MS16-075                                                                                                               | • Metasploit ms16_075_reflection_juicy                                                                                               |
+| VBScript<br>Engine    | • IE 11 VBScript Engine Memory Corruption<br>• CVE-2016-0189, MS16-051                                                                                                              | • Metasploit ms16_051_vbscript<br>• GitHub theori-io/cve-2016-0189                                                                   |
+| WebDav                | • mrxdav.sys WebDav Local Privilege Escalation<br>• CVE-2016-0051, MS16-016                                                                                                         | • Metasploit ms16_016_webdav                                                                                                         |
+| Windows<br>Shell      | • DLL Planting RCE Vulnerability<br>• CVE-2015-0096, MS15-020                                                                                                                       | •ms15_020_shortcut_icon_dllloader                                                                                                    |
+| Task<br>Scheduler     | • Windows Escalate Task Scheduler XML<br>Privilege Escalation, CVE-2010-3338, MS10-092                                                                                              | • Metasploit ms10_092_schelevator                                                                                                    |
+| Print<br>Spooler      | •<br> Print Spooler Service Impersonation<br>Vulnerability<br>•<br> CVE-2010-2729, MS10-061                                                                                         | • ms10_061_spools                                                                                                                    |
+| Windows<br>Shell      | • Microsoft Windows Shell LNK Code Execution<br>• CVE-2010-2568, MS10-046                                                                                                           | • s10_046_shortcut_icon_dllloader                                                                                                    |
+| SYSTEM                | • Windows SYSTEM Escalation via KiTrap0D<br>• CVE-2010-0232, MS10-015                                                                                                               | • Metasploit ms10_015_kitrap0d                                                                                                       |
+| UAC                   | • Windows Escalate UAC Protection Bypass<br>• No CVE (2010)                                                                                                                         | • Metasploit local/bypassuac                                                                                                         |
+| IIS 5.0               | • “IIS Unicode Directory Traversal”<br>• IIS Unicode Requests to WebDAV Multiple<br>Authentication Bypass Vulnerabilities<br>• CVE-2009-1122, MS09-020<br>• First exploited in 2000 | <br>Unicode characters in IE 5 URI,<br>HTML-based email messages, other<br>browsers from that time period<br>Code Red II/NIMDA worms |
+| SMB                   | •<br> Server Svc Relative Path Stack Corruption Vuln<br>•<br> CVE-2008-4250, MS08-067                                                                                               | •Metasploit ms08_067_netapi<br>• Conficker worm                                                                                      |
+| SMB                   | • Windows SMB Relay Code Execution<br>• CVE-2008-4037, MS08-068                                                                                                                     | smb_relay, smb_delivery                                                                                                              |
+| RPC                   | • MS03-026 Microsoft RPC DCOM Interface<br>Overflow, CVE-2003-0352                                                                                                                  | • Metasploit ms03_026_dcom                                                                                                           |
+| IIS 5.0<br>WebDAV     | • MS IIS 5.0 WebDAV ntdll.dll Path Overflow<br>• CVE-2003-0109, MS03-007                                                                                                            | • Meta ms03_007_ntdll_webdav<br>• Exploit-DB 16470                                                                                   |
+| Windows               | • Windows Unquoted Service Path Privilege Escalation<br>(2001)<br>• No CVE                                                                                                          | Metasploit unquoted_service_path                                                                                                     |
+| Null Sessions         | • NETBIOS/SMB share password is the default, null, or<br>missing<br>• Allows anonymous connections to the IPC$ share<br>• CVE 1999-0519                                             | Enum4Linux, getacct.exe<br>WinScanX, winfigerprint-x<br>smb-enum-users.nse<br>smb-enum-shares.nse                                    |
+| Powershell            | • PowerShell Remoting RCE, CVE-1999-0504                                                                                                                                            | Metasploit powershell_remoting                                                                                                       |
+| Powershell            | • Windows Command Shell Upgrade (Powershell)<br>• No CVE (1999)                                                                                                                     | •Metasploit<br>powershell_cmd_upgrade                                                                                                |
+|                       |                                                                                                                                                                                     |                                                                                                                                      |
+
+#### WINDOWS APPLICATION ATTACK EXAMPLES
+
+
+| Feature                    | Desciption                                                                                   | Exploits                                                             |
+| -------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| Adobe Flash Player         | Adove Flash player (pre-28.0.0.161)<br>- CVE-2018-4878                                       | - github/syfi/cve-2018-4878<br>- github/B0fH/CVE-2018-4878           |
+| MS Office (including 0360) | Microsoft Office Memory corruption Vulnerability<br>- CVE-207-11882<br>-Not rated            | - QuasarRAT trojan<br>- Andromedia botnet<br>- Github/CVE-2017-11882 |
+| MS Office / wordpad        | Microsoft office/wordpad remote code execution vulnerability w/Window API<br>- CVE-2017-0199 | - Github/bhdresh/CVE-2017-0199<br>- Exploit-DB/exploits/42995        |
+| MS Office                  | - MSCOMCTL.OCX Buffer overflow                                                               | Exploit-DB/Exploits/18780<br>Metasploit:ms12_027_mscomctl_bof        |
+|                            | - Not rated                                                                                  |                                                                      |
+
+
+### 6.10 HACKING LINUX
+ - In addition to the over 600 existing Linux distributions, many commercial - products are based on Linux
+- Most exploits target specific products that are Linux-based, or services installed in Linux distros
+- Metasploit has the following exploit modules with a rank of great or excellent:
+	- 68 against Linux specifically
+	- Over 400 against apps and services that run on Linux
+- Github lists (546) repos related to Linux exploits
+- Linux-based apps/products with the most Metasploit exploit modules:
+	- Apache
+	- Adobe Flash Player
+	- Java
+	- ProFTPD
+	- VMware
+
+#### LINUX USERS
+- User accounts are listed in /etc/passwd
+	- Anyone can read
+	- Rot and Service accounts will be listed first
+	- people accounts will be at the bottom of the list
+	- `cat /etc/passwd`
+- Passwords are stored in /etc/shadow
+	- Passwords are salted and hashed
+	- Only accessible by root user
+	- `sudo cat /etc/shadow`
+
+> Shadow FILE contains OS user passwords in hashed format
+
+```
+mux:$1 $fnfffc $pGteyHdic :15164: 0: 9999: 7 :::
+1  : 2                    : 3   : 4: 5   : 6 
+---
+---
+
+\\ 1 : A valid account name on the system
+\\ 2 : Hashed password (format is $1d$salt$hasehed)
+\\ 3 : date of last password change
+\\ 4 : Minimum password age in days (empty or 0 = no minimum)
+\\ 5 : Maxmimum password age in days
+\\ 6 : User warning days until password expiration
+```
+
+
+#### USERS IDS in Linux
+- Root has UID and GID of 0
+	- you can see this information by issuing the command id. root#kaliL~#id
+	- uid=0(root) git=0(root) groups= 0 (root)
+- In most linux systems non-root/normal user IDs start at 1000
+	- In fedora and centos they start at 500
+
+####  Top Linux Threats 2022
+	- Coinminers (24.56%)
+	- WebShells (19.92%)
+	- Ransomeware (11.55%)
+	- Trojans (9.65%)
+	- Others (3.15%)
+
+
+#### MOST COMMON Linux Vulnerabilties
+
+| Vulnerability                                                        | CVE            | CVSS             |
+| -------------------------------------------------------------------- | -------------- | ---------------- |
+| DirtyCred use-after-free kernel vulnerability                        | CVE-2022-2602  | Not yet assgined |
+| DirtyPipe Local kernel priviledge escalation flaw                    | CVE-2022-0847  | 7.8              |
+| Linux kernel slab out of bounds write vulnerability                  | CVE-2021-42008 | 7.8              |
+| bypass authenticatio nin alibaba nacos AuthFilter                    | CVE-2021-29441 | 9.8              |
+| RCE Vulnerability in wordpress file manager plugin (wp-file-manager) | CVE-2020-25213 | 10               |
+| RCE vulnerability in vBulleting 'subwidgetConfig'                    | CVE-2020-17496 | 9.8              |
+| Oracle Weblogic Server RCE vulnerability                             | CVE-2020-14750 | 9.8              |
+| Atlassian Jira disclosure                                            | CVE-2020-14179 | 5.3              |
+| saltstack salt authorization vulnerability                           | CVE-2020-11651 | 9.8              |
+| Liferay portal untrusted Deserialization vulnerability               | CVE-2020-7961  | 9.8              |
+| RCE vulerability in Apache strut 2                                   | CVE-2019-0230  | 9.8              |
+| RCE vulnerability in Apache struts OGNL                              | CVE-2018-11776 | 8.1              |
+| RCE vulnerability in Drupal Core                                     | CVE-2018-7600  | 9.8              |
+| RCE vulnerability in Apache struts OGNL                              | CVE-2017-12611 | 9.8              |
+| REST plugin vulerability for Apache struts 2, Xstream RCE            | CVE-2017-9805  | 9.1              |
+| Integer Overflow in Eclipse Jetty                                    | CVE-2017-7657  | 9.8              |
+| Remote code Execution (RCE) vulnerability in APACHE struts 2         | CVE-2017-5638  | 10               |
+
+#### 6.11 PASSWORD ATTACKS
+
+
+#### 6.23 SYSTEM HACKING REVIEW p923

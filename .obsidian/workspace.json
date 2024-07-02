@@ -19,19 +19,6 @@
                 "source": false
               }
             }
-          },
-          {
-            "id": "fc1bf51a41e339ef",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Tools_Usage/NETCAT.md",
-                "mode": "source",
-                "backlinks": true,
-                "source": false
-              }
-            }
           }
         ]
       }
@@ -83,7 +70,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "4b1b3f083f9676b8",
@@ -161,7 +149,7 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "16057f5acbc5b96d",
+  "active": "85c2d5699432f91b",
   "lastOpenFiles": [
     "Tools_Usage/NETCAT.md",
     "CeHV11_notes/Module06.md",
