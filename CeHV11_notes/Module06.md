@@ -629,6 +629,833 @@ mux:$1 $fnfffc $pGteyHdic :15164: 0: 9999: 7 :::
 | Remote code Execution (RCE) vulnerability in APACHE struts 2         | CVE-2017-5638  | 10               |
 
 #### 6.11 PASSWORD ATTACKS
+#### Where passwords are stored
+- Windows Security Accounts Manager (SAM)
+	- `C:\windows/system32\config`
+	- Prior to window 10 the SAM was encrypted by SYSKEY (128-bit RC4 encryption)
+	- Since Window 10, Bitlocker disk encryption encrypts the SAM
+- Active Directory (ntds.dit)
+	- `C:\Windows\NTDS`
+- Linux shadow file
+	- `/etc/shadow`
+	- Contains password hashes only
+	- Requires /etc/passwd file to provide associated usernames
+	- You can use John-the-Ripper to combine (unshadow) the two files before cracking
+- Config Files for apps and services
+	- If they do not use the operating system for authenticating users
+
+
+#### PASSWORD STRENGTH
+- Determined by length and complexity
+- Complexity is defined by number or character set used
+	- lower case, upper case, number symbols etc
+- Short password (e.g 4-digit pin) can be brute force in a few seconds
+- Each additional character adds orders of magnitude to cracking time
+- Check how long it would take to crack a pasword
+https://www.security.org/how-secure-is-my-password
+
+#### PASSWORD HASHES
+- Passwords are usually not stored in clear text
+- They are most likely stored in a hashed format
+- Hashes are one-way cryptographic functions that are not meant to be decrypted
+- To crack password hashes:
+	- Obtain the password hashes
+	- Determine the hashing algorithm
+	- Hash each password you wish to try using the same  algorithm
+	- Compare your result to the stored hash
+	- If they are the same you found the password
+
+
+#### SALTING THE HASH
+- A salt is additional random data added to a user's password before it is hashed
+- It lengthens the password, making it harder to crack
+- Salts should be unique to each user, and never reused
+
+#### PASSWORD ATTACK TYPES
+- Active online attacks
+	- Dictionary
+	- Brute forcing
+	- Password spraying
+	- Hashdump
+	- Keylogging
+	- MITM
+- Passive online attacks
+	- Sniffing
+- Offline attacks
+	- Many online cracking tools can also work for offline cracking
+	- Grab a copy of the password database /file and start cracking
+- Physical access attack
+	- Boot the system from a USB stick or CD
+	- Use a tool such as CHNTPW to overwrite the area of disk that stores passwords
+- Non-electronoic attacks
+	- Social engineering - most effective
+	- Dumpster diving
+	- Snooping around
+	- Guessing
+	- Rubber host (coercion)
+
+#### PASS THE HASH
+A network based attack
+The attacker steals the hashed user credentials
+Instead of providing the password the hash is provided
+Instead of providing the password, the hash is provided
+You can use a hash dumper to retrieve hashes from a system's memory
+Might not always work with use of windows defender Credentials Guard, Registry settings for UAC
+
+#### PASSWORD CRACKING CONSIDERATIONS
+- can be very slow and CPU intensive
+- Consider using a dedicated processing units (GPU) to offload the work
+	- Dedicated GPU's are designed to conduct complex mathematical functions extremely quickly
+- Using a rainbow table (dictionary of pre-computed hashes) can dramatically speed up password cracking
+- Dictionaries and rainbow tables can be very large in size
+- You can also upload the hash to an online service
+	- Some are free
+	- Some charge a fee
+- Cracking passwords, hashes, and encryption is a lot like mining cryptocurrency in that using dedicated GPUs will give the best performance
+
+
+
+#### Dictionary ATTACK
+- An attack in which a password cracking tool goes through a list of words (dictionary until it either )
+	- finds the password or exhaust the list
+- The hope is that a large enough dictionary contains the password because users choose easy passwords
+- Researchers have spent years collating wordlists
+- Practical limitations
+	- Must know user name, though user names can also be in wordlists
+	- Lists can become unwieldy in their size (1.5 billion words = 15 GB uncompressed)
+	- Lockout policies could significantly slow you down or lock the account
+- can be online or offline
+
+#### Methods to Perform a Dictionary attack
+- Steal copy of file or database containing credentials (offline cracking)
+- Induce system to dump hashes passwords
+- Intercept authentication and send to a password cracker
+- Run cracker against network service without lockout
+- Run cracker against accounts exempt from lockout (e.g admin/root)
+
+#### DOWNLOAD MAKERs
+- CeWL
+- crunch
+- cuppy.py
+- pydictor
+- Dymerge
+
+#### DICTIONARY ATTACK TOOLS
+- BlackArch Linux
+- Has 166 password cracking tools
+- GitHub (has 24 password cracking tools)
+- L0pht7 #Windows
+- John-the-Ripper
+- Hashcat
+- 
+
+#### BRUTE FORCE ATTACK
+- Used if the dictionary does not contain the password
+- Tries combinations of characters until the password is found
+- is the slowest and most resource intensive
+- Many password cracking tools include online brute forcing capabilities
+- GitHub lists 159 brute force passwords crackers
+- Sometime "brute force" is also referred to a large dictionary attack
+- In this case, the dictionary attack is considered to be a specific type of brute force attack
+
+#### RAINBOW TABLE
+- A Rainbow table attack is an attack in which passwords in the wordlist have been pre-computed into their corresponding hashes, then compressed in a highly efficient manner
+- Very fast with minimal computation, but at the cost of very large table
+- A special reduction function is used to reduce the table size
+	- A chain of hashes for one password can be used to quickly calculate variations of the same password
+	- 64 GB of a rainbow table can contain around 70 trillion hashes
+	- 64 GB of a wordlist can only contain around 6.5 billion passwords
+- Password crackers that can use rainbow tables include Ophcrack, RainbowCrack and Mitre.org,s CAPEC
+
+#### RAINBOW TABLE CREATION TOOLS
+- rtgen
+- Winrtgen
+- RainbowTables Generation (github)
+- RainbowCrack
+
+#### PASSWORD SPARYING?
+- A brute force variant
+- The same password is sprayed across many accounts
+	- As opposed to many passwords being tried against a single account
+- Is used to circumvent common brute forcing countermeasure such account lockout
+- If none of the accounts uses the password, then another password is sprayed
+- Password Spraying Tools
+	- Office365 Sprayers
+		- Go365
+		- MSOLSpray
+	- Active Directory Sprayers
+		- RDPPAssSpray
+		- CrackMapExec
+		- DomainPasswordSpray
+		- Greenwold/Spray
+
+
+
+### 6.12 PASSWORD  CRACKING TOOLS
+
+- John the Ripper
+	- Works on unix, windown and kerberos
+	- compatible with mysql, ldap and MD4
+	- Supports both dictionary and brute force attack
+	- Uses rules to create complex patterns from a wordlist
+	- Can perform distributed cracking
+```
+sudo unshadow /etc/passwd /etc/shadow > mypassword.txt
+john mypassword.txt
+```
+- HashCat
+	- Advanced password recovery tool
+	- Uses GPU to offload cracking
+	- Currently supporst 237 hash types
+	- Also uses rules
+- RainbowCrack : Offline hash cracker that uses Rainbow tables
+- Tools to brute force remote authentication servicess
+	- THC-Hydra
+	- Medusa
+	- Ncrack
+	- NMAP security scanner
+	- Brutus aet2
+	- NetBIOS Auditing Tool
+- Metasploit modules 
+	- auxiliary/analyze/crack_windows
+	- auxiliary/analyze/crack_mobile
+	- post/windows/gather/hashdump
+	- post/windows/gather/credentials/credential_collector
+- Cain & Abel
+	- Windows software; cracks hash passwords (LM, NTLM) sniff network packets for password sniff out for local stored passwords, etc
+- L0pht: paid software ; extract and crack hashes, uses brute force or dictionary attack
+- Ophcrack: Free open-source ; cracks windows log-in passwords by using LM hashes through rainbow tables
+- RainbowCrack: Rainbow tables generator for password cracking
+- Legion
+	- Automates password guessing in NetBIOS sessions
+	- Scans multiple IP Address ranges for Windows shares
+	- Also offers a manual dictionary attack tool
+- KerbCrack : Cracks Kerberos password
+- Mimikatz :
+	- Steals credentials and escalates privileges
+	- Windows NTLM hashes and Kerberos tickets (Golden Ticket Attack)
+	- 'Pass-the-hash' and 'pass-the-ticket'
+- fgdump
+	- Dump SAM databases on windows machines
+- pwdump7 : Dump SAM databases on windows machines
+
+
+##### Download pre-created rule sets
+- clem9669 rules : Rules for hashcat or john
+- Hashcat rules collection - probably the largest collection of Hashcat rules out there
+- Hob0Rules: Password cracking rules for Hashcat based on statistics and industry patterns
+- Kaonashi - wordlist, rules and masks from kaonashi project (RootCon 2019)
+- nsa-rules - Password cracking rules and masks for Hashcat generated from cracked passwords
+- nyxgeek-rules - Custom password cracking rules for Hashcat and John the Ripper
+- OneRuleToRuleThemAll - One rule to crack all passwords. or at least we hope so
+- Pantagrule - Large Hashcat rulesets generated from real-world compromised passwords
+
+
+#### DISTRIBUTED PASSWORD CRACKING
+- you can offload some of the cracking toad to other computer running cracking tools 
+- running cracking program on dedicated GPUs 
+- To running on websites dedicated  to provide online service 
+	- onlinehashcrack.com
+	- crackstation.net
+	- gpuhash.me
+	- md5decrypt.net
+
+
+#### Examine if identity is PWNED?
+use password compromise notification services
+- Google Password checkup site
+- Chrome password checkup tool
+- Microsoft edge Profiles / passwords
+- MacOS System preferences/ passwords
+- IOS passwords/ security REcommendations
+- Android Chrome app check passwords
+
+#### FINDING DEFAULT PASSWORDS ON THE INTERNET
+- www.open-sez.me
+- www.fortypoundhead.com
+- cirt.net
+- www..defaultpassword.us
+- defaultpasswords.in
+- Github list 95 repos that list default and hard-coded passwords
+
+
+#### ADDITIONAL PASSWORD ATTACKS
+Use privileges from buffer overflow, etc. ,to create new account
+Meterpreter steal_token or impersonate_token commands
+Use a dumped hash to create a new account or Kerberos ticket
+Keylogging
+Social engineering (including coercion (rubber hose attack))
+Boot into another operating system and overwrite existing password storage
+
+### 6.13 Windows Password cracking
+ - Dump credentials from memory
+	- LSA secrets, password hashes, tokens, copies of old passwords, locally cached login
+	- information
+	- Crack dumped hashes offline
+- Steal a copy of the local SAM database and crack offline
+- Steal a copy of the Active Directory database (ntds.dit) and crack offline
+- Extract the SYSKEY boot key
+	- SYSKEY was a utility that allowed you to lock (encrypt) the SAM database
+	- You would have to enter a password to unlock it so Windows could boot
+	- In Windows 10, SYSKEY was replaced by BitLocker disk encryption
+- Social engineering :	- (Aw come on, that’s not cracking!)
+-  Intercept and crack credentials sent over the network
+	- Passive sniffing
+	- Man-in-the-Middle
+	- Plain text password
+	- LM, NTLM, NTLMv2, Kerberos
+- Brute force network services that require user authentication
+	- Logon/SMB/File and Print Server (TCP 139, 445)
+	- IIS (TCP 80, 443)
+	- MS Exchange (TCP 25, 110, 143)
+	- MSSQL (TCP 1433)
+- Brute force remote control services
+	- RDP (TCP 3389)
+	- Telnet (TCP 23)
+
+#### METHODS TO SPEED UP PASSWORD CRACKING
+- Use larger dictionaries
+- Focus first on well-known words, terms, or patterns
+- Use mask attack
+	- Set of characters you try is reduced by information you know
+		- Example: knowledge of a start or end character (it’s a number, it’s upper case, etc.)
+- Use pre-computed hashes (rainbow tables)
+- Use high-end GPUs (video cards)
+- Use distributed cracking
+- Use online cracking services
+- Try password spraying
+- Pass-the-hash
+	- Don’t bother trying to crack the password ;-)
+- Social engineering
+	- Bribery, coercion, shoulder surfing, MITM...
+
+
+#### WINDOWS CREDNTIAL MANAGER
+
+- Introduced in Windows Server 2008 R2 and Windows 7 as a Control Panel feature
+- Used to store and manage user names and passwords
+- Lets users store credentials relevant to other systems and websites in the secure- Windows Vault
+- Some versions of Internet Explorer use this feature for authentication to websites
+- You can also use NirSoft VaultPasswordView to dump Windows Vault passwords
+
+
+#### WINDOWS LSA SECREATS
+
+- The Local Security Authority manages the Windows system’s local security policy
+- LSA secrets stores system sensitive data, such as:
+	- User passwords (Internet Explorer, Windows Messenger, Dialup/VPN)
+	- Internet Explorer and Windows Messenger passwords
+	- Service account passwords (Services on the machine that require authentication with a secret)
+	- Cached domain password encryption key
+	- SQL passwords
+	- SYSTEM account passwords
+	- Account passwords for configured scheduled tasks
+	- Time left until the expiration of an inactivated copy of Windows
+- Access to the LSA secret storage is only granted to SYSTEM account processes
+
+##### TOOLS to Dump Windows LSA Secrets
+- Metasploit post/windows/gather/lsa_secrets
+- Cain & Abel
+- Mimikatz
+- pwdump
+- LSAdump
+- Procdump
+- secretsdump.py
+- Creddump
+- CacheDump
+- QuarksDump
+- Gsecdump
+- hobocopy
+
+
+#### WINDOWS HASHES
+- Windows actually stores a user's password hash twice
+	- In LM and NT hash formats
+	- Both used by SAM and Active Directory for Backward compatibility
+- LM
+	- Specialized unsalted 56-bit DES one-way encryption (not a true hash)
+	- Case-insensitive printable ASCII
+	- 14 Characters exactly (Shorter passwords are NULL padded become 14 characters)
+	- Actual keyspace (possible character combinations) is reduced to 69
+- NT Hash
+	- Unicode (keyspace is 65536 characters)
+	- 127 Characters max
+	- unsalted MD4
+
+#### LM SHASHING PROCESS
+- The user's password is restricted to a maximum of fourteen characters
+- The user’s password is converted to uppercase
+- The user's password is encoded in the System OEM code page
+	- Printable ASCII characters except DEL
+- This password is NULL-padded to an exact length of 14 bytes
+- The 14-byte password is split into two 7-byte halves
+- Each half is used to create a DES encryption key
+	- One from each half with a parity bit added to each to create 64-bit keys.
+- Each DES key is used to encrypt a preset ASCII string (KGS!@#$%)
+	- Results in two 8-byte ciphertext values
+- The two 8-byte ciphertext values are combined to form a 16-byte value
+	- This is the completed LM hash
+
+#### WINDOWS LAN MANAGER AUTHENTICATION
+
+- Windows LAN Manager authentication protocol has three variants
+- All have these characteristics:
+	- Challenge-response (Challenge handshake) based
+	- No support for multifactor authentication
+	- Unsalted password hashes allow attacker to "pass the hash" to authenticate
+- You can configure Group Policy to allow /disallow LM and NTLM
+
+
+| LAN Manager Authentical protocol | Description                  |
+| -------------------------------- | ---------------------------- |
+| LM                               | Des-based LM hash            |
+| NTLM (NTLMv1)                    | DES-based unicode pwd        |
+| NTLMv2                           | Challenge handshake with MD4 |
+
+> windows network security : LAN Manager authentication level property can be configured  for which type of authentication required.
+##### LM and NTLM Authentication
+1. Client initiate with 'Authen_Request'
+2. Server Response with "Server_Challenge" nonce
+3. Client provide "LM Response-" DES (LM Hash, nonce)
+4. also Client provide NTLM Response - DES (Unicode pwd, nonce)
+5. Finally server response with 'Authn_result'
+
+
+##### NTLMv2 Authentication
+
+1. Client initiate with 'Authen_Request'
+2. Server Response with "Server_Challenge" nonce
+3. Client provide "LM Response-" DES (DUMMY)
+4. also Client provide NTLM v2 Response - f (Unicode pwd, nonce (s), nonce (c) )
+5. Finally server response with 'Authn_result'
+
+
+#### ONLINE WINDOWS PASSWORD CRACKING TOOLS
+
+- Meterpreter hashdump
+- Metasploit modules:
+	- post/windows/gather/hashdump
+	- post/windows/gather/credentials/credential_collector
+- Cachedump
+- Samdump2
+- fgdump.exe
+- pwdump7.exe
+- Gsecdump
+- hobocopy
+- L0pht
+
+#### NETWORK SERVICE PASSWORD CRACKING TOOLS
+
+- Medusa
+- THC hydra
+- Brutus
+- Wfuzz
+- NetBIOS auditing Tool
+
+#### OFFLINE WINDOWS SAM CRACKING TOOLS
+- Hashcat
+- John the Ripper
+- L0ohtCrack
+- Ophcrack
+- Rainbow Crack
+- Cain and Abel
+- Vssown.vbs
+> Based on the benchmarking finding a fully outfitted password hashing rig with eight RTX 4090 GPUs would have the computing power to cycle through all 200 billion iterations of an eight-character (NT hash) password in 48 minutes and LM password can be cracked in 15 seconds
+
+#### SYSKEY AND BITLOCKER EXPLOITS
+- Tools to crack syskey
+	- bkhive
+	- bkreg(pre-service pack 4 machines)
+- Bitlocker replaced Syskey
+	- It encrypts the entire disk
+	- the key is stored in the trusted platform module chip on the motherboard
+	- You can create a recovery disk to type in the long recovery key
+- Tools to crack the bitlocker key
+	- Elcomsoft Forensic Disk Decryptor
+	- 
+
+Active Directory Authentication
+- Uses Kerberos v5
+	- Two way pass-through authentication
+	- Supports multi-factor authentication
+	- Time-limited to reduc replay attacks
+- Can be forced down to NTLM
+- Passwords stored in active Directory database ntds.dit
+	- Stored in NT HAsh format
+- Uses a ticket based system to improve performance
+	- Authenticated user is given a time limited ticket granting ticket (TGT)
+	- TGT is presented at each resource-hosting server the user visits.
+	- Resources server grants the user a time-limited session ticket
+	- The user does not have to authenticate again until the session ticket expires (10 hours)
+
+#### KERBEROS GOLDEN TICKET
+- TGTs are encrypted by the password hash of system account called krbtgt
+- Kerberos authentication assumes that any TGT encrypted with the KRBTGT password has is legitimate
+- An attacker can create their own Golden Ticket with the following information
+	- Domain Name
+	- Domain SSI
+	- Username to impersonate
+	- Krbtgt NTLM hash
+- The NTLM hash of the krbtgt account can be obtained via the following methods
+	- DCSync (Mimikatz)
+	- LSA (Mimikatz)
+	- Hashdump (Meterpreter)
+	- NTDS.DIT
+	- DCSync (Kiwi)
+- Use mimkatz to create a golden Ticket
+``` kerberos::golden /user:evil /domain:pentestlab.local /sid:<krbtgt SID> /krbtgt NTLM hash> /ticket:/evil.tck /ptt
+```
+
+
+#### ACTIVE DIRECTORY PASSWORD CRACKING
+
+- Online attacks
+	- Use a password sprayer
+	- Meterpreter hashdump
+	- Metasploit smart_hashdump
+- Offline attacks
+	- Obtain a copy of the Active Directory database (ntds.dit)
+	- Attempt to crack the stored NT hashes
+	- Tools include
+		- ntdutil.exe
+		- VSSAdmin
+		- Powersploit NinjaCopy
+		- DSInternals Powershell module
+		- ntds_dump_hash.zip
+		- Metasploit modules
+			- post/windows/gather/ntds_location
+			- post/windows/gather/ntds_grabber
+
+##### KERBEROS PASSWORD CRACKING TOOLS (KERBEROSTING)
+- Mimikatz
+- Powersploit
+- John the Ripper
+- Hashcat
+- Kerberosting tool kit (github/nidem.kerberoast)
+- Empire
+- Impact
+- Metasploit module (auxiliary/gather/get_user_spns)
+
+
+#### Tools to Dump Cached Domain Credentials 
+- Active Directory permits users to authenticate to their computer using cached domain credentials
+	- This is useful for telecommuters and users who do not have access to the coporate network when they first log on to their laptop
+	- The default policy permits 10 logons using cached credentials
+	- After that, the user must actually authenticate against a domain controller
+- Tools to dump cached credentials include:
+	- Cain & Abel
+	- Creddump
+	- Passcape's windows password recovery
+	- Cachedump
+	- Fgdump
+	- PWDumpX
+
+#### GROUP POLICY PREFERENCES
+- Group policy preferences (GPP) allow a domain administrator to use Group Policy to set local passwords on domain-joined computers
+	- Often used to set a local administrator passwords on domain-joined clients and servers.
+- Tools to dump passwords delivered by GPP include
+	- Metasploit module post/windows/gather/credentials
+	- Powersploit Get-GPPPassword.ps1
+	- gppprefdecrypt.py
+
+
+### 6.14 Linux password Attacks
+
+
+| Attack Method                                                                                                              | Tools                                                                                                           |
+| -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| BRUTE force service passwords<br>SSH, telnet, FTP, HTTP, samba, VNC, etc                                                   | - John the Ripper<br>- Medusa<br>- THC Hydra<br>- NCrack<br>- Crowbar<br>- Metasploit auxiliary/scanner modules |
+| copy /etc/passwd and /etc/shadow files<br>unshadown (combine) the copies<br>send combined copy to  a password cracker      | John the Ripper<br>- Medusa<br>- THC Hydra<br>- NCrack<br>- Crowbar                                             |
+| Dump hashes from a compromised machine<br>Send hashes to a password cracker                                                | - Metasploit module post/linux/gather/hashdump<br>- John the Ripper<br>- RainbowCrack<br>- Hashcat<br>          |
+| Dump cleartext passwords currently stored in memory                                                                        | Mimipenguin (GitHub)                                                                                            |
+| Pass the hash if passwords take too long to<br>crack. Works particularly well against Samba with LM or NTLM authentication | Metasploit module<br>auxiliary/scanner/smb/smb_login                                                            |
+| Install a physical or software based keylogger                                                                             | - Meterpreter keyscan_start and keyscan_dump commands<br>- USB keyloggers                                       |
+| Install a physical or software based keylogger                                                                             | <br>- Kali Social Engineering Toolkit (SET)<br>- WiFi-pumpkin                                                   |
+| Boot the target computer into single user<br>mode to reset the root password                                               | - Reboot and edit GRUB to enter single user mode<br>- Change the root password                                  |
+|                                                                                                                            |                                                                                                                 |
+
+
+### 6.15 OTHER METHODS FOR OBTAINING PASSWORDS
+
+#### ADDITIONAL  PASSWORD ATTACKDS
+
+
+ - Use privileges from buffer overflow, etc., to create a new account
+- Impersonate a user token:
+	- Meterpreter steal_token command
+		- Formerly Incognito
+- Use a dumped hash to create a new account or Kerberos ticket
+- Sniffing / intercepting
+- Installation and configuration files
+	- Text editor
+	- Knowledge of and access to answer file location
+ - Keylogging:
+	- Meterpreter keyscan_start and keyscan_dump commands
+	- USB keyloggers
+- Social engineering:
+	- Phishing
+	- Eavesdropping / shoulder surfing / dumpster diving
+	- Kali Social Engineering Toolkit (SET)
+	- WiFi-Pumpkin
+	- Bribery / persuasion
+	- Coercion (Rubber Hose Attack!)
+- Boot into another Operating System and overwrite existing password storage
+	- CHNTPW
+	- Ultimate Boot CD for Windows
+	- BartPE
+	- Offline NT Password & Registry Editor
+	- http://pogostick.net/~pnh/ntpasswd/
+
+
+##### PASSIVE NETWORK SNIFFING WITH WIRESHARK 
+> works if the sniffer is on the same shared network segment. Capture clear text credentials
+
+##### ARP POISIONING with tools like
+- ETTERCAP: capture login session
+- 'Cain & Abel' : capture and crack password hash
+
+
+##### LLMNR POISONING
+- Link-Local Multicast Name Resolution (LLMNR) and Netbios Name Service (NBT-NS) are local Microsoft name resolution mechanisms
+	- Used when DNS lookups fail
+- NBT-NT is legacy
+	- Broadcast-based
+- LLMNR was introduced in Windows Vista
+	- Multicast-base
+- LLMNR spoofing tools
+	- Responder
+	- Metasploit
+	- NBNSpoof
+	- NBNSpoof
+	- Inveigh
+
+##### CHNTPW
+- A software utility for resetting or blanking local passwords in windows
+- Overwrites the space on disk where the the passwords are stored
+- Available
+	- as a downloadable ISO
+	- In Ubuntu 9.10 linux LiveCD
+	- In Kali Linux
+
+
+#### SWAPPING UTILMAN.exe with CMD.exe
+Replacing will obtain system level command prompt without logging in
+- Boot from an alternate OS or a windows installation disk /USB stick
+- At first screen press Shift+f10 to open a command prompt
+- Rename utilman.exe to utilman.old
+- Rename cmd.exe to utilman.exe
+- Restart
+- At the login screen, launch accessibility options
+	- Click icon
+	- or press Windows key +U
+	- Reset the administrator password, create accounts ,etc
+- used for Window NT, 2000, XP, VISTA, 7, 8 , 8.1
+- IT physically overwrites the password section of the SAM file
+
+
+
+### 6.16 NETWORK SERVICE ATTACKS
+
+
+#### ATTACKING SERVICES
+- Services usually listen on well-known network ports
+- They might be vulnerable to network-based attacks including:
+	- Buffer overflows
+	- Password brute forcing
+	- Password spraying
+- Refer to /etc/services text file for common well-known ports and their services
+- `Windows: %systemroot%\system32\drivers\etc\services`
+- Use nmap -A to scan to interrogate ports and their listening services for their - version
+	- Then research exploits for that version
+
+#### NETWORK SERVICE ATTACKS
+- Performed by directly communicating with the victim's machine
+- Includes:
+	- Dictionary and Brute-force attacks
+	- hash injections
+	- installation via social engineering
+	- Trojans
+	- spyware
+	- keyloggers
+	- password guessing
+
+#### CLEAR TEXT TCP PROTOCOLS
+
+| Service              | TCP Port |
+| -------------------- | -------- |
+| FTP                  | 21,20    |
+| TELNET               | 23       |
+| SMTP                 | 25       |
+| HTTP                 | 80       |
+| POP3                 | 110      |
+| IMAPv4               | 143      |
+| NetBIOS/SMB/WinLogon | 139,445  |
+| SQLnet               | 1521     |
+
+
+#### CLEAR TEXT UDP PROTOCOLS
+
+| Service | UDP Port |
+| ------- | -------- |
+| DNS     | 53       |
+| TFTP    | 69       |
+| SNMP    | 161, 162 |
+| RADIUS  | 1812     |
+|         |          |
+
+#### INTERCEPTING TRANSMITTED PASSWORDS
+- Sniff the network in hopes of intercepting a password (clear text or hash)
+- Passive sniffing or MITM
+- Tools for intercepting passwords:
+	- Cain and Abel
+		- ARP poisoner and password cracker
+	- Ettercap
+		- MITM ARP poisoner
+	- KerbCrack
+		- Built-in sniffer and password cracker
+		- Looks for Kerberos Port 88 traffic
+	- ScoopLM
+		- Specifically looks for Windows authentication traffic
+		- Has a built-in password cracker
+
+
+#### WHY BRUTE FORCE NETWORK SERVICES
+- Users regularly log into network services
+- Network services often store user credentials in the operating system
+	- Services are integrated into the OS
+	- Many services do not maintain their own usernames/passwords
+	- They use operating system accounts
+	- Once cracked, the credentials can be used to log in directly to the OS or against other
+	- network services
+- Target a user account that cannot be locked out, such as administrator or root
+	- An administrator might also configure a service account to never be locked out
+
+
+
+#### NETWORK BRUTE FORCING TOOLS
+- THC-Hydra
+- Medusa
+- Ncrack
+- AET2 Brutus
+- L0phtcrack
+- Metasploit auxiliary/scanner modules
+
+##### SAMPLE AUTOMATED SMB LOGIN SCRIPT
+
+
+```
+\\ credentials.txt contains space separeted rows 'username password'
+FOR /F “tokens=1,2*” %i in (credentials.txt)^
+do net use \\server\IPC$ %j /u:company.com\%i^
+2>>nul^
+&& echo %time% %date% >> outfile.txt^
+%% echo \\server acct: %i pass: %j >> outfile.txt
+```
+
+### 6.17 POST EXPLOITATION
+
+#### WHAT IS PRIVILEGE ESCALATION?
+- Exploiting a bug, design flaw or configuration oversight in an operating system or - software application
+- Typically performed after you successfully compromise a host with standard/low-level credentials
+	- You want to elevate your attacker session to root/administrator, or preferably SYSTEM
+	- Escalation is usually performed as a local exploit on the compromised host
+- There are two types of privilege escalation:
+	- Vertical
+		- A Lower-level user or process executes code at a higher privilege level
+		- Example: A standard user account gains administrator/root privilege
+	- Horizontal
+		- Execute code at the same privilege level
+		- But from a location that would normally be protected from access
+
+
+#### PRIVILEGE ESCALATION EXAMPLE
+
+- Attacker performs Reconnaissance
+- perform SQL injection
+- Hash Crack
+- Admin login
+- Privilege escalation (as root)
+
+
+#### PRIVILEGE ESCLATION METHODS
+
+
+| Method / Vulnerability                | Description                                                                                                                                                                                                                                                  |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Kernel exploits                       | Exploit weaknesses in the OS Kernel                                                                                                                                                                                                                          |
+| Writable services                     | Edit the startups parameters of a service, including its executable path and account<br>Use unquoted service paths to inject a malicious app that the service will run at start up                                                                           |
+| User application compromise           | - Compromise applications such as Internet Explorer, Adobe Reader, or VNC to gain access to a workstation<br>- Use UAC bypass techniques to escalate privilege<br>- Attacks typically require a victim to open a file or web page through social engineering |
+| Local User Access Control bypass      | - Bypass local windows UAC<br>- Use process injection to leverage a trusted publisher certificate                                                                                                                                                            |
+| Weak process permissions              | - Find processes with weak controls and attempt to inject malicious code into those processes                                                                                                                                                                |
+| Shared folders                        | - Search for sensitive information is shared folders                                                                                                                                                                                                         |
+| DLL hijacking                         | <br>- Elevate privileges by exploiting weak folder permissions, unquoted service paths, or applications that run from network shares<br>- Replace legitimate DLLs with malicious ones                                                                        |
+| Task Scheduler 2.0                    | - Task Scheduler 2.0 does not properly determine the security context of its scheduled tasks, allowing an attacker to escalate privilege<br>- Affects windows Vista SP1 / SP2 windows Servers 2008 Gold, SP2/ R2 Window 7<br>-CVE-2010-3338,MS10-092         |
+| Missing patches and misconfigurations | - Search for missing patches or common misconfiguration that can lead to privilege escalation                                                                                                                                                                |
+| Windows unquoted service paths        | - Spaces in a executable's path provide opportunity to inset a malicious version earlier in the path.<br>`c:\Program Files\Folder A` . if program.exe is not found then c:\program files\folder.exe will be searched.                                        |
+|                                       |                                                                                                                                                                                                                                                              |
+#### LINUX PRIVILEGE ESCALATION TECHNIQUES
+- look for crontabs and find misconfiguration on privileges
+- Change setuid and setgid on files in linux / unit to run in owner privilege
+	- Insecure sudo can lead a privilege escalation to root
+	- If there's any system command that allows NOPASSWD option this may lead to escalation
+- Privilege Escalation Tools
+	- Metsploit post modules
+	- PowerSploit
+	- Dameware Remote support
+	- ManageEngine Desktop Central
+	- Searchsploit DB
+	- PDQ Deploy
+	- PSExec
+	- TheFatRat
+	- GitHub (248) repos
+- 
+
+#### WHAT is POST EXPLOITATION
+- After you have a Meterpreter prompt, you can run additional Metasploit modules from - within that session
+- These are useful for gathering further information from the target network
+- Metasploit has almost 400 post exploitation modules
+	- Background your Meterpreter session and then search for and execute the desired post module
+- Popular modules include:
+- Hash dumping/credential gathering
+- Local exploit suggester
+- ARP scanner
+- Get local subnets
+- Add a route on target from attacker to internal network
+- Application enumeration
+- User enumeration
+- Example:
+```
+run post/windows/gather/smart_hashdump
+run auxiliary/analyze/jtr_crack_fast
+\\suggest local exploits for privilege escalation
+	post/multi/recon/local_exploit_suggester
+
+\\ Find out if your target is a virtual machine, and what type:
+	post/windows/gather/checkvm
+\\See what countermeasures the target has in places:
+	getcountermeasure
+\\ kill any possible anti-virus running on the target
+	post/windows/manage/killav
+\\Perform an ARP scan for a given range through a compromised host:
+	post/windows/gather/arp_scanner RHOST=<subnet ID/CIDR mask?
+\\ Find out what other subnets the host might be attached to:
+	get_local_subnets
+\\ Attempt to add a route to those subnets into the target's routing table
+	post/multi/manage/autoroute
+	
+
+
+
+
+post
+
+```
+
+
+
+
+
+
 
 
 #### 6.23 SYSTEM HACKING REVIEW p923
