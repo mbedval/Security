@@ -8,11 +8,16 @@
         "type": "tabs",
         "children": [
           {
-            "id": "03830f274fa115a0",
+            "id": "430ef46cb6192614",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "CeHV11_notes/Module07.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              }
             }
           }
         ]
@@ -82,6 +87,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "CeHV11_notes/Module07.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -98,6 +104,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "CeHV11_notes/Module07.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -119,7 +126,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "CeHV11_notes/Module07.md"
+              }
             }
           }
         ],
@@ -140,11 +149,17 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "03830f274fa115a0",
+  "active": "430ef46cb6192614",
   "lastOpenFiles": [
+    "CeHV11_notes/Difference Between.md",
+    "CeHV11_notes/Module01.md",
     "CeHV11_notes/Module06.md",
+    "Skillsets/Head of Cyber Security (Adani).md",
+    "CeHV11_notes/0Outline.md",
+    "CeHV11_notes/Module02.md",
+    "CeHV11_notes/Module07.md",
+    "Skillsets",
     "CeHV11_notes/References.md",
-    "CeHV11_notes/module01.md",
     "Tools_Usage/NETCAT.md",
     "Tools_Usage/Meterpreter.md",
     "Pasted image 20240623185138.png",
@@ -153,8 +168,6 @@
     "M01_Introduction to ethical hacking/01_Introduction to ethical Hacking.md",
     "CeHV11_notes/Module04.md",
     "M04_Enumeration/01 NetBIOS Enumeration.md",
-    "CeHV11_notes/Difference Between.md",
-    "CeHV11_notes/0Outline.md",
     "Untitled.md",
     "CeHV11_notes/Module03.md",
     "Tools_Usage/Nmap.md",
@@ -162,7 +175,6 @@
     "Pasted image 20240618180826.png",
     "Pasted image 20240618180348.png",
     "Security/Popular Ports.md",
-    "CeHV11_notes/Module02.md",
     "CeHV11_notes/Untitled 3.md",
     "CeHV11_notes/Untitled 2.md",
     "CeHV11_notes/Untitled 1.md",
@@ -171,8 +183,6 @@
     "2024-06-16.md",
     "Tools_Usage/00_toolsList.md",
     "M04_Enumeration/00_Enumeration.md",
-    "M04_Enumeration/07.1 SMTP Enumeration.md",
-    "M04_Enumeration/07.2 DNS Enumeration.md",
     "images",
     "images/Pasted image 20240531185710.png",
     "images/Pasted image 20240531185508.png",

@@ -1,5 +1,5 @@
 #### - **Module 1 - Introduction To Ethical Hacking**
-[[module01]]
+[[Module01]]
 - 1.1 Elements of Security
 - 1.2 Cyber Kill Chain
 - 1.3 MITRE ATT&CK Framework
