@@ -365,4 +365,106 @@ To Install a RAT
 | Imminent monitor RAT | Popular amount domestics abusers , used to spy on victims devices                                                                                  |
 | ZuoRat               | Targets SOHO Routers in North America , Euope                                                                                                      |
 |                      |                                                                                                                                                    |
+#### Command Shell Trojan
+Provides the attacker the command prompt of a remote target
+Opens a port on the target for the attacker to connect
+A client is installed on the attacker's computer to make the connection
+
+
+#### NetCat Backdoor
+Provides a backdoor command prompt nc -l -p 4444 < ~/myfile 
+Netcat Setup up a listener on TCP port 4444
+A hacker uses netcat to make connection to the listener:
+	`nc <vitim IP 4444`
+When netcat detects the connection, it sends the file myfile from the user's home directory to the attacker
+
+#### TROJAN SCEARNIO
+What does the following command do:
+	`nc -l -u -p5555 < /etc/passwd`
+Ans: Netcat setup a back door listener on UDP port 55555. When a client connects to the port, it will exfiltrate the /etc/passwd file, sending it to the client
+
+#### VNC TROJAN
+Starts a VNC server daemon in the target system
+VNC is considered a legitimage remote control utility
+Attacker connects to the target using any VNC viewer
+Because VNC is commonly used by sysadmins for routine server administration, it is hard to tell if the connection is legitimate of from VNC trojan
+
+#### VNC TROJAN EXAMPLE - HESPERBOT
+A banking Trojan with common trojan feature including
+	Keystroke logging
+	Capturing screenshots and video
+	Configuring remote proxies
+Creates a hidden VNC server for the attacker to connect to the target remotely
+VNC does not log the user off the way RDP does
+The attacker can connect to the target computer while a user is working
+
+
+#### OVERT and COVERT Channels
+Overt Channels
+	Legitimates communication channels used by programs
+Covert Channels
+	Used to transport data in unintended ways
+	Typically done through "tunneling" (hiding) one protocol inside another
+	Used to evade detection
+	Some Trojan clients use covert channels to send instructions to the Trojan Server 
+	Can also be used for command and control communications.
+
+#### ICMP Tunneling
+Uses ICMP echo request and reply to carry a payload and silently access or control a target computer
+Example Tools:
+	Icmpsend
+	Loki
+	icmp.sh
+	Ping Tunnel
+	Ping Tower
+
+#### E-Banking Trojan
+Intercepts a target's banking account information before it is encrypted
+	Sends its to the attacker's Trojan command and control center
+ Steals the target's data including credit card information
+	 Transmits it to remote hackers using email, FTP, IRC and other methods
+Example:
+	Trojan Intrusion : compromised deploys Trojan intrusion to victim
+	Login credentials phone etc. : so attacker gets credentials and personal detail to attacker 
+	SMS with link of Trojan: Attacker deploy trojan via sms to victim 
+	Mobile Trojan : Compromised website deploy mobile trojan to victim
+	Unauthorized money Transfer  : Attacker attempt to do money transfer
+	SMS with Code : Verification OTP code reach to Mobile or victim
+	SMS with Code  : Trojan pass that OTP to attacker
+	Code : Attacker enters the OTP to complete the E-Banking transaction.
+
+#### TYPE of E-Banking Trojans
+Tan Grabber
+	Trojan Intercepts valid Transaction Authentication Number (TAN) entered by the user
+	Replaces the TAB with a random number that will be rejected by the bank
+	Attacker can use the intercepted TAN with the user's login details
+HTML Injection:
+	Trojan creates fake forms fields on e-banks pages
+	Fields elicit extra information (card number, date of birth, etc)
+	Attacker can use to impersonate and compromise target's account
+Form Grabber
+	Trojan analyses POST requests and responses to target's browser
+	Compromises the scramble pad authentication
+	Intercepts scramble pad input as user enters customer Number and Personal Access Code
+
+#### E-Banking Trojan Examples
+The main purpose of Zeus and SpyEye is to steal bank and credit card account information FTP data, and other sensitve informtaaion from infected computers using web browsers and protected storage
+SpyEye can automatically and quickly initiate online transactions
+Additional E-Banking Trojans includes
+	Citadel Builder
+	Ice IX
+	Retefe
+	FluBot
+	Fobber
+	Banker Trojan
+	Feodo
+	Gozi
+	GozNym
+	Emotet
+	Kronos
+	
+		
+
+
+
 
