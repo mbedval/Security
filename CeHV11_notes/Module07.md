@@ -463,7 +463,126 @@ Additional E-Banking Trojans includes
 	Emotet
 	Kronos
 	
-		
+
+### 7.4 ROOTKITS
+Software Put in place by attacker to obscure system compromise
+Often replaces a legitimate operating system file with an infected one
+Hides processes and files
+Also allows for future access
+Very hard to detect
+	Its activities run at a very low level
+	Below antivirus and other auditing software
+Often used to provide advanced Persistent Threat backdoor access
+
+#### Where ROOTKITS can be placed
+Hypervisor Level : Modifies the boot sequence of a host system to load a vM as the host OS
+Hardware : Hides malwares in devices or fireware
+Boot Loader Level : Replaces the boot loader with one controlled by the hacker
+Application Level : Replaces valid application files with Trojans
+Kernel Level : Replaces kernel code with back-door code
+Library Level : uses system-level calls to hide themselves
+
+#### ROOTKIT tools
+Horse Pill : Linux Kernel rootkit inside initrd
+GrayFish Rootkit : Windows rootkit injected into the boot record
+Firefef : Multiple component malware family
+Necurs :
+WindBird : 
+Avatar : 
+Azazel :
+Zero Access
+Alureon
+
+#### ROOTKit detection methods
+
+Integrity-based
+	Hash key files and periodically check if the hash has changed
+Signature-based:
+	Compare all system process and executed files to a database with known rootkit signatures
+Heuristic / Behavior-based:
+	Look for any deviation is the system's normal activity
+Runtime execution path profiling:
+	Compare runtime execution paths of all system processes and executables before and after infection
+Cross View Based
+	Compared key elements of the OS such as system files, processes, registry keys to a know good state.
+
+#### Detection Rootkits in Windows
+Check the file system
+	Save results of dir /s /b /ah  and dir /s /b /a-h compare to that of a clean system
+	User WinDiff, TripWire and sigVerif to check hashes
+Examine the registery
+	Compare an export of `HKEY_LOCAL_MACHINE\SOFTWARE` and `HKEY_LOCAL_MACHINE\SYSTEM` to those of known clean system
+
+#### ANTI-ROOTKIT Tools
+Stinger
+Avast
+TDSSkiller
+Malwarebytes
+Rootkit buster
+UnHackme
+Sophos virus remove tool
+F-Secure Anti-Virus
+SanityCheck
+GMER
+
+#### HOW to defend against ROOTKITS
+
+Be prepared to reinstall the OS and apps from a trusted source
+Perform kernel memory dump analysis
+Install rootkit scanners
+Harden the system against attack
+Install a HIDs / HIPS
+keep System patched and monitored
+
+> ROOTKIT SCENARIO : By attaching itself to the master boot record in a hard drive and changing the machine's boot sequence / options
+
+
+### 7.5 Other Malware
+
+##### FILELESS MALWARE
+- FileLess Malware is type of a malicious software that uses legitimate program to infect a computer
+- It does not rely on files and leaves no footprint, making it challenging to detect and remove
+- Fileless malware has been effective in evading all but the most sophisticated security solutions
+- Fileless attacks are often undetectable by antivirus, whitelisting and other traditional endpoint security solutions
+Fileless Example:
+- User clicks on link in spam email 
+- website loads flash and trigger exploit 
+- Shellcode launches PowerShell (PS) with CMD  line to download and execute payload in memory only.
+- Download and in-memory execution and reflectively load code. Payload can perform exfiltration damage, exe.
+- Shellcode launches PowerShell (PS) with cmd line to download and execute payload in memory only.
+
+##### FAKE ANTIVIRUSES
+- Attackers disguise malware as an antivirus and trick user/s into installing on one's system.
+- Fake antiviruses damage target systems and can be consider malware
+
+##### ADWARE
+- Malicious software that automatically displays advertisements online to generate revenue for its author
+- Advertisements may appear in the user interface of the software, onscreen during the installation process, on in a browser
+- It can even contain Trojan horses and spyware
+- Not always dangerous
+- It some cases it is designed to 
+	- Analyze internet sites visited
+	- Present advertising content
+	- Install additional programs on the device
+	- Redirect your Brower to unsafe sites
+
+##### SPYWARE
+- Runs secretly on a computer
+- Collects information about a person or organization without their knowledge
+- Collect information about a person or organization without their knowledge
+- transmits that information back to a anther entity for financial again
+- Does not disrupt a device operations
+- Targets sensitive information
+- Can grant remote access to hackers
+- Often used to steal financial or personal information
+- A keylogger is a specific type of spyware
+
+##### Logic Bomb : 
+executes a program when certain event happens or a date and time arrives
+##### Cryptominning malware
+Currently the predominant global malware threat
+Heavily utilizes the compromised machines resources to mine cryptocurrency
+Infects desktop computer, laptops and even mobile phone and IoT devices
 
 
 

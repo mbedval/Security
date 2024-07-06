@@ -11,8 +11,13 @@
             "id": "b0946e8f0b40cd47",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "CeHV11_notes/Module07.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              }
             }
           }
         ]
@@ -82,6 +87,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "CeHV11_notes/Module07.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -98,6 +104,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "CeHV11_notes/Module07.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -119,7 +126,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "CeHV11_notes/Module07.md"
+              }
             }
           }
         ],
@@ -140,7 +149,7 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "b0946e8f0b40cd47",
+  "active": "85c2d5699432f91b",
   "lastOpenFiles": [
     "CeHV11_notes/Module07.md",
     "CeHV11_notes/Difference Between.md",
