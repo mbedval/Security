@@ -9,18 +9,18 @@ Classified by the payload or malicious action it performs
 - Social engineering is often used to trick users into installing malware
 
 #### Types of Malware
-Viruses
-Worms
-Trojans
-Ransomeware
-Bots
-Adware
-Spyware
-Browser hijackers
-Rootkits
-Keyloggers
-Fileless malware
-Malvertising
+- Viruses
+- Worms
+- Trojans
+- Ransomeware
+- Bots
+- Adware
+- Spyware
+- Browser hijackers
+- Rootkits
+- Keyloggers
+- Fileless malware
+- Malvertising
 
 #### How Malware Works
 Two phases to malware
@@ -259,15 +259,15 @@ Phase 2: Callback
 	- Ghost Eye Worm
 		- Uses random messaging on Facebook and other sites to perform a host of malicious efforts
 #### WORM EXAMPLES
-Badtrans
-Conficker
-Struxnet
-Morris
-Code Red II : around 359k computers were infected within 14 hours
-Nimda
-ILOVEYOU
-SQL Slammer
-Sasser
+- Badtrans
+- Conficker
+- Struxnet
+- Morris
+- Code Red II : around 359k computers were infected within 14 hours
+- Nimda
+- ILOVEYOU
+- SQL Slammer
+- Sasser
 #### Worm Maker Example
 - InternetWormMaker Thing v4
 - 
@@ -337,14 +337,14 @@ menu, dialog boxes, icons strings, bitmaps, logos, etc
 - Thousands of computers on the Internet are infected with proxy serves using this technique.
 
 #### REMOTE ACCESS TROJAN (RAT)
-Malicious program that run on system and allow intruders to access and use a system remotely.
-Works like remote desktop access
-Attacker gains complete graphic user interface (GUI ) access to the target computer remotely
-To Install a RAT
-	Infect target computer with server.exe
-	Plant reverse connecting Trojan
-	Trojan connect to port 80 to establish the reverse connection
-	Attacker has complete control over target computer
+- Malicious program that run on system and allow intruders to access and use a system remotely.
+- Works like remote desktop access
+- Attacker gains complete graphic user interface (GUI ) access to the target computer remotely
+- To Install a RAT
+	- Infect target computer with server.exe
+	- Plant reverse connecting Trojan
+	- Trojan connect to port 80 to establish the reverse connection
+	- Attacker has complete control over target computer
 
 #### HTTP RAT
 - Display ads, records personal data/ keystrokes
@@ -366,173 +366,173 @@ To Install a RAT
 | ZuoRat               | Targets SOHO Routers in North America , Euope                                                                                                      |
 |                      |                                                                                                                                                    |
 #### Command Shell Trojan
-Provides the attacker the command prompt of a remote target
-Opens a port on the target for the attacker to connect
-A client is installed on the attacker's computer to make the connection
+- Provides the attacker the command prompt of a remote target
+- Opens a port on the target for the attacker to connect
+- A client is installed on the attacker's computer to make the connection
 
 
 #### NetCat Backdoor
-Provides a backdoor command prompt nc -l -p 4444 < ~/myfile 
-Netcat Setup up a listener on TCP port 4444
-A hacker uses netcat to make connection to the listener:
-	`nc <vitim IP 4444`
-When netcat detects the connection, it sends the file myfile from the user's home directory to the attacker
+- Provides a backdoor command prompt nc -l -p 4444 < ~/myfile 
+- Netcat Setup up a listener on TCP port 4444
+- A hacker uses netcat to make connection to the listener:
+	- `nc <vitim IP 4444`
+- When netcat detects the connection, it sends the file myfile from the user's home directory to the attacker
 
 #### TROJAN SCEARNIO
-What does the following command do:
-	`nc -l -u -p5555 < /etc/passwd`
-Ans: Netcat setup a back door listener on UDP port 55555. When a client connects to the port, it will exfiltrate the /etc/passwd file, sending it to the client
+- What does the following command do:
+	- `nc -l -u -p5555 < /etc/passwd`
+- Ans: Netcat setup a back door listener on UDP port 55555. When a client connects to the port, it will exfiltrate the /etc/passwd file, sending it to the client
 
 #### VNC TROJAN
-Starts a VNC server daemon in the target system
-VNC is considered a legitimage remote control utility
-Attacker connects to the target using any VNC viewer
-Because VNC is commonly used by sysadmins for routine server administration, it is hard to tell if the connection is legitimate of from VNC trojan
+- Starts a VNC server daemon in the target system
+- VNC is considered a legitimage remote control utility
+- Attacker connects to the target using any VNC viewer
+- Because VNC is commonly used by sysadmins for routine server administration, it is hard to tell if the connection is legitimate of from VNC trojan
 
 #### VNC TROJAN EXAMPLE - HESPERBOT
-A banking Trojan with common trojan feature including
-	Keystroke logging
-	Capturing screenshots and video
-	Configuring remote proxies
-Creates a hidden VNC server for the attacker to connect to the target remotely
-VNC does not log the user off the way RDP does
-The attacker can connect to the target computer while a user is working
+- A banking Trojan with common trojan feature including
+	- Keystroke logging
+	- Capturing screenshots and video
+	- Configuring remote proxies
+- Creates a hidden VNC server for the attacker to connect to the target remotely
+- VNC does not log the user off the way RDP does
+- The attacker can connect to the target computer while a user is working
 
 
 #### OVERT and COVERT Channels
-Overt Channels
-	Legitimates communication channels used by programs
-Covert Channels
-	Used to transport data in unintended ways
-	Typically done through "tunneling" (hiding) one protocol inside another
-	Used to evade detection
-	Some Trojan clients use covert channels to send instructions to the Trojan Server 
-	Can also be used for command and control communications.
+1. Overt Channels
+	1. Legitimates communication channels used by programs
+2. Covert Channels
+	1. Used to transport data in unintended ways
+	1. Typically done through "tunneling" (hiding) one protocol inside another
+	1. Used to evade detection
+	1. Some Trojan clients use covert channels to send instructions to the Trojan Server 
+	1. Can also be used for command and control communications.
 
 #### ICMP Tunneling
-Uses ICMP echo request and reply to carry a payload and silently access or control a target computer
-Example Tools:
-	Icmpsend
-	Loki
-	icmp.sh
-	Ping Tunnel
-	Ping Tower
+- Uses ICMP echo request and reply to carry a payload and silently access or control a target computer
+- Example Tools:
+	- Icmpsend
+	- Loki
+	- icmp.sh
+	- Ping Tunnel
+	- Ping Tower
 
 #### E-Banking Trojan
-Intercepts a target's banking account information before it is encrypted
-	Sends its to the attacker's Trojan command and control center
- Steals the target's data including credit card information
-	 Transmits it to remote hackers using email, FTP, IRC and other methods
-Example:
-	Trojan Intrusion : compromised deploys Trojan intrusion to victim
-	Login credentials phone etc. : so attacker gets credentials and personal detail to attacker 
-	SMS with link of Trojan: Attacker deploy trojan via sms to victim 
-	Mobile Trojan : Compromised website deploy mobile trojan to victim
-	Unauthorized money Transfer  : Attacker attempt to do money transfer
-	SMS with Code : Verification OTP code reach to Mobile or victim
-	SMS with Code  : Trojan pass that OTP to attacker
-	Code : Attacker enters the OTP to complete the E-Banking transaction.
+- Intercepts a target's banking account information before it is encrypted
+	- Sends its to the attacker's Trojan command and control center
+ - Steals the target's data including credit card information
+	 - Transmits it to remote hackers using email, FTP, IRC and other methods
+- Example:
+	- Trojan Intrusion : compromised deploys Trojan intrusion to victim
+	- Login credentials phone etc. : so attacker gets credentials and personal detail to attacker 
+	- SMS with link of Trojan: Attacker deploy trojan via sms to victim 
+	- Mobile Trojan : Compromised website deploy mobile trojan to victim
+	- Unauthorized money Transfer  : Attacker attempt to do money transfer
+	- SMS with Code : Verification OTP code reach to Mobile or victim
+	- SMS with Code  : Trojan pass that OTP to attacker
+	- Code : Attacker enters the OTP to complete the E-Banking transaction.
 
 #### TYPE of E-Banking Trojans
-Tan Grabber
-	Trojan Intercepts valid Transaction Authentication Number (TAN) entered by the user
-	Replaces the TAB with a random number that will be rejected by the bank
-	Attacker can use the intercepted TAN with the user's login details
-HTML Injection:
-	Trojan creates fake forms fields on e-banks pages
-	Fields elicit extra information (card number, date of birth, etc)
-	Attacker can use to impersonate and compromise target's account
-Form Grabber
-	Trojan analyses POST requests and responses to target's browser
-	Compromises the scramble pad authentication
-	Intercepts scramble pad input as user enters customer Number and Personal Access Code
+- Tan Grabber
+	- Trojan Intercepts valid Transaction Authentication Number (TAN) entered by the user
+	- Replaces the TAB with a random number that will be rejected by the bank
+	- Attacker can use the intercepted TAN with the user's login details
+- HTML Injection:
+	- Trojan creates fake forms fields on e-banks pages
+	- Fields elicit extra information (card number, date of birth, etc)
+	- Attacker can use to impersonate and compromise target's account
+- Form Grabber
+	- Trojan analyses POST requests and responses to target's browser
+	- Compromises the scramble pad authentication
+	- Intercepts scramble pad input as user enters customer Number and Personal Access Code
 
 #### E-Banking Trojan Examples
-The main purpose of Zeus and SpyEye is to steal bank and credit card account information FTP data, and other sensitve informtaaion from infected computers using web browsers and protected storage
-SpyEye can automatically and quickly initiate online transactions
-Additional E-Banking Trojans includes
-	Citadel Builder
-	Ice IX
-	Retefe
-	FluBot
-	Fobber
-	Banker Trojan
-	Feodo
-	Gozi
-	GozNym
-	Emotet
-	Kronos
+- The main purpose of Zeus and SpyEye is to steal bank and credit card account information FTP data, and other sensitve informtaaion from infected computers using web browsers and protected storage
+- SpyEye can automatically and quickly initiate online transactions
+- Additional E-Banking Trojans includes
+	- Citadel Builder
+	- Ice IX
+	- Retefe
+	- FluBot
+	- Fobber
+	- Banker Trojan
+	- Feodo
+	- Gozi
+	- GozNym
+	- Emotet
+	- Kronos
 	
 
 ### 7.4 ROOTKITS
-Software Put in place by attacker to obscure system compromise
-Often replaces a legitimate operating system file with an infected one
-Hides processes and files
-Also allows for future access
-Very hard to detect
-	Its activities run at a very low level
-	Below antivirus and other auditing software
-Often used to provide advanced Persistent Threat backdoor access
+- Software Put in place by attacker to obscure system compromise
+- Often replaces a legitimate operating system file with an infected one
+- Hides processes and files
+- Also allows for future access
+- Very hard to detect
+	- Its activities run at a very low level
+	- Below antivirus and other auditing software
+- Often used to provide advanced Persistent Threat backdoor access
 
 #### Where ROOTKITS can be placed
-Hypervisor Level : Modifies the boot sequence of a host system to load a vM as the host OS
-Hardware : Hides malwares in devices or fireware
-Boot Loader Level : Replaces the boot loader with one controlled by the hacker
-Application Level : Replaces valid application files with Trojans
-Kernel Level : Replaces kernel code with back-door code
-Library Level : uses system-level calls to hide themselves
+- Hypervisor Level : Modifies the boot sequence of a host system to load a vM as the host OS
+- Hardware : Hides malwares in devices or fireware
+- Boot Loader Level : Replaces the boot loader with one controlled by the hacker
+- Application Level : Replaces valid application files with Trojans
+- Kernel Level : Replaces kernel code with back-door code
+- Library Level : uses system-level calls to hide themselves
 
 #### ROOTKIT tools
-Horse Pill : Linux Kernel rootkit inside initrd
-GrayFish Rootkit : Windows rootkit injected into the boot record
-Firefef : Multiple component malware family
-Necurs :
-WindBird : 
-Avatar : 
-Azazel :
-Zero Access
-Alureon
+- Horse Pill : Linux Kernel rootkit inside initrd
+- GrayFish Rootkit : Windows rootkit injected into the boot record
+- Firefef : Multiple component malware family
+- Necurs :
+- WindBird : 
+- Avatar : 
+- Azazel :
+- Zero Access
+- Alureon
 
 #### ROOTKit detection methods
 
-Integrity-based
-	Hash key files and periodically check if the hash has changed
-Signature-based:
-	Compare all system process and executed files to a database with known rootkit signatures
-Heuristic / Behavior-based:
-	Look for any deviation is the system's normal activity
-Runtime execution path profiling:
-	Compare runtime execution paths of all system processes and executables before and after infection
-Cross View Based
-	Compared key elements of the OS such as system files, processes, registry keys to a know good state.
+- Integrity-based
+	- Hash key files and periodically check if the hash has changed
+- Signature-based:
+	- Compare all system process and executed files to a database with known rootkit signatures
+- Heuristic / Behavior-based:
+	- Look for any deviation is the system's normal activity
+- Runtime execution path profiling:
+	- Compare runtime execution paths of all system processes and executables before and after infection
+- Cross View Based
+	- Compared key elements of the OS such as system files, processes, registry keys to a know good state.
 
 #### Detection Rootkits in Windows
-Check the file system
-	Save results of dir /s /b /ah  and dir /s /b /a-h compare to that of a clean system
-	User WinDiff, TripWire and sigVerif to check hashes
-Examine the registery
-	Compare an export of `HKEY_LOCAL_MACHINE\SOFTWARE` and `HKEY_LOCAL_MACHINE\SYSTEM` to those of known clean system
+- Check the file system
+	- Save results of dir /s /b /ah  and dir /s /b /a-h compare to that of a clean system
+	- User WinDiff, TripWire and sigVerif to check hashes
+- Examine the registery
+	- Compare an export of `HKEY_LOCAL_MACHINE\SOFTWARE` and `HKEY_LOCAL_MACHINE\SYSTEM` to those of known clean system
 
 #### ANTI-ROOTKIT Tools
-Stinger
-Avast
-TDSSkiller
-Malwarebytes
-Rootkit buster
-UnHackme
-Sophos virus remove tool
-F-Secure Anti-Virus
-SanityCheck
-GMER
+- Stinger
+- Avast
+- TDSSkiller
+- Malwarebytes
+- Rootkit buster
+- UnHackme
+- Sophos virus remove tool
+- F-Secure Anti-Virus
+- SanityCheck
+- GMER
 
 #### HOW to defend against ROOTKITS
 
-Be prepared to reinstall the OS and apps from a trusted source
-Perform kernel memory dump analysis
-Install rootkit scanners
-Harden the system against attack
-Install a HIDs / HIPS
-keep System patched and monitored
+- Be prepared to reinstall the OS and apps from a trusted source
+- Perform kernel memory dump analysis
+- Install rootkit scanners
+- Harden the system against attack
+- Install a HIDs / HIPS
+- keep System patched and monitored
 
 > ROOTKIT SCENARIO : By attaching itself to the master boot record in a hard drive and changing the machine's boot sequence / options
 
@@ -701,17 +701,17 @@ executes a program when certain event happens or a date and time arrives
 
 
 #### Scenario 1 : Botnet
-Your IDS has alerted you that its sensor continuously observer well-known call home messages at the network boundary
-You proxy firewall is properly configured to successfully drop the messags before leaving the network
-Which of the following is MOST likely the cause of the call home messages being sent?
-Answer:  Probably a #zombie . A call home message is an indicator of a zombie beaconing to see if it has instruction from its C2 Server.
+- Your IDS has alerted you that its sensor continuously observer well-known call home messages at the network boundary
+- You proxy firewall is properly configured to successfully drop the messags before leaving the network
+- Which of the following is MOST likely the cause of the call home messages being sent?
+- Answer:  Probably a #zombie . A call home message is an indicator of a zombie beaconing to see if it has instruction from its C2 Server.
 
 #### Scenario 2: Botnet
-Company uses the subnet range if 192.168.0.0/8
-While monitoring the data, you see a high number of outbound connections
-XYZ internal IP addresses are making connections to a public IP Address
-After doing some research you find that the public IP is a blacklisted IP and the internal communication devices are compromized
-What kind of attack does the above scenario depict?
+- Company uses the subnet range if 192.168.0.0/8
+- While monitoring the data, you see a high number of outbound connections
+- XYZ internal IP addresses are making connections to a public IP Address
+- After doing some research you find that the public IP is a blacklisted IP and the internal communication devices are compromized
+- What kind of attack does the above scenario depict?
 
 
 ### 7.7 MALWARE MAKERS
@@ -807,7 +807,444 @@ run
 - Examples:
 	- Infinity Exploit Kit
 		- Uses vulnerabilities of Mozilla Firefox, internet explorer and opera to install malware on a target computer
-		- 
+		- Can also exploit known vulnerability in web browser add-ons such as Java and Adobe flash
+	- Phoenix Exploit Kit
+		- Designed to inject drive-by downloads into compromised websites
+		- Websites visitors would automatically download the malware
+	- Blackhole exploit kit
+		- Designed to be used in hacked or malicious sites
+		- Exploits a variety of web-browser vulnerabilites
+	- Crimepack
+		- Attackers use it to load malicious software onto hacked web sites
+	- Bleeding life
+		- Exploits built-in Java functionality
+		- Social engineers the unsuspecting visitor to run a malicious Java applets
+	- Github (142) Exploit kit repositories
+
+#### Technique to Evade Antivirus
+- Encrypt the malware
+- Break the malware file into multiple pieces and zip into a single file
+- Write your own malware, and embed it in a application
+- Change the malware' syntax
+	- Convert an .exe to a VB script
+	- Change an .exe extension to doc.exe, ppt.exe, pdf.exe as windows hides the file extension by default
+- Change the content of the malware using a hex editor
+	- change the checksum and encrypt the file
+- Don't use pre-made malware downloaded from the web
+- Antiviruses can detect these with no trouble
+- GitHub lists 61 (antivirus) evasion repositories
+
+### 7.8 Detection Techniques
+#### Virus Detection Approaches
+- Signatures analysis
+- The most common method for detecting infections
+- Refers to its own (local) databases of known infections
+- Always needs to be updated on the user side to be effective
+- Behavioral analysis
+	- Dynamic - Continually watches the actions of installed programs for any odd behaviors
+	- Has a much higher detection rate than signature-based detection
+- Cloud-based detection
+	- Uses and online database
+	- Updated constantly by the vendor
+	- Requires a good internet connection
+- Sandbox analysis
+	- Deliberate infection of a system in a controlled environment
+	- All actions are monitored and recorded
+- Monitor Processes in Real-Time
+	- Watch real-time file system, Registry and process / thread activity
+	- Tools
+		- Process Monitor 
+		- ProcMon for linux
+		- GitHub lists (4627) repositories related to process monitoring
+- Scan for suspicious ports
+	- Trojans open ports that are unused and connect to Trojan handlers
+	- Watch for connection / suspicious ports and IP Addresses
+	- Port monitoring tools examples
+		- TCPView
+		- CurrPorts
+		- Better Uptime
+		- StatusCake
+		- PRTG network monitoring
+		- ThousandEyes
+		- #DynaTrace 
+- Scan for suspicious Registry Entries
+	- Malware can inject into parts of the windows registry
+		- When the machines boots up, windows will execute the malicious code as if it was normal configuration instructions
+	- if you see suspicious entries when conducting a registry scan, it might be a malware infection
+	- Registry monitoring tools
+		- RegScanner
+		- RegOrganizer
+		- RegistryViewer
+		- ComodoCloudScanner
+		- Buster Sandbod Analyzer
+		- All-Seeing Eyes
+		- MJ Registry Watcher
+		- Active Registry Monitor
+		- RegShot
+		- Registry Live Watch
+		- Alien Registry Viewer
+- Scan for suspicious device Drivers
+	- Malware can end up being installed along with device drivers from unknown / untrusted sources
+	- The drivers are used to avoid detection
+	- Scan all drivers to ensure they are trusted / genuine
+	- Device Driver monitoring tools
+		- sigVerify.exe
+		- DriverView
+		- DriverDetective
+		- Unknown Device Identifier
+		- Installed Driverlist
+		- Driver Magician
+		- Driver Reviver
+		- ServiWin
+		- Double Driver
+		- My Drivers
+		- DriverEasy
+- Scan for suspicious Services
+	- Trojans makes themselves look like valid windows services
+	- They can hide processes using rootkit techniques or by manipulating the registry
+	- They can rename processes to look genuine
+	- You can use services monitoring tools to help identify trojan activity
+- Service Monitoring tools
+	- Process Explorer
+	- System Explorer
+	- HijackThis
+	- AutoRuns for Windows KillProcess
+	- Security Task Manager
+	- Yet Another (Remote) Process Monitor
+	- MONIT
+	- ESET SysInspector
+	- OpManager
+	- Windows Service MAanger (SrvMan)
+	- SMART Utility
+	- Netwrix Service Moniotr
+	- PC Services Optimizer
+	- ServiWin
+	- Windows Service Manager Tray
+	- AnVir Task MAnager
+	- Process Hacker
+	- Free Windows Service Monitor Tools
+	- Nagios 
+	- Service +
+- SCAN For Suspicious Startup Programs
+	- Checks registry for startup program entries
+	- Use bcdedit.exe to examine windows 10 Boot Configuration Data
+	- Use msconfig.exe the control panel startup app or the task manager startup tab to check for apps and services that automatically start
+	- Check boot.ini (older versions of windows) for boot information
+	- Check the startup folder (older versions of windows) for apps that will start up automatically
+	- Tools to Manage Startup settings
+		- Taskmanager
+		- msconfig.exe
+		- Security AutoRun
+		- AutoRuns for windows
+		- ActiveSTartup
+		- StartEd Pro
+		- Startup Booster
+		- Startup Delayer
+		- Startup Manager
+		- PCTuneUp Free Startup manager
+		- Disable Startup
+		- WinPatrol
+		- Chameleon startup manager
+- Scan for Suspicious files and folders
+	- Trojans generally modify system files and folders
+	- Tools to identify changes in the system include
+		- SIGVERIF
+		- FCIV
+		- TRIPWIRE
+	- File And Folder Integrity Checker
+		- FastSum
+		- WinMD5
+		- Advanced checksum Verifier (ACSV)
+		- Fsum frontend
+		- Verisys
+		- Another File Integrity Checker (AFICK)
+		- FileVerifier ++
+		- PA File Sight
+		- CSP File Integrity Checker
+		- ExactFile
+		- OSSEC 
+		- Checksum Verifier
+- Scan for Suspicious Network Activities
+	- Trojan send sensitive information to attackers by connecting back to the handler
+	- Bots connect to C&C servers
+	- IDS, Network scanners and protocol analyzers can monitor for traffic to remote sites
+
+#### SOLARWINDS ORION HACK
+#### What is SolarWinds Orion?
+- Verify poplular suite for network management tools
+- Used to centrally monitor and manage enterprise network devices, apps and storages
+
+
+#### SOLARWINDS ORION SUPPY CHAIN HACK
+- CVE-2020-10148 (aka sunburst or soarigate)
+- CVS Score 9.8
+- One of many attacks against SolarWinds
+- Believed to originate from Russian hacker group Cozy Bear
+- APT 29 - suspected association with Russian intelligence agencies
+- Impacts SolarWinds Orion v 2019.4 through 2020.2.1 HFI 
+- Creates  a back door
+- Connects to the attackers 'Command & Control (C&C) server' 
+- Timelines
+	- Sept 2019 - Solarwinds software development environment breached
+	- Oct 2019 - Threat actors tested the first code injection into Orion
+	- Feb 2020 - The sunburst malware was injected into orion update
+	- Mar 2020 - Malicious update unknowingly sent to the public
+- Evasion Tactics
+	- Supply chain compromise went undetected
+	- SolarWinds digitally signed the infected update before deployment
+	- Lies dormant on end target for 12-14 days before starting attack
+	- Key lines of its code are hashed or compressed to obfuscate their intent
+	- Disable malware detection capabilities on victim
+	- C&C servers used a legitimate domain avsvmcloud.com
+	- Attackers registered domain through PrivacyGuardian.org
+- Analysing the SunBurst MALICIOUS DLL
+	- Use DotPeek .net decompiler to open the actual infected DLL
+	- Examine key blocks of code
+	- Decompress obfuscated strings to expose malicious commands
+
+### 7.9 MALWARE ANALYSIS
+- #### Free Malware Sample Sites for researchers
+- github.com/vxunderground/malwaresourcecode/
+- Virustotal.com (accessing samples requires a VT Enterprise subscription)
+- Malware-traffic-analysis.net
+- zeltser.com/malware-sample-source
+> - exercise caustion when downloading / working with live virus samples perform all analysis is an isolated sandbox environment
+
+#### Malware Analysis Techniques
+- Static (Code Analysis)
+	- Analyze binaries without actually running them
+	- Look at file metadata, disassemble or decompile the executable
+	- Look for file names, hashes, strings such as IP addresses, domains and file header data/
+	- Identify malicious infrastructure, libraries, or packed files
+- Dynamic (Behavior analysis)
+	- Run the executable in a sandboxed environment
+	- Watch the malware in action without the risk of infection or escape
+	- Watch for malicious runtime behavior that static analysis might not reveal
+- Hybrid
+	- Combination of static and dynamic techniques
+	- Apply static analysis to data generated by behavioral analysis
+		- examine a memory dump after malicious code has made changes in memory
+> for more information on static and dynamic analysis see:
+> https://infosecwriteups.com/malware-analysis-101-basic-static-analysis-db59119bc00a
+> https://opensecuritytraining.info/MalwareDynamicAnalysis.html
+
+
+#### MALWARE ANALYSIS PROCESS
+- Prepare the test bed:
+	- Create a virtual machine in a host computer
+	- Isolate the host system
+	- Configure the guest VM NIC to be in host-only mode
+	- Disable shared folder/guest VM isolation
+	- Copy malware to the guest O/S
+- First analyze the malware in a static (non-running ) state
+	- Use tools such as BinText or system internal strings to search the binary for hard-coded names, IP address or other text
+- Run the malware and monitor / analyze its activities
+	- Use tools like process monitor, Dependency walker, or API Monitor to observe processes and API Calls
+	- Use tools like NetResident TCPView, Wireshark to observe the network activity, port and Connections, beaconing ARPING etc.
+- Check to see what files the malware ads, changes or deletes
+	- Tools- IDA pro, VirusTotal, Anubis, Threat Analysis
+- Document All findings
+	- Use the information to help identity actual infections of the same malware in the production environment
+
+#### SHEEP -DIP
+- Sheep-dipping is a pre-emptive effort to detect and clean malware before introducing a new item to the production environment
+- Performed in a sandboxed environment
+	- Air-gapped computer
+	- No connection to the network
+	- May have several antivirus product installed
+- Items that can be sheep dipped iinclude
+	- Remove media 
+	- Data fiels
+	- Application executables
+	- Devices
+- Sheep dip product examples
+	- Meta Defender kiosk (opswat.com)
+	- SheepDip (sourceforge.net/projects/sheepdip)
+	- usbsheepdip (github.com/pajari/usbsheepdip)
+
+#### ONLINE MALWARE ANALYSIS SITES
+- Cloud-based malware analysis takes advantages of 
+	- collecting a wide range of samples from many protected sites
+	- Using a provider's cloud, rather than local scanning , to identify viruses
+- Sites
+	- VirusTool
+	- Malwr.com
+	- www.hybrid-analysis.com
+	- Anubis
+	- Avast online scanner
+	- Malware protection center
+	- UploadMalware.com
+	- ThreatExpert
+	- Dr.Web Online Scanner
+	- Metascan online
+	- Online Malware scanner
+	- ThreatAnlayzer
+	
+	
+#### REVERSE ENGINEERING MALWARE
+- Examine the code
+	- Use a hex dumper to look for bit patterns
+	- Use a disassembler to read executable instructions in text format
+	- Examine the malware's exploitation techniques
+- If the malware obfuscates itself , focus on reverse engineering only the new parts 
+- Look for mistakes in ransomware encryption implementation
+- Look for command and control activity categorization and clustering
+	- Do broad stroke analysis on bulk samples rather than a deep dive into a single sample
+
+#### MALWAE ANALYSIS TOOLS
+- disassembler - IDA pro, Dotpeek, ODA, RElyze, Hopper Disassembler, Binary Ninja
+- DE compiler - IDA PRo+ Hex
+- Debugger - OllyDbg, WinDbg, Immunity, Syszer, Zend Studio, GNU Debugger
+- System Monitor- Process Monitor , RegShot Process Explorer
+- Network Monitor - TCP View, Wireshark
+- Packer identifier - PEID, ExecInfo PE
+- Binary Analysis Tools: PE Explorer, Malcode Analysts Pack, Strings
+- Code Analysis Tools, -LordPE, ImpRec, Dependency Walker, PowerShell, HashMyFiles
+> - Some tools are multifunctional, And 
+> - Knowledge of assembly language is hepful when analyzing malware.
+
+### 7.10 Malware Counter-Measures
+
+- Install a good antivirus program
+	- keep it updated
+	- scan your system regularly
+	- Consider enabling real-time protection
+- Keep your system patched
+- Regularly back up data
+	- Store backups in safe location
+- Safely store clean original copies of all software
+- Enable browser security features such as popup blockers and site safety
+- Set restore points before and after installing any new program on a windows systems
+- Airgaps the devices
+	- physically isolate the device or network
+	- Disallow any removable media from plugging into the devices
+- Exercise caution when downloading programs/ files from internet
+	- Scan applications and files before installing / opening them
+- Train users to recognize and avoid potentially dangerous sites
+	- Free online gaming or gambling
+	- Software sharing and download sites
+- Do not open attachments / clicks links from unknown senders
+	- Watch out for attachments that have two extensions (such as .avi.exe)
+	- Be especially careful about files/apps shared through social media and file sharing sites
+- Install Immunizer software on the host
+	- Attaches code to a file or applications
+	- Fools a virus into 'thinking' the device is already infected (comparable to a human vaccine)
+	- Example : includes : BitDefender USB Immunizer, Panda USB vaccine
+- Enable malicious behavior blocking features in the OS:
+	- Windows Defender
+	- Linux Endpoint
+
+
+#### TROJAN Countermeasures
+- Block unnecessary ports at the host and edge firewalls
+- Restrict desktop permissions
+- Harden/ Disable weak/ default configuration settings
+- Do not blindly type commands or use pre-made scripts / programs
+- Ensure internal traffic is monitored for encrypted traffic/ unusually ports
+- Ensure that file integrity at each workstation is consistently managed
+
+#### Backdoor Countermeasures
+- Run netstat -naob to find unexpected open ports
+	- Determine the owning process and source files
+- Block unnecessary ports on the host firewall
+- Deploys a NIDS to monitor for unusually network traffic
+
+#### ROOTKIT COunterMeasarues
+- Perform a file intergrity check using a tool such as RootkitRevealer from systeminternals
+- If a system has a kernel-level rootkit, the only safe and secure way to clean it is to : 
+	- Completely wipe the hard drive
+	- Perform a clean installation of the operating system
+
+#### RAT Countermeasures
+- Recognize that RATs are challenging to detect
+	- An infection can go undetected for years
+	- RAT Software can only be identified once it is operating on your system
+	- RATs use obfuscation methods such as parallel programs to cloak their activities
+	- Persistence modules that use rootkits techniques make RATs very difficult to detlete
+- Install a HIDS on newly deployed hosts
+- Install NIDS to watch for suspicious network activity
+- If necessary , reinstall the OS and all software from a clean source or image.
+- RAT Detectors
+	- Solarwinds security Event Manager
+	- Snort
+	- OSSEC
+	- Zeek
+	- Suricata
+	- Sagan
+	- Security Onion
+	- AIDE
+	- OpenWIPS-NG
+	- Samhain
+	- Fail2Ban
+#### FILELESS MALWARE Mitigation techniques
+- Perform behavior based analysis to identify malicious activities and patterns
+- Identify the script or actions responsible for loading the malware into memory
+- Set PowerShell script policy to restricted
+- Keep up with patches and updates
+
+
+#### ANTI-MALWARE software examples
+- TotalAV
+- PCProtect
+- Symantec Endpoint protection
+- ScanGuard
+- BitDefender
+- Norton
+- Windows Defender
+- AVG
+- McAfee
+- MalwareBytes
+- BullGuard
+- Kaspersky
+- ESET
+- Panda
+- TrendMicro
+- F-Secure
+- ZoneAlarm
+- SpeedyClean
+
+#### CLOUD BASED ANTIVIRUS
+- Stores information about malware variants in the cloud , rather than on user's device
+- Access to a larger database without having to house it on your hard drive
+- Smaller installation agent for your antivirus software, so it takes up less space.
+- Near real-time definition updates based on data gathered from the entire network of users.
+- Cloud-Based AntiVirus Examples
+	- Kaspersky security Cloud
+	- MalwareBytes
+	- Webroot
+	- Sophos Endpoint Protection
+	- Avast Business Hub
+	- ESET ENDPOINT Security
+	- BitDefender
+	- AVIRA
+	- McAfee
+	- Panda Antivirus
+
+
+### 7.11 Malware Threats Reviews
+- Malware is malicious software that disables / damages computer systems
+- A virus is a self-replicating program
+- Viruses are categorized based on what/how they infect
+- A worm is a more advanced type of virus that does not need to be attached to another file
+	- It does not need human intervention to execute or spread
+- A Trojan is a program that hides malicious code inside a seemingly normal program
+- A Remote access Trojan (RAT ) is the most common type of trojan
+- A wrapper is used to bind the Trojan executable to another application
+- A cryptor is used to obfuscate malicious code so it is harder to detect
+- Trojan often use covert channels such as ICMP tunneling to evade detection
+- A rootkit replaces part of the operating system and is very hard to detect or clean
+- Ransomware encrypts a user's fiels and then demands payment for the decryption key
+- A botnet is an "army" of hundreds or thousands of infected "zombie" machines under the control of Central Command and control (CnC) Server
+- Beaconing is the periodic connection of a zombie to its C&C server to see if it has attack instructions
+- There are many tools you can use to create  viruses, worms and trojans
+- An Exploit/ Crimeware kit delivers exploits/playload to target systems
+- A sheep dip computer is a controlled environment in which you can watch and analyze malware activity in realtime
+- You can use other tools to disassemble or reverse engineer a malware executable.
+- The best defense against malware is updated anti-malware software combined with awareness
+- 
+
+	
+
 
 
 
