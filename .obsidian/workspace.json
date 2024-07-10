@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "a005f961f2c25f9d",
+        "id": "397212822348e13e",
         "type": "tabs",
         "children": [
           {
-            "id": "9ab156b8566529ca",
+            "id": "0d5165605ac880f9",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -65,8 +65,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "4b1b3f083f9676b8",
@@ -140,14 +139,15 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "9ab156b8566529ca",
+  "active": "0d5165605ac880f9",
   "lastOpenFiles": [
+    "CeHV11_notes/0Outline.md",
+    "CeHV11_notes/Module08.md",
+    "CeHV11_notes/Module01.md",
     "CeHV11_notes/Module07.md",
     "CeHV11_notes/Difference Between.md",
-    "CeHV11_notes/Module01.md",
     "CeHV11_notes/Module06.md",
     "Skillsets/Head of Cyber Security (Adani).md",
-    "CeHV11_notes/0Outline.md",
     "CeHV11_notes/Module02.md",
     "Skillsets",
     "CeHV11_notes/References.md",
@@ -173,7 +173,6 @@
     "CeHV11_notes",
     "2024-06-16.md",
     "Tools_Usage/00_toolsList.md",
-    "M04_Enumeration/00_Enumeration.md",
     "images",
     "images/Pasted image 20240531185710.png",
     "images/Pasted image 20240531185508.png",
