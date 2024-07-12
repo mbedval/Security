@@ -147,11 +147,59 @@ Fear, Greed, Curiosity, Helpfulness, urgency, obedience to authority
 #### SPEAR PHISHING / WHALING EXAMPLE
 - Attacker sends a fake email to victim
 - User enters credentials into fake login page 
+- Fake login page sends those credentials to attacker
 - User is redirected to the legitimate site
+	
+#### Mobile-Based Social Media Attacks
+- Attacks
+	- Publishing malicious apps
+	- Repackaging legititmate apps
+	- Fake security applications
+	- Smishing using SMS, Facebook messenger, WhatApp, etc
+- ZitMo (Zeus-in-the-Mobile)
+	- Banking malware that was ported to android
+
+### 9.4 Social Media, Identity Theft Insider Threats
+
+#### SOCIAL MEDIA
+Social media is a very platform for social engineering
+The attacker can use it to obtain information, develop relationships, and gain trust
+	The more the attacker knows about you, the more they can tailor an attack to work against you
+Common uses of social media sites for social engineering includes:
+	Account takeovers and cloning
+	Targeted scams and attacks
+		Fake fundraisers
+		Fake get-rich quick schemes
+		Data gathering /data theft
+	Employees often leak sensitive information on social media sites
+	Bugs in social networking apps can also introduce new vulnerabilities to the network
+
+#### SOCIAL MEDIA INFORMATION DISCLOSURE SECENARIO
+- Too much post with personal information on social media, allows attackers to perform a Cognitive password attack
+- Cognitive password is a form of knowledge-based authentication:  It requires a user to answer a question, presumably something they intrinsically know to verify their identity. Either password is recreated , guessed or bypassed
+- For Example, a high profile politician's email account was hacked because a high schooler used the "Reset my password" feature on their email service,
+
+#### IDENTITY THEFT
+- A crime in which one person steals another person's name and personal information to commit fraud. It can includes personally identifiable information (PTI) such as name, social security number, driver's license number, credit card number
+- An attacker can use identity theft to:
+- Fraudulently open bank accounts or obtains loans
+- Impersonate an employee and gain access to an organizations sensitive information and physical access to the building\
+- Commit Crime in another person's name
 
 
-	
-	
+#### IDENTITY THEFT COUNTERMEASURES
+- Don't click on that link in your email to avoid malware, computer viruses, or hackers gathering your data.
+- Use trusted sites when shopping online
+- Be careful about what personal information you share online (eg. Social network)
+- Subscribe to a reputable identity theft protection service, because attacker can :
+	- Monitor your personal information, credit files and the web
+	- Alert you to any suspicious or fraudulent activity
+	- Contact credit bureaus banks and creditors on your behalf
+	- Assist you in restoring your identity if it becomes necessary
+	- 
+
+
+
 
 
 
