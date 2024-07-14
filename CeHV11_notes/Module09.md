@@ -196,15 +196,149 @@ Common uses of social media sites for social engineering includes:
 	- Alert you to any suspicious or fraudulent activity
 	- Contact credit bureaus banks and creditors on your behalf
 	- Assist you in restoring your identity if it becomes necessary
-	- 
+
+#### Insider Threats
+- An insider is any person who :
+	- Has or had authorized access to or knowledge of an organization's resources including personnel facilities information equipment networks and systems
+	- Can include employees, former employees contractors  business partners
+- An insider threat is the potential for an insider to use their authorized access or understanding of an organization to harm that organization.
+	- This harm can include malicious complacent or unintentional acts that negatively affect the integrity, confidentiality and availability of the organization, its data, personnel or facilities
+- An insider will use their authorized access, wittingly or unwittingly, to do harm to: 
+	- The organization missing resources personnel facilities information, equipment, networks or systems
+#### INSIDER THREAT INDICATORS
+- Poor performance Appraisals
+	- An employee might take a poor performance review very sourly
+- Voicing Disagreement with policies
+	- Someone who is highly vocal about how much they dislike company policies could be a potential insider threat
+- Disagreements with Coworkers
+- Change in personality or mood
+- Financial Distress
+- Alcohol, drug, gambling or other addictions
+	- Might put the employee in financial distress
+	- Might make the employee vulnerable to social engineering
+- Unexplained financial Gain
+- Odd Working Hours
+- Unusual interest in a co-workers personal life or information
+- Unusual interest in a program, project, resource, topic that is outside the scope of the personal's normal job duties
+- Unusual Overseas Travel
+
+#### INSIDER THREAT ACTIONS
+- Insiders threats can manifest in various Ways:
+	- Violence, Espionage, Sabotage, theft, Malicious, Cyber Acitivities, Collusion with outside actors
+- Some insider threat actions can be unwitting or under duress
 
 
+### 9.5 Social engineering Countermeasures
+
+- Train employees to 
+	- follows authentication and authorization strict protocols
+	- Neven give out passwords / sensitive information via phone
+	- Consult their manager if they are not sure what to do 
+- Periodically test training effectiveness and refresh/ update training
+- Post reminder and encouragements in the physical workspace
+- Ensure that browsers have proper privacy and security settings
+- Configure spam filter on the email server and emails clients
+- Ensure all guests are escorted while onsite
+- Ensure the mailroom, server room, phone closet and other sensitive areas are locked and monitored at all times
+- Keep an updated inventory of all communication equipment
+- Use multi-factor authentication
+- Use multiple layers of anti-virus / anti-phishing defenses at all gateways
+- Ensure all documents containing private information are shredded / secured
+
+#### IMPERSONATION COUNTERMEASURES
+- If you are not part of IT support staff or physical security staff:
+- All follow protocol when granting access, activating accounts changing passwords on behalf of a user, etc. 
+- Remain especially resistant to urgency / authority appeals when asked to do something improper
+- If necessary, engage your supervisor or a colleague to help you resist pressure tactics
+- Report attempts to your supervisor
+
+#### PHISHING COUNTERMEASURES
+- Familiarize yourself with these indicators
+	- Unknown, unexpected or suspicious originators
+	- Missing or incorrect recipient name in the body of the message
+	- Bad spelling or grammar in the message
+- Examine message headers to verify
+	- Phone numbers
+	- Actual sender
+- Never click a link
+
+> Forward the email to IT team for further investigation , or Permanently delete the email to avoid possible damage
 
 
+#### SOCIAL MEDIA SOCIAL ENGINEERING COUNTERMEASURES
+- Threat unexpected messages and posts (especially containing links or attachments ) with caution
+- Enable 2-factor authentication
+- Always double-checks the source of giveaways and fundraisers
+- Don't automatically trust social media ads, pages, or groups
+- Be mindful of what you post on social media
+- Optimize your privacy settings
+- Check your friend lists
+- Don't unwittingly give away security data on "fun" shared posts
+
+#### IDENTITY THEFT COUNTERMEASURES
+Don't access financial information on shop online using public Wi-Fi (or unsecured network)
+Don't give out your social security number or any financial information to people calling, emailing or texting you
+Get You credit report regularly to ensure all the data is accurately and that nobody has opened up accounts under your name
+Shred any mail or documents that have personal information (e.g. financial information health docs) instead of just tossing in trash
+Don't carry your social security card in your wallet ( and have a list of every card in your wallet in case it gets stolen)
+
+#### INSIDER THREAT MITIGATION
+- The organization should have a holistic insider threat mitigation program
+- Insider threat mitigation programs are designed to help organization intervene 
+	- Before an individual with privileged access or an understanding of the organization makes a mistake or commits a harmful or hostile act
+- The program development should span the entire organization
+	- Should serve as a system to help individuals, rather than be an aggreessive enforcement or sting program
+- Know your people
+	- An organization must know and engage its people 
+	- This awareness enables an organization to achieve an effective level of personnel assurance
+- Identify the Organization's assets and prioritize Risks
+	- Determine where the organization assets reside and who can access them.
+	- This knowledge allows a broader classification of each asset's vulnerability and enable the development of risk-based mitigation strategies.
+- Establish the Proven Operational Approach of
+	- Detect & Identify
+	- Assess 
+	- Manage : By gathering and investigating incident and threat information, assess and categorize those risks, then implement management strategies to mitigate the threats
+
+> www.cisa.gov/insider-threat-mitigation
 
 
+#### 9.6 SOCIAL ENGINEERING REVIEW
 
 
+ - Social engineering is the use of psychological manipulation through: 
+	 - Fear, greed, Curosity, Helpfulness, Urgency, Obedience to authority
+	-  
+- You  convince people to disclose information or performance an action that they ordinarily would not do
+- Attackers use it to acquire sensitive information / inappropriate access privileges
+- Computer-based social engineering involves using computer software to get information
+- Human-based social engineering involves using computer software to get information
+- Human-based social engineering involves getting information through human interaction
+-  Successful human-based social engineering requires the hacker to:
+	- Have good communication skills
+	- Have good interpersonal skills
+	- Be creative
+	- Be friendly and easy to talk to.
 
-
-
+#### SOCIAL ENGINEERING TECHNIQUES
+- Impersonation: Pretending to be someone the user trusts, such as an authority figure or IT support
+- Pretexting : Giving the victim a (Fake) reason for requesting something of them
+- Quid-Pro-Quo : Relies on an exchange of information or service to convince the victim to act
+- Phishing , Spear Phishing , Whaling, Vishing and smishing : Sending fake message to trick the vitim
+- Water holing: Enticing users with a common interest to visit a malicious websites
+- Pharming - Re-Directing a user to a bogus website that mimics the appearance of a legitimate one
+- Clickjacking - Overlaying an invisible (malicious ) HTML element on the top of web-page
+- Baiting : Online and/or physical attack that promises the victim a reward (often uses innocent looking hardware to entice the victim)
+- Fake malware and ransomware 
+- Shoulder surfing and dumpster diving
+- Piggybacking (victims knows you are behind them they help you get in)
+- Tailgating : victim does not know you are behind them
+- RFID skimming
+- URL hijacking and Evil Twins
+- Identity Theft is when one person steals another person's name and personal information to commit fraud
+- As insider threat is when someone could use legitimate privileged access or knowledge to harm the organization
+- Insiders don't normally start as a threat. Some insider threats are unintentional
+- The best defense relies on the implementation of:
+	- Good Policies and procedures
+	- Technical controls when available
+	- Effective training
+- 

@@ -4,37 +4,18 @@
     "type": "split",
     "children": [
       {
-        "id": "397212822348e13e",
+        "id": "8812570a7354677f",
         "type": "tabs",
         "children": [
           {
-            "id": "0d5165605ac880f9",
+            "id": "8709974919367c20",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "CeHV11_notes/0Outline.md",
-                "mode": "source",
-                "backlinks": true,
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "fe7b82200b17747f",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Module09.md",
-                "mode": "source",
-                "backlinks": true,
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -84,8 +65,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "4b1b3f083f9676b8",
@@ -101,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Module09.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -118,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Module09.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -140,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Module09.md"
-              }
+              "state": {}
             }
           }
         ],
@@ -163,16 +139,16 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "fe7b82200b17747f",
+  "active": "8709974919367c20",
   "lastOpenFiles": [
-    "CeHV11_notes/0Outline.md",
-    "Module09.md",
+    "CeHV11_notes/Module09.md",
     "CeHV11_notes/Module08.md",
-    "CeHV11_notes/Module01.md",
     "CeHV11_notes/Module07.md",
     "CeHV11_notes/Difference Between.md",
+    "CeHV11_notes/Module01.md",
     "CeHV11_notes/Module06.md",
     "Skillsets/Head of Cyber Security (Adani).md",
+    "CeHV11_notes/0Outline.md",
     "CeHV11_notes/Module02.md",
     "Skillsets",
     "CeHV11_notes/References.md",
