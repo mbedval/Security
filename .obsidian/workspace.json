@@ -11,11 +11,30 @@
             "id": "8709974919367c20",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "CeHV11_notes/0Outline.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "e33fd87379d61575",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "CeHV11_notes/Module10.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -81,6 +100,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "CeHV11_notes/Module10.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,6 +117,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "CeHV11_notes/Module10.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +139,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "CeHV11_notes/Module10.md"
+              }
             }
           }
         ],
@@ -139,8 +162,13 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "8709974919367c20",
+  "active": "e33fd87379d61575",
   "lastOpenFiles": [
+    "CeHV11_notes/Module11.md",
+    "CeHV11_notes/Module05.md",
+    "CeHV11_notes/Module10.md",
+    "CeHV11_notes/0Outline.md",
+    "CeHV11_notes/Module02.md",
     "CeHV11_notes/Module09.md",
     "CeHV11_notes/Module08.md",
     "CeHV11_notes/Module07.md",
@@ -148,14 +176,11 @@
     "CeHV11_notes/Module01.md",
     "CeHV11_notes/Module06.md",
     "Skillsets/Head of Cyber Security (Adani).md",
-    "CeHV11_notes/0Outline.md",
-    "CeHV11_notes/Module02.md",
     "Skillsets",
     "CeHV11_notes/References.md",
     "Tools_Usage/NETCAT.md",
     "Tools_Usage/Meterpreter.md",
     "Pasted image 20240623185138.png",
-    "CeHV11_notes/Module05.md",
     "M02_Footprinting and Reconnaissance/Footprinting and Reconnaissance.md",
     "M01_Introduction to ethical hacking/01_Introduction to ethical Hacking.md",
     "CeHV11_notes/Module04.md",
@@ -169,10 +194,8 @@
     "Security/Popular Ports.md",
     "CeHV11_notes/Untitled 3.md",
     "CeHV11_notes/Untitled 2.md",
-    "CeHV11_notes/Untitled 1.md",
     "Pasted image 20240616164702.png",
     "CeHV11_notes",
-    "2024-06-16.md",
     "images",
     "images/Pasted image 20240531185710.png",
     "images/Pasted image 20240531185508.png",
