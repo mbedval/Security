@@ -4,37 +4,18 @@
     "type": "split",
     "children": [
       {
-        "id": "8812570a7354677f",
+        "id": "f5a9bf50fc3a6d3f",
         "type": "tabs",
         "children": [
           {
-            "id": "8709974919367c20",
+            "id": "d1409309e0945512",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "CeHV11_notes/0Outline.md",
-                "mode": "source",
-                "backlinks": true,
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "e33fd87379d61575",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "CeHV11_notes/Module10.md",
-                "mode": "source",
-                "backlinks": true,
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -100,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CeHV11_notes/Module10.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -117,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CeHV11_notes/Module10.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -139,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "CeHV11_notes/Module10.md"
-              }
+              "state": {}
             }
           }
         ],
@@ -162,12 +139,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "e33fd87379d61575",
+  "active": "d1409309e0945512",
   "lastOpenFiles": [
+    "CeHV11_notes/0Outline.md",
+    "CeHV11_notes/Module10.md",
     "CeHV11_notes/Module11.md",
     "CeHV11_notes/Module05.md",
-    "CeHV11_notes/Module10.md",
-    "CeHV11_notes/0Outline.md",
     "CeHV11_notes/Module02.md",
     "CeHV11_notes/Module09.md",
     "CeHV11_notes/Module08.md",
