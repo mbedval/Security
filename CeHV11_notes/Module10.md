@@ -365,7 +365,6 @@ When in the middle of an attack you can:
 - DoS detection techniques rely on identifying / discriminating against illegitimate traffic
 - You can use a DoS to stress-test a system
 	- Be Careful as it will be disruptive
-- 
 
 
 

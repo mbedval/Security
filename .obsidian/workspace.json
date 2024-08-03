@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "f5a9bf50fc3a6d3f",
+        "id": "2d446b93aac21728",
         "type": "tabs",
         "children": [
           {
-            "id": "d1409309e0945512",
+            "id": "aeb42178237e2076",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -139,11 +139,11 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "d1409309e0945512",
+  "active": "aeb42178237e2076",
   "lastOpenFiles": [
-    "CeHV11_notes/0Outline.md",
-    "CeHV11_notes/Module10.md",
     "CeHV11_notes/Module11.md",
+    "CeHV11_notes/Module10.md",
+    "CeHV11_notes/0Outline.md",
     "CeHV11_notes/Module05.md",
     "CeHV11_notes/Module02.md",
     "CeHV11_notes/Module09.md",
