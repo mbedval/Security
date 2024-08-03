@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "2d446b93aac21728",
+        "id": "b7310cb36928d711",
         "type": "tabs",
         "children": [
           {
-            "id": "aeb42178237e2076",
+            "id": "9ed83202a4cfee28",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -139,8 +139,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "aeb42178237e2076",
+  "active": "9ed83202a4cfee28",
   "lastOpenFiles": [
+    "CeHV11_notes/Module12.md",
+    "CeHV11_notes/Module13.md",
     "CeHV11_notes/Module11.md",
     "CeHV11_notes/Module10.md",
     "CeHV11_notes/0Outline.md",
@@ -169,8 +171,6 @@
     "Pasted image 20240618180826.png",
     "Pasted image 20240618180348.png",
     "Security/Popular Ports.md",
-    "CeHV11_notes/Untitled 3.md",
-    "CeHV11_notes/Untitled 2.md",
     "Pasted image 20240616164702.png",
     "CeHV11_notes",
     "images",
