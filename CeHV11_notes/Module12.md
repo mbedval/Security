@@ -1,6 +1,6 @@
 IDS = Intrusion Detection Systems
 
-#### Types of IDS
+### 12.1 Types of IDS
 - Network-based Intrusion Detection Systems
 	- NIDS  (Network Intrusion Detection)
 		- A NIDS is a passive monitoring system
@@ -224,9 +224,296 @@ Logs can also be queried by a SIEM or IDS
 	- time stamps event messages, severity, host IP addresses, diagnostics and more 
 - Kiwi syslog server is a popular syslog product
 - SYSlog Uses UDP 514
+
+
+### 12.4 IDS Considerations
+
+#### NIDS Considerations
+- System clock of all monitored and monitoring devices must be synchronized
+- Network sensors (taps ) must be strategically placed
+	- Must have traffic pass their interface
+	- Best Way is to configure port spanning (mirroring) on a switch
+	- The switch copies all traffic to /from a particular port (where the server is connected) to the mirrored port
+
+#### NIPS Considerations
+- Provides defense-in-depth protection in addition to a firewall
+	- It is not typically used as a replacement
+	- A NIPS cannot handle the same heavy workload that a firewall can handle
+- A false positive by a NIPS is more damaging than one by a NIDS 
+	- Legitimate traffic will be denied
+	- This may cause production problems
+	- A NIPS usually has a smaller set of rules compared to a NIDS for this reason. Only the most trustworthy rules are used.
+- A NIPS is not replacement for a NIDS
+	- Many network use both a NIDS and a NIPS
+	- To assist a NIPs, you can turn on the built-in auditing feature in the operating system.
+	- Can slow system performance as well as take up a lot of disk space.
+
+#### HIDS / HIPS Considerations
+- Once installed, nearly impossible to uninstall, because this product replaces some OS components
+- Can only detect activity happening within the OS, and cannot detect ping sweeps, port scans and non-intrusive vulnerability scans.
+- Does not prevent intrusions or attacks
+- Can be installed on network points such as routers or servers, but cannot monitor at the network level
+- Does not filter incoming/ outgoing traffic based on rules, the way a firewall does, or a bandwidth monitor does.
+- Is Most effective as a solution if it an forward events from individual hosts to a centralized log server, or even a cloud-based SIEM
+
+#### TUNING IDS / IPS Security Alerts
+- Some IDS / IPS products allow you to tune them for greater accuracy
+- When tuning security alerts, attempt to tune to reduce false positives and false negatives
+- General Tuning steps:
+	- Identify potential locations for sensors
+	- Apply an initital configuration
+	- Monitor the sensor while tuning.
+	- Analyze Alarms, Tune out False positives ,and implement signatures Tuning
+	- Selectively implement Response Actions
+		- IP Logging, TCP  resets, Shunning (Dynamically dropping / not allowing certain connections)
+	- Update sensors with new signatures
+- IDS Scenarios:
+	- A bank stores and processes sensitive privacy information related to home loans, however auditing has never been enabled on the system. What is the first step that the bank should take before enabling the audit feature?
+	- Ans: You must first determine the impact of enabling the audit feature
+
+### 12.5 IDS Evasion
+> There is no magic bullet for detecting and bypassing a firewalls or IDS system. What it requires is skill and experience
+
+#### General IDS Evasion Techniques
+- Use a proxy/Anonymizer to make the attack difficult to trace. 
+- Spoofed source IP, source routing and source port manipulation
+	- Make the packets seems to come from a trusted source
+- Customize packets so they don't make any signatures
+	- Append binary or text data
+- IP fragmentation and session splicing
+	- Send attack in small packets, making it difficult to determine overall attack signature
+- Using character encoding in a URL to obfuscate a destination or intent
+- Create confusion by flooding the network with decoys, DoS and false Positives.
+- Encrypt incoming malicious traffic. An inside host will have to be able to decrypt
+- Encrypt outgoing exfiltrated stolen data. Use a tool such as cryptcat to encrypt stolen data before you exfiltrate it out of the network
+- Avoid scan types that an IDS will recognize
+	- Stealth Scans
+	- Other Scans with unusual TCP Flag combinations
+	- Scans the go too fast
+	- Scanning hosts in sequential order
+
+#### TIMING Evasion
+- A very slow scan will just appear as random noise to the IDS
+- IT will fall below the threshold necessary to fire an alert
+- Make sure addresses and ports are targeted in random order
+- Scan using `nmaps -T 5` switch
+- A SIEM is likely to detect a very slow whereas an IDS might not.
+
+
+#### ID Address Decoys
+- Generates Noise you can hide in
+- Multiple IP addresses to be scanning a target simultaneously
+- This makes it very difficult for the IDS or Sysadmin to a determine who the real attacker is 
+- You can explicitly specify source addresses or allow the scanner to randomly generate addresses
+
+#### INSERTION AND OBFUSCATION
+- Insert Attack
+	- Attacker forces the IDS to Process invalid packets
+- Obfuscation
+	- Encoding the attack packets in such a way that the target is able to decode them, but the IDS cannot.
+		- Unicode : use unicode characters rather than ASCII so it doesn't match any signature.
+		- Polymorphic code : Change the attack code so its doesn't match any IDS signature.
+		- Encryption : Encrypt the attack code so it can't be read.
+		- Path manipulated to cause signature mismatch.
+#### FALSE POSITIVES and FRAGMENTS
+- False positive generation events
+	- Craft malicious packets designed to set off alarms
+	- Attempt to distract / overwhelm the IDS and admin.
+- Overlapping Fragments
+	- Generate a bunch of tiny fragments overlapping TCP sequence numbers
+- Fragmentations / Session Splicing
+	- The pre-created endpoints must reassemble the packets
+	- Use can use Whisker to perform this attack.
+
+#### TCP FLAGS
+- Desynchronization
+	- Manipulate the TCP SYN Flag
+	- Fool IDS into not paying attention to the sequence numbers of the illegitimate attack traffic
+	- Give the IDS a false set of sequences to follow
+- Invalid RST packets
+	- Manipulate the RST flag to trick the IDS into ignoring the communication session with the target.
+- Urgency Flag - URG
+	- Manipulate the URG flag to cause the target and IDS to have different sets of packets
+	- The IDS will processes ALL packets irrespective of the URG flag
+	- The target will only processes URG traffic.
+
+#### Pattern-Matching Attacks
+- Polymorphic Shellcode
+	- Blow up the pattern matching by constantly changing the shellcode
+- ASCII Shellcode
+	- Use ASCII characters to bypass pattern matching
+- Application-Level Attacks
+	- Taking advantages of the compression used to transfer large files and hide attacks in compressed data, as it cannot be examined by the IDS.
+
+#### SESSION SPLICING
+- Exploits IDSs that do not reconstruct sessions before performing pattern matching
+- Fragments the attack across multiple packets
+- No single packet triggers an alert
+- IDS reassembly times out if fragments sit too long it its buffer
+- #Whisker is popular tool for session splicing
+	- Splits an HTTP request across multiple packets
+		- Not true IP fragmentation
+		- The Receiving webserver does not have to reassemble ip fragments
+	- The target views the attack as a very slow incoming HTTP request
+	- Example: Get/HTTP/1.0  is fragmented as [GE , T  , / , H, T ,TP, /1 , .0]
+	- Whisker will put 1-3 characters in each packet
+		- Depending on system and network speed
+	- Resources
+		https://packetstormsecurity.com/files/download/11002/whiskerids.html 
+		https://dl.packetstormsecurity.net/papers/IDS/whiskerids.html
+
+#### IDS EVASION TOOLS
+- Stick
+	- An IDS stress tool
+	- Overwhelms a NIDS with so many alerts using valid signatures
+	- The admin can not longer distinguish between false positives and legitimate alerts
+	- Can cause some IDSes, including Snort, to turn themselves off
+- #Snot 
+	- Similar to stick
+	- Attempts to randomize the sequence of rules or alerts generated so that a "snot generation" rule is not triggered by snort
+	- Example : Snot -r snort.rules -s www.somerandomhost.org/24 -d somesnortuser.com -l 10
+- #Fragroute
+	- Packet fragmenter
+- #Nessus and #Nikto
+	- Vulnerability scanner with evasion capabilities
+- #SSLproxy, #TOR
+	- use proxies with encrypted traffic to evade detection
+- #ADMMutate : creates scripts not recognizable by signature files
+- #NIDSbench : Older Tool for fragmenting bits
+- #Inundator : Flooding Tool
+- IDS-Evasion
+	- Multiple bash, powershell, and python scripts to evade snort
+	- https://github.com/ahm3adhany/IDS-evasion
+
+#### IDS / Firewall Evasion Tools
+#Whisker #NMAP #HPING2 #HPING3 #CRYPTCAT #TrafficIQProfessional #TCP_Over_Dns #SnareAgentForWindows #AckCmd #YourFreedom #Tomahawk #AtelierWebFirewallTester #Freenet #GTunnel #HotspotShield #VPNOneClick
+
+#### PACKET FRAGMENT GENERATOR
+#Whisker  #colasoft #TamoSoftCommView #hping3 #MultiGnerator #NetInspect #OStinato #fping3 #NetScanToolsPro #pktgen #Packeth #PacketGenerator
+
+### 12.6 FIREWALLS
+
+- Acts As network choke pint
+	- Traffic must flow through it
+	- Unauthorized traffic (in or out) is blocked
+- Can detect
+	- Unauthorized protocols
+	- Unauthorized source and destination IP Addresses
+	- Unauthorized source and destination ports
+	- unauthorized incoming connection attempts
+	- Malicious Site URLs
+	- Malicious payloads
+> If you can reach a host using one port or protocol but not another, it means that a firewall is blocking certain traffic types.
+
+#### Hardware Types
+- Hardware-based
+	- AKA firewall appliance
+	- Separate device
+	- Placed at the network edge, between the trusted, and untrusted networks
+	- Block unauthorized traffic movement between the networks
+- Software-based
+	- Installed on a host
+	- Prevent unauthorized traffic to /from the host itself.
+
+#### PACKET FILTERING (STATELESS FIREWALL)
+- Works at multiple OSI Layers
+	- Layer 3 - IP Addresses
+	- Layer 4 - Protocol
+	- Layer 5 - Ports
+- Can be a stateless firewall or a packet filtering router
+- Every packet is compared to a rule set
+- Firewall can permit or deny the packet
+- Firewall can permit or deny the packet
+- Rules may include
+	- IP address of source and/or destination
+	- Port number of source and/or destination
+	- Protocol (IP, ICMP, IGMP, TCP, UDP)
+- There is no memory of the packet before
+- You will have to configure rules for every contingency
+- Best when high performance is critical
+
+
+#### STATEFULL FIREWALL
+- Maintains a state table for every connection
+- Disallows even outbound traffic if suspicious
+- Tracks each connection
+- Will notice if
+	- There is no proper TCP handshake to start the connection
+	- Any port suddenly changes
+	- There are any other anomalies in the conversation
+- Filters packets at the network and transport layers
+- Evaluates packet content at the application layer
+- Most modern firewall are stateful.
+
+#### CIRCUIT LEVEL GATEWAY
+- Works at the session Layer (Layer 5)
+- Allows / disallows entires circuits (connections) as opposed to individual pakets
+- Validates that TCP or UDP packets belong to an allowed connection
+	- Examine TCP handshakes
+	- Maintains a session state table
+	- Makes IP spoofing more difficult
+	- Compensates for UDP lack of source IP validation
+- Typically host-based
+	- Or a feature of a multi-layer firewall applicance
+
+#### APPLICATION LEVEL GATEWAY
+- Filters packets at the application layer (7) of OSI or Application Layer of TCP / IP
+- Examine payloads and Application layers headers
+	- Traffics is examined and filtered on application-specific commands
+- If configured as a proxy:
+	- Client session put on hold at the proxy.
+	- Proxy fetches approved content for the client
+	- Proxy caches the content against future requests.
+	- Only Protocols supported by the proxy are serviced.
+		- HTTP, HTTPS, SOCKS4, SOCKS5, and UdP
+		- All other protocols are rejected. Or routed through packet filtering
+	- Slowest performance, deepest packet inspection.
+> Socks is layer 5 protocol, Connect client to proxy, Can forward TCP and UDP, optional Authentication.
+
+
+#### UNIFIED THREAT MANAGEMENT (UTM)
+- A device that combines multiple functions into a single piece of hardware including
+- Firewall
+- Anti-malware
+- URL filter
+- Spam / Phishing filter
+- IDS / IPS
+- VPN Server
+- Data Loss Prevention (DLP)
+
+#### 12.7 PACKET FILTERING RULES
+#### 12.7.1 PACKET Filter
+Different products have different rules syntax
+- Typical rules elements includes:
+	- Action
+	- Protocol
+	- Source IP
+	- Source Port
+	- Destination IP
+	- Destination Port
+	- Connection state
+	- Interface
+	- Traffic direction ( in or out of an interface)
+- CISCO PACkET FILTERING RULE EXAMPLES
+	- Disallow any source from pinging any destination ==`Deny ICMP any any`==
+	- Disallow any source from 192.168.1.0/24 from querying any DNS server ==`Deny UDP 192.168.1.0/24 any eq 53`==
+	- Only permit host 10.1.2.3 to use SSL / TLS connect to webserver 172.16.5.4 ==`Permit TCP host 10.1.2.3 172.16.5.4 eq 443`==
+	- Only permit the admin station 192.168.1.10 to SSH to a linux server 10.5.5.6 ==`Permit TCP host 192.168.1.100 10.5.5.6 eq 22`==
+	- Only permit host from subnet 10.0.0.0/24 to use the client TCP source port 5555 to connect to a gaming server 1.1.1.1 that listens on port 7777 ==`Permit TCP 10.0.0.0 0.0.0.255 eq 5555 host 1.1.1.1 eq 7777`==
+	- Disallow any host sending SNMP packets to 192.168.20.100 ==`Deny UDP any host 192.16820.100 eq 161`==
+- LINUX IP Table Rules Example
+	- Block a specific IP Address
+	- Block_THIS_IP="192.168.1.2"
+	- iptables -A INPUT -s "$BLOCK_THIS IP" -j Drop
+	- Allowing incoming SSH only from a specific Network
+		- `iptables -A INPUT -i etho0 -p tcp -s 192.168.100.0/24 --dport 22 -m state --state NEW, ESTABLISHED -j ACCEPT`
+		- `iptables -A OUTPUT -o eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT`
 	- 
 
 
+
+
+	
 
 
 
