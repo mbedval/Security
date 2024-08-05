@@ -495,12 +495,12 @@ Different products have different rules syntax
 	- Interface
 	- Traffic direction ( in or out of an interface)
 - CISCO PACkET FILTERING RULE EXAMPLES
-	- Disallow any source from pinging any destination ==`Deny ICMP any any`==
-	- Disallow any source from 192.168.1.0/24 from querying any DNS server ==`Deny UDP 192.168.1.0/24 any eq 53`==
-	- Only permit host 10.1.2.3 to use SSL / TLS connect to webserver 172.16.5.4 ==`Permit TCP host 10.1.2.3 172.16.5.4 eq 443`==
-	- Only permit the admin station 192.168.1.10 to SSH to a linux server 10.5.5.6 ==`Permit TCP host 192.168.1.100 10.5.5.6 eq 22`==
-	- Only permit host from subnet 10.0.0.0/24 to use the client TCP source port 5555 to connect to a gaming server 1.1.1.1 that listens on port 7777 ==`Permit TCP 10.0.0.0 0.0.0.255 eq 5555 host 1.1.1.1 eq 7777`==
-	- Disallow any host sending SNMP packets to 192.168.20.100 ==`Deny UDP any host 192.16820.100 eq 161`==
+	- Disallow any source from pinging any destination `Deny ICMP any any`
+	- Disallow any source from 192.168.1.0/24 from querying any DNS server `Deny UDP 192.168.1.0/24 any eq 53`
+	- Only permit host 10.1.2.3 to use SSL / TLS connect to webserver 172.16.5.4 `Permit TCP host 10.1.2.3 172.16.5.4 eq 443`
+	- Only permit the admin station 192.168.1.10 to SSH to a linux server 10.5.5.6 `Permit TCP host 192.168.1.100 10.5.5.6 eq 22`
+	- Only permit host from subnet 10.0.0.0/24 to use the client TCP source port 5555 to connect to a gaming server 1.1.1.1 that listens on port 7777 `Permit TCP 10.0.0.0 0.0.0.255 eq 5555 host 1.1.1.1 eq 7777`
+	- Disallow any host sending SNMP packets to 192.168.20.100 `Deny UDP any host 192.16820.100 eq 161`
 - LINUX IP Table Rules Example
 	- Block a specific IP Address
 	- Block_THIS_IP="192.168.1.2"
@@ -508,13 +508,101 @@ Different products have different rules syntax
 	- Allowing incoming SSH only from a specific Network
 		- `iptables -A INPUT -i etho0 -p tcp -s 192.168.100.0/24 --dport 22 -m state --state NEW, ESTABLISHED -j ACCEPT`
 		- `iptables -A OUTPUT -o eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT`
+#### FIREWALL RULES SCENARIOS
+- You have been asked to review the firewall configuration to ensure that workstations in network 10.10.10.0/24 can only reach the bank web site 10.20.20.1 using https.
+- Which rules satisfies the requirement??
+	1. if (Source matches 10.10.10.0/24 and destination matches 10.20.20.1 and port matches 80/443 then permit)
+	2. If (source matches 10.20.20.1 and destination matches 10.10.10.0/24 and port matches 443) then permit
+	3. if (source matches 10.10.10.0 and destination matches 10.20.20.1 and port matches 443) then permit 
+	4. if (source matches 10.10.10.0/24 and destination matches 10.20.20.1 and port matches 443) then permit 
+	[Ans 4]
+
+
+### 12.8 Firewalls Deployments
+#### FIREWALL ARCHITECTURE
+- Bastion host
+	- A public-facing host
+	- System that protects network resources from attack
+	- Two interface : public and private
+- Screened Subnet (DMZ)
+	- External and Internal firewall, back-to-back
+	- Does not allow access to private zone.
+	- Let the public facing bastion host (typically a web server) take one for the team. Keep the application and database servers in the private network to protect them.
 	- 
+- Multi-homed Firewall
+	- Firewall with two or more interface to further sub-divide the network based on security goals
+	- Often has third interface that connects to a DMZ. Sometimes called a perimeter network
+	- More complex to configure less expensive
+- Outbound Traffic flow
+	- Outbound connection = connection started from the private network
+	- Inbound relies traffic flow  = Replies from the untrusted network are permitted. It both firewall are stateful. They will remember that an internal host started the session.
+- Private-DMZ Traffic Flow 
+	- An outbound connection can be from the trusted network to any untrusted network (internet or DMZ)
+	- Replies : If the trusted network initiated the connection, response from the untrusted network is permitted back into the trusted network.
+- DMZ-Internet Traffic Flow
+	- An outbound connection can also be from the DMZ to the internet Both network are considered "untrusted" The DMZ will have some protections for its bastion hosts.
+- Traffic Flow
+	- Both a stateful and stateless firewall should be configured to permit responses
+- Inbound connection Attempt
+	- An inbound connection is one initiated from a (less) the connection was not started from the inside a stateless firewall should be configured to not accept any packet with just the TCP SYN flag raised and the ACK flag set to 0
+- Inbound Connection to DMZ
+	- If there is a bastion host offering a service to the internet, the outside firewall should be configured to permit incoming connections on that port
+- Inbound connections to different PORTS
+	- While the outside firewall will allow inbound connections to the DMZ the inside firewall is typically configured to allow NO inbound connections
+- TRAFFIC FLOW
+	- The exception is that you might have a host in the DMZ that needs to communicate with a host in the private network. The safest to allow this is to have an IPSEC VPN between the two. The inside firewall should have very strict rules that only allow the VPN, and only to a specific internal host.
+	- > Note: IPSEC works at layers 3 and Layer 4. It does not care what the layer 2 protocol is. Nor does it care what the payload is.
+- HOSTS that might need to communicate between DMZ and Private network
+	- Web server front end - Database server back end
+		- You could protect the internal financial database with a web server front end in the DMZ
+	- Email spam filter  - Email Server
+	- WebMail front end - Mailbox server back end
+
+### 12.9 SPLIT DNS
+#### SPLIT DNS
+- You manage two separate DNS servers:
+	- External (public) DNS
+	- Internal (Private) DNS
+- They should be separately managed with NO Communication between the servers
+	- You will need to separately configure records for both
+	- It is OK for both to have the same domain name
+	- Internal hosts should be configured to only use the Internal DNS server.
+
+#### SPLIT DNS - Public DNS Server
+- Should be in the DMZ or hosted by a provider
+- Public-facing services such as public website, spam filter/email relay, VPN server
+- Only has records the general public will need access to
+- TLD and parents DNS zones should delegate (point) down to your DNS on the Internet
+- Should not have to perform any non-authoritative lookups
+- Should not have to query other DNS servers for anything
+
+#### 12.9.3 SPLIT DNS - Private DNS server
+- Should be in the private network
+- Has records that internal clients will need access to:
+	- Active Directory
+	- Internal resources
+- Should be able to perform recursive queries or search the Internet DNS tree for clients needing public records
+- Configure all internal clients to use the private DNS only.
+- Have the private DNS go directly to an ISP DNS to do Internet name searches
+
+### 12.10 Firewall Product Types
+
+#### 12.10.1 
+#Comodo #CiscoASA
+#checkPint #UntangleNGFirewall #SonicWall #OnlineArmor #FortiGate #ManageEngine #Perimeter81 #TotalAV #ValutCore #PcProtect #Bitdefender #McAfee #ZoneAlarmPro #WindwosDefender #LinuxIpTables #LinuxUFW #CiscoPacketFilteringRouter 
+
+#### 12.10.2 FIREWALL For Mobile
+#AndroidFirewall #FirewallIP #MobiwolNoRootFirewall #AFWall #FirewallPlus #RootFirewall #AndroidFirewallGold #DroidFirewall #PrivacyShield #aFirewall #NoRootFirewall 
 
 
 
-
-	
-
-
-
-
+#### 12.10.3  Cloud Based IDS and Firewall Services
+- IDSaas
+	- Google Cloud IDS
+	- AlienVault
+	- Checkpoint
+- FWaaS
+	- Perimeter81
+	- Fortinet
+	- Zscaler
+- 
