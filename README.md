@@ -2,43 +2,43 @@
 
 Notes #Learning #CeH12
 
-[[01_Introduction to ethical Hacking]]
+[[Cehv12_ec_notes/M01_Introduction to ethical hacking/00_index]]
 
-[[Footprinting and Reconnaissance]] 
+[[Cehv12_ec_notes/M02_Footprinting and Reconnaissance/00_index]] 
 
-[[Module 03_Scanning Networks]] 
+[[Cehv12_ec_notes/M03_ScanningNetworks/00_index]] 
 
-[[00_Enumeration]]
+[[Cehv12_ec_notes/M04_Enumeration/00_index]]
 
-[[Module 05_Vulnerability Analysis]]
+[[Cehv12_ec_notes/M05_Vulnerability Analysis/00_index]]
 
-[[Module 06 System Hacking]] 
+[[Cehv12_ec_notes/M06_SysemHacking/00_index]] 
 
-[[Module 07_Malware Threats]] 
+[[Cehv12_ec_notes/M07_MalwareThreats/00_index]] 
 
-[[Module 08_Sniffing]] 
+[[Cehv12_ec_notes/M08_Sniffing/00_index]] 
 
-[[Module 09_Social Engineering]] 
+[[Cehv12_ec_notes/M09_Social Engineering/00_index]] 
 
-[[Module 10_Denial-of-Service]] : 
+[[Cehv12_ec_notes/M10_Denial-Of-Service/00_index]] : 
 
-[[Module 11_Session Hijacking]] 
+[[Cehv12_ec_notes/M11_SessionHacking/00_index]] 
 
-[[Module 12_Evading Web Applications]]
+[[Cehv12_ec_notes/M12_Evading Web Applications/00_index]]
 
-[[Module 13_Hacking Web Servers]]
+[[Cehv12_ec_notes/M13_HackingWebServers/00_index]]
 
-[[Module 14_Hacking Web Application]] 
+[[Cehv12_ec_notes/M14_HackingWebApplication/00_index]] 
 
-[[Module 15_SQL Injection]]
+[[Cehv12_ec_notes/M15_SQLInjection/00_index]]
 
-[[Module 16_Hacking Wireless Networks]] 
+[[Cehv12_ec_notes/M16_HAckingWirelessNetwork/00_index]] 
 
-[[Module 17_Hacking Mobile Platform]] 
+[[Cehv12_ec_notes/M17_HackingMobilePlatform/00_index]] 
 
-[[Module 18_IoT and OT Hacking]]
+[[Cehv12_ec_notes/M18IOT_OT_Hacking/00_index]]
 
-[[Module 19_Cloud Computing]]
+[[Cehv12_ec_notes/M19_CloudComputing/00_index]]
 
-[[Module 20_Cryptography]] :
+[[Cehv12_ec_notes/M20_Cryptography/00_index]] :
 

@@ -4,29 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "b7310cb36928d711",
+        "id": "34f712ca662e721c",
         "type": "tabs",
         "children": [
           {
-            "id": "9ed83202a4cfee28",
+            "id": "0f8c11281994b4bc",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CeHV11_notes/Module12.md",
-                "mode": "source",
-                "backlinks": true,
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "a6b85210187751d6",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "CeHV11_notes/0Outline.md",
+                "file": "Cehv12_ec_notes/M14_HackingWebApplication/00_index.md",
                 "mode": "source",
                 "backlinks": true,
                 "source": false
@@ -99,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CeHV11_notes/Module12.md",
+                "file": "Cehv12_ec_notes/M14_HackingWebApplication/00_index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -116,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CeHV11_notes/Module12.md",
+                "file": "Cehv12_ec_notes/M14_HackingWebApplication/00_index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -139,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CeHV11_notes/Module12.md"
+                "file": "Cehv12_ec_notes/M14_HackingWebApplication/00_index.md"
               }
             }
           }
@@ -161,50 +148,52 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "9ed83202a4cfee28",
+  "active": "0f8c11281994b4bc",
   "lastOpenFiles": [
-    "CeHV11_notes/0Outline.md",
+    "Cehv12_ec_notes/Untitled.md",
+    "Cehv12_ec_notes/M14_HackingWebApplication/00_index.md",
+    "Cehv12_ec_notes/M13_HackingWebServers/00_index.md",
+    "Cehv12_ec_notes/M12_Evading Web Applications/00_index.md",
+    "Cehv12_ec_notes/M11_SessionHacking/00_index.md",
+    "Cehv12_ec_notes/M10_Denial-Of-Service/00_index.md",
+    "Cehv12_ec_notes/M08_Sniffing/00_index.md",
+    "Cehv12_ec_notes/M06_SysemHacking/00_index.md",
+    "Cehv12_ec_notes/M05_Vulnerability Analysis/00_index.md",
+    "Cehv12_ec_notes/M04_Enumeration/00_index.md",
+    "Cehv12_ec_notes/M01_Introduction to ethical hacking/00_index.md",
+    "Cehv12_ec_notes/M02_Footprinting and Reconnaissance/00_index.md",
+    "Cehv12_ec_notes/M04_Enumeration/01 NetBIOS Enumeration.md",
+    "Cehv12_ec_notes/M03_ScanningNetworks/00_index.md",
+    "README.md",
+    "Untitled.md",
+    "Templates.md",
+    "images/Pasted image 20240616164702.png",
+    "Cehv12_ec_notes/M20_Cryptography",
+    "Cehv12_ec_notes/M19_CloudComputing",
+    "Cehv12_ec_notes/M18IOT_OT_Hacking",
+    "Cehv12_ec_notes/M17_HackingMobilePlatform",
+    "Cehv12_ec_notes/M16_HAckingWirelessNetwork",
+    "Cehv12_ec_notes/M15_SQLInjection",
+    "Cehv12_ec_notes/M14_HackingWebApplication",
+    "Cehv12_ec_notes/M13_HackingWebServers",
+    "Cehv12_ec_notes/M12_Evading Web Applications",
+    "Cehv12_ec_notes/M11_SessionHacking",
+    "Cehv12_ec_notes/M07_MalwareThreats/00_index.md",
+    "Abbreviates.md",
     "CeHV11_notes/Module12.md",
+    "CeHV11_notes/0Outline.md",
     "CeHV11_notes/Module13.md",
     "CeHV11_notes/Module11.md",
     "CeHV11_notes/Module10.md",
     "CeHV11_notes/Module05.md",
     "CeHV11_notes/Module02.md",
-    "CeHV11_notes/Module09.md",
-    "CeHV11_notes/Module08.md",
-    "CeHV11_notes/Module07.md",
-    "CeHV11_notes/Difference Between.md",
-    "CeHV11_notes/Module01.md",
-    "CeHV11_notes/Module06.md",
-    "Skillsets/Head of Cyber Security (Adani).md",
-    "Skillsets",
-    "CeHV11_notes/References.md",
-    "Tools_Usage/NETCAT.md",
-    "Tools_Usage/Meterpreter.md",
-    "Pasted image 20240623185138.png",
-    "M02_Footprinting and Reconnaissance/Footprinting and Reconnaissance.md",
-    "M01_Introduction to ethical hacking/01_Introduction to ethical Hacking.md",
-    "CeHV11_notes/Module04.md",
-    "M04_Enumeration/01 NetBIOS Enumeration.md",
-    "Untitled.md",
-    "CeHV11_notes/Module03.md",
-    "Tools_Usage/Nmap.md",
-    "Tools_Usage/Hping3.md",
-    "Pasted image 20240618180826.png",
-    "Pasted image 20240618180348.png",
-    "Security/Popular Ports.md",
-    "Pasted image 20240616164702.png",
-    "CeHV11_notes",
-    "images",
+    "images/Pasted image 20240623185138.png",
+    "images/Pasted image 20240618180826.png",
+    "images/Pasted image 20240618180348.png",
     "images/Pasted image 20240531185710.png",
     "images/Pasted image 20240531185508.png",
     "Security/OSI-model-layers-attacks-Stackscale.jpg.avif",
-    "M02_Footprinting and Reconnaissance",
-    "M01_Introduction to ethical hacking",
-    "M04_Enumeration",
-    "Security",
     "Pasted image 20240309105925.png",
-    "Untitled.canvas",
-    "Tools_Usage"
+    "Untitled.canvas"
   ]
 }
