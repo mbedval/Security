@@ -4,20 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "34f712ca662e721c",
+        "id": "1023780ef76e4b1d",
         "type": "tabs",
         "children": [
           {
-            "id": "0f8c11281994b4bc",
+            "id": "dacc7e56a85d8286",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Cehv12_ec_notes/M14_HackingWebApplication/00_index.md",
-                "mode": "source",
-                "backlinks": true,
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -86,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Cehv12_ec_notes/M14_HackingWebApplication/00_index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Cehv12_ec_notes/M14_HackingWebApplication/00_index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Cehv12_ec_notes/M14_HackingWebApplication/00_index.md"
-              }
+              "state": {}
             }
           }
         ],
@@ -148,10 +139,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "0f8c11281994b4bc",
+  "active": "dacc7e56a85d8286",
   "lastOpenFiles": [
-    "Cehv12_ec_notes/Untitled.md",
+    "Cehv12_ec_notes/README.md",
+    "README.md",
     "Cehv12_ec_notes/M14_HackingWebApplication/00_index.md",
+    "Cehv12_ec_notes/Untitled.md",
     "Cehv12_ec_notes/M13_HackingWebServers/00_index.md",
     "Cehv12_ec_notes/M12_Evading Web Applications/00_index.md",
     "Cehv12_ec_notes/M11_SessionHacking/00_index.md",
@@ -164,8 +157,6 @@
     "Cehv12_ec_notes/M02_Footprinting and Reconnaissance/00_index.md",
     "Cehv12_ec_notes/M04_Enumeration/01 NetBIOS Enumeration.md",
     "Cehv12_ec_notes/M03_ScanningNetworks/00_index.md",
-    "README.md",
-    "Untitled.md",
     "Templates.md",
     "images/Pasted image 20240616164702.png",
     "Cehv12_ec_notes/M20_Cryptography",
