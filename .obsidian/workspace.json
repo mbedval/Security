@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "1023780ef76e4b1d",
+        "id": "7967cbcc6e27fa62",
         "type": "tabs",
         "children": [
           {
-            "id": "dacc7e56a85d8286",
+            "id": "695e62fe79f35520",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -139,8 +139,11 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "dacc7e56a85d8286",
+  "active": "695e62fe79f35520",
   "lastOpenFiles": [
+    "CeHV11_notes/Module13_ HACKING WEB SERVERS.md",
+    "Pasted image 20240824132452.png",
+    "CeHV11_notes/Module12.md",
     "Cehv12_ec_notes/README.md",
     "README.md",
     "Cehv12_ec_notes/M14_HackingWebApplication/00_index.md",
@@ -171,13 +174,10 @@
     "Cehv12_ec_notes/M11_SessionHacking",
     "Cehv12_ec_notes/M07_MalwareThreats/00_index.md",
     "Abbreviates.md",
-    "CeHV11_notes/Module12.md",
     "CeHV11_notes/0Outline.md",
-    "CeHV11_notes/Module13.md",
     "CeHV11_notes/Module11.md",
     "CeHV11_notes/Module10.md",
     "CeHV11_notes/Module05.md",
-    "CeHV11_notes/Module02.md",
     "images/Pasted image 20240623185138.png",
     "images/Pasted image 20240618180826.png",
     "images/Pasted image 20240618180348.png",
