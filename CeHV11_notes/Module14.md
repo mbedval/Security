@@ -372,3 +372,222 @@ Google `reCaptcha` analyzes your mouse pattern and decides which test to show
 ### 14.10 A08  SOFTWARE AND DATA INTEGRITY FAILURES
 
 #### UNDERSTATING SOFTWARE AND DATA INTEGRITY FAILURES
+- Software and data integrity failures relate to code and infrastructure that does not protect against integrity violations
+- An example of this is where an application relies upon plugins, libraries or modules from untrusted sources, repositories and content delivery networks (CDNs)
+- An insecure CI/CD pipeline can introduce the potential for unauthorized access malicious code or system compromise
+- Lastly many applications now include auto-update functionality where updates are downloaded without sufficient integrity verification and applied to the previously trusted application
+- Attackers could potentially upload their own updates to be distributed and run on all installations
+- Another example is where objects or data are encoded or serialized into a structure that an 9attacker can see and modify is vulnerable to insecure deserialization.
+- Attacker get access on network , install malicious code into CI/CD pipeline and through that (deployed application built by the infected code) gives access to network through malicious code.
+- Attacker Example 2: Consumer devices that download unsigned updates, 
+	- Many home routers, set-up boxes, device firmware and other do not verify updates via signed firmware.
+	- Unsigned firmware is a growing target for attackers and is expected to only get worse
+	- This is a major concern as many times there is no mechanism to remediate other than to fix in a future version and wait for previous versions to age out.
+- Attacker Example 3: Solarwinds malicious update
+	- Nations-state have been known to attack update mechanism with a recent notable attack being the SolarWinds Orion attack.
+	- The company that develops the software had secure build and udpate integrity processes
+	- Still, these were able to be subverted and for several months, the firm distributed a highly targeted malicious update to more than 18000 organization of which around 100 or so were affected.
+	- This is one of the most far-reaching and most significant breaches of this nature in history.
+
+#### MAINTAINING SOFTWARE AND DATA INTEGRITY
+- Use digital signatures or similar mechanism to verify the software or data is from the expected source and has not been altered
+- Ensure libraries and dependencies such as npm or Maven, are consuming trusted respositories
+	- If you have a higher risk profile, consider hosting an itnernal known-good repository that's vetted.
+- Ensure that a software supply chain security tool, such as #OWASPDependencycheck or #OSWASPCycloneDX is used to verify that components do not contain known vulnerabilities
+- Ensure that there is a review process for code and configuration changes to minimize the chance that malicious code or configuration could be introduced into your software pipeline.
+- Ensure that your CI/CD pipeline has proper segregation, configuration, and access control to ensure the integrity of the code flowing through the build and deploy processes
+- Ensures that unsigned or unencrypted serialized data is not sent to untrusted clients without some form of integrity check or digital signature to detect tampering or replay of the serialized data.
+
+
+###  14.11 A09 SECURITY LOGGING AND MONITORING FAILURES
+- Security Monitoring is used to help detect, escalate and respond to active breaches
+- Without logging and monitoring breaches cannot be detected
+- Insufficient logging, detection, monitoring and active response can occur anywhere.
+- FAILED LOGGING EXAMPLE:
+	- Attacker gains access to internal network, scans for vulnerable systems and obtains sensitive data. Unable to detect attack and breach continues undetected.
+#### INDICATORS OF FAILED MONITORING
+- Auditable events, such as logins, failed login and high-value transactions are not logged.
+- Warnings and errors generate no, inadequate or unclear log messages.
+- Logs of applications and API are not monitored for suspicious activity
+- Logs are only stored locally
+- Appropriate alerting thresholds and response escalation processes are not in place or effective.
+- Penetration testing and scans by dynamic application security testing (DAST) tools such as *`OWASP ZAP`* do not trigger alerts.
+- The application cannot detect, escalate, or for active attacks in real-time or near real-time
+- Attack Example 1:
+	- A children's health plan provider website operator couldn't detect a breach due to a lack of monitoring and logging
+	- An external party informed the health plan provider that an attacker had accessed and modified thousands of sensitive health records of more than 3.5 million children
+	- A post-incident review found that the website developers had not addressed significant vulnerabilities.
+	- As there was no logging or monitoring of the system, the data breach could have been in progress for more than seven years.
+- Attack Example 2:
+	- A major European airline suffered a GDPR reportable breach.
+	- The breach was reportedly caused by payment application security vulnerabilities exploited by attackers
+	- The attackers harvested more than 400,000 customer payment records.
+	- The airline was fined 20 million pounds as a result by the privacy regulator.
+#### IMPROPER ERROR HANDLING
+- Improper error handling can introduce various securely problems
+- Detailed internal error messages might be displayed to an attacker
+	- Provided knowledge of the source code.
+	- Allows attackers to take advantages of things like default accounts/logic flaws
+- Attackers use information in error message to identify vulnerabilities.
+- Leaked information can include:
+	- System call failure
+	- Network timeout
+	- Null pointer exceptions
+	- Databased unavailable 
+	- App environment
+	- Web app logical flow
+	- Stack traces
+	- Database dumps
+	- Error Codes.
+#### LOG INJECTION
+- An attacker forges log entries or injects malicious content into the logs
+- Log injection vulnerabilities occur when:
+	- Data enters an application from an untrusted source
+	- The data is written to an application or system log file
+- Successful log injection attacks can cause:
+	- Injection of new/bogus log events (log forging via log injection)
+	- Injection of XSS attacks , hoping that the malicious log event is viewed in a vulnerable web application.
+	- Injection of commands that parsers (like PHP parsers) could execute
+	- Skewing of log file statistics
+	- Log file corruption to cover an attacker's tracks. or implicate someone else in malicious activity.
+
+#### LOG4J VULERNABILITY
+- Open source software provided by the Apache software foundation
+- Records events (errors and routine system operations)
+- Communicate diagnostic messages to sytem administrators and users 
+- Very wide-spread
+	- Popular games,  cloud services, software development tools, security tools
+	- Frequently bundled as part of other software
+- The Log4Shell exploit injected malicious text to trigger a log message
+	- Log4J processed the text as instructions
+	- Created a reverse shell back to the attacker
+- Spawn a frenzy of attacks:
+	- Ransomware gangs
+	- Bitcoin miners
+	- Malicious state actors hacking geopolitical rivals.
+#### MAINTAINING EFFECTIVE SECURITY MONITORING AND LOGGING
+- Patch all systems
+- Test systems when high-profile vulnerabilities become known.
+- Ensure all login, access control, and server-side input validation failures can be logged with sufficient user context
+	- To identify suspicious or malicious accounts
+	- Held for enough time to allow delayed forensics analysis
+- Ensure that logs are generated in a format that log management solutions can easily consume.
+- Ensure log data is encoded correctly to prevent injections or attacks on the logging or monitoring systems
+- Ensure high-value transaction have an audit trail with integrity controls to prevent tampering or deletion, such as append-only database tables or similar
+- #DevSecOps teams should established effective monitoring and alerting, so that suspicious activities are detected and responded to quickly
+- Establish or adopt an incident response and recovery plan. Consider using National Institute of standards and Technology (NIST) 800-61r2
+
+
+### 14.12 A10 SERVER SIDE REQUEST FORGERY
+- Exploits web apps that fetch remote content without validating the user-supplied URL.
+	- Exposes information even though the attacker is unauthorized.
+	- Can bypass ordinary access controls such as firewall, VPN and ACLs
+	- Can take advantages of the trust relationship between the web app and back-end servers.
+- Incidence and severity of SSRF in increasing.
+
+#### COMMON SSRF ATTACK ACTIVITIES
+- PORT Scan interval servers: 
+	- If the network architecture is unsegmented, attackers can map out internal networks.
+	- Use connection results or elapse time to determine if ports are open or closed.
+- Sensitive data exposure:
+	- Attackers can access local files such as /etc/passwd or internal services to gain sensitive information.
+	- Examples:
+		- file://ect/password
+		- http://localhost:28017
+- Access metadata storage of cloud services
+	- Most cloud providers have metadata storage such as http://169.254.169.254
+	- An attacker can read the metadata to gain sensitive information.
+- Compromise internal services:
+	- The attacker can abuse internal services to conduct further attacks such as Remote Code Execution (RCE) or Denial of Services (DoS)
+
+#### SSRF ATTACK 
+- ATTACK 1 :  Attacker request http with SSRF payload, Server process SSRF request triggers malicious request to internal resources , Server returns sensitive user data.
+- ATTACK 2: Replace the API Call, Instead of fetching the current forecast, fetch something unauthorized.
+- AMAZONE EC2 ATTACK EXAMPLE: 
+	- One of the most prevalent examples of an SSRF attack
+	- Gain access to Amazon EC2 instance credentials
+	- If an IAM role can access an EC2 instance, an attacker can obtain provisional credential by sending a request to:
+	- `http://169.254.169.254/lates/meta-data/iam/security-credentials/{role-name}`
+
+#### NETWORK-LAYER COUNTERMEASURES
+- Segment remote resource access functionalities in separate networks to reduce the impact of SSRF
+- Enforce "deny by default" firewall policies or network access control rules to block all but essential intranet traffic
+- Establish an ownership and a lifecycle for firewall rules based on applications.
+- Log all accepted and blocked network flows on firewalls.
+
+#### APPLICATION-LAYER COUNTERMEASURES
+- Sanitize and validate all client-supplied input data
+- Enforce the URL schema, port and destination with a positive allow list.
+- Do not send raw responses to clients.
+- Disable HTTP redirections
+- Disable potentially harmful URL schemas including `dict://` , `file:///` and `gopher://`
+- Be aware of the URL consistency to avoid attacks such as DNS rebinding and "time of check", "time of use" (TOCTOU) race conditions.
+- Whitelists the IP addresses or DNS names that your applications requires access to 
+	- Avoid using blacklists/deny lists or regular expressions.
+	- Attackers have payload lists, tools and skills to bypass deny/blacklists.
+
+
+
+### 14.14 CSRF
+#### CROSS-SITE REQUEST FORGERY (CSRF)
+AKA. XSRF
+- Exploits the server's trust in an authenticated user
+- Takes advantages of saved authenticated to access sensitive data
+- Induces a victim to perform actions they do not intend to perform.
+	- Forces the user's browser to send an authenticated request to server
+	- Forces an end user to execute unwanted actions on a web application in which they are currently authenticated.
+- Crafted URL and send to victim
+	- Victim clicks link and automatically signs in to the site due to a saved cookie.
+	- Requested action executes automatically.
+- Attacker wants the user's browser to perform an unauthorized action in the background, Example: share the link through email or social media. Because user already has a cookie to the legitimate site, When potential victim opens the link thinking they are going to a legitimate website, is redirected to malicious site , the malicious payload is executed.
+- CONDITIONS FOR ATTACK TO BE SUCCESSFUL
+	- There was a sole reliance on session cookie
+	- The user had already logged into the legitimate site
+		- Their session cookie was stored in their browser
+		- The cookie was not not set with the `SameSite` attribute
+		- The attacker was able to steal it.
+- A state-changing, sensitive 'Action' existed in the vulnerable app
+- The application doesn't perform adequate checks to identify a user. It relies solely on the request containing a session cookie.
+- There were no unique parameter in the request that the attacker couldn't determine.
+
+
+#### CSRF COUNTERMEASURES
+Use the OWASP Cross-Site Request Forgery Prevention Cheat sheet for guidance:
+- Send random challenges tokens
+- Validate tokens
+- Check if your framework has built-in CSRF protection and use it
+- Consider using the `SameSite` cookie Attribute for session cookie.
+- Consider implementing user interaction-based protection for highly sensitive operations.
+- Consider the use of custom request headers
+- Consider verifying the origin with standard headers.
+- For stateful use the synchronizer token pattern
+- For stateless software use double submit cookie.
+- Scenario 1: Which of the following attacks exploits web page vulnerabilities that allow the cybercriminal to control and send malicious requests from an unsuspecting user's browser without the victim's knowledge? and CSRF
+- Scenario 2: 
+	- While Moo is accessing his bank account using a web browser, he receives an email containing a link that say "awesome cats"
+	- He clicks on the link and shows a video of dancing cats.
+	- The next day, he receives an email notification from his bank, asking to verify the transactions made outside of the country
+	- What web browser-based vulnerability was exploited? 
+	- #CSRF is type of malicious exploit that allows an attackers to trick users to perform actions that they do not intend to.
+
+### 14.15 PARAMETER TEMPERING
+- A simple attack targeting the application business logic
+- This attack takes advantages of the fact that many programmers rely on hidden or fixed fields (such as a hidden tag in a form or a parameter in URL) as the only securely measure for certain operations.
+- A classic example of parameter tampering is changing parameters in form fields
+- When a user makes selections on an HTML page, they are usually stored as form field values and sent to the web application as an HTTP request.
+- Cookie Manipulation
+	- `ASP.NET_SessionID=SADFW452fg4f425shjd4;lang=en-us;ADMIN=no;y=1`
+	- `ASP.NET_SessionID=SADFW452fg4f425shjd4;lang=en-us;ADMIN=yes;y=1`
+- URL Manipulation
+	- `http://www.example.com/tranfer.asp?accountnumber=10002344563211&debitamount=1`
+	- `http://www.example.com/tranfer.asp?accountnumber=2345344563211&debitamount=1000`
+- HTTP Headers:
+	- Original : `HTTP/1.1 200 OK ... Set-Cookie: user=Jane Smith ...`
+	- Hacked : `HTTP/1.1 200 OK .. Set-Cookie: user=Moo Hacker HTTP/1.1 200 OK ...`
+
+#### HIDDEN FIELD MANIPULATION ATTACK
+- Selection on an HTML page are stored as field values
+	- They are sent to the app to generate as HTTP request
+- Field values can be stored as hidden fields (not rendered to screen)
+- Hidden values are still submitted as parameters when forms are submitted
+- Attackers can change hidden field values 
