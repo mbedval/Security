@@ -4,15 +4,20 @@
     "type": "split",
     "children": [
       {
-        "id": "7967cbcc6e27fa62",
+        "id": "798fa7bd76c849dc",
         "type": "tabs",
         "children": [
           {
-            "id": "695e62fe79f35520",
+            "id": "eee415b79296262e",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "CeHV11_notes/Module14.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              }
             }
           }
         ]
@@ -44,7 +49,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#VulnerableonlineSite",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -61,7 +66,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -81,6 +87,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "CeHV11_notes/Module14.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,6 +104,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "CeHV11_notes/Module14.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +126,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "CeHV11_notes/Module14.md"
+              }
             }
           }
         ],
@@ -139,11 +149,19 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "695e62fe79f35520",
+  "active": "eee415b79296262e",
   "lastOpenFiles": [
-    "CeHV11_notes/Module13_ HACKING WEB SERVERS.md",
-    "Pasted image 20240824132452.png",
+    "CeHV11_notes/Module13.md",
+    "CeHV11_notes/Module14.md",
+    "CeHV11_notes/Module15.md",
+    "CeHV11_notes/Module16.md",
+    "CeHV11_notes/Module20.md",
+    "CeHV11_notes/Module19.md",
+    "CeHV11_notes/Module18.md",
+    "CeHV11_notes/Module17.md",
+    "CeHV11_notes/Module11.md",
     "CeHV11_notes/Module12.md",
+    "Pasted image 20240824132452.png",
     "Cehv12_ec_notes/README.md",
     "README.md",
     "Cehv12_ec_notes/M14_HackingWebApplication/00_index.md",
@@ -160,7 +178,6 @@
     "Cehv12_ec_notes/M02_Footprinting and Reconnaissance/00_index.md",
     "Cehv12_ec_notes/M04_Enumeration/01 NetBIOS Enumeration.md",
     "Cehv12_ec_notes/M03_ScanningNetworks/00_index.md",
-    "Templates.md",
     "images/Pasted image 20240616164702.png",
     "Cehv12_ec_notes/M20_Cryptography",
     "Cehv12_ec_notes/M19_CloudComputing",
@@ -172,12 +189,6 @@
     "Cehv12_ec_notes/M13_HackingWebServers",
     "Cehv12_ec_notes/M12_Evading Web Applications",
     "Cehv12_ec_notes/M11_SessionHacking",
-    "Cehv12_ec_notes/M07_MalwareThreats/00_index.md",
-    "Abbreviates.md",
-    "CeHV11_notes/0Outline.md",
-    "CeHV11_notes/Module11.md",
-    "CeHV11_notes/Module10.md",
-    "CeHV11_notes/Module05.md",
     "images/Pasted image 20240623185138.png",
     "images/Pasted image 20240618180826.png",
     "images/Pasted image 20240618180348.png",
