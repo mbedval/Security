@@ -591,3 +591,217 @@ Use the OWASP Cross-Site Request Forgery Prevention Cheat sheet for guidance:
 - Field values can be stored as hidden fields (not rendered to screen)
 - Hidden values are still submitted as parameters when forms are submitted
 - Attackers can change hidden field values 
+- Example 
+	- `<input type="hidden" id=1211 name="cost" value="700">` changed to 
+	- changed to `<input type="hidden" id=-"1211" name="cost" value="70.0">`
+
+#### PREVENT PARAMETER TAMPERING
+- Filter and whitelist inputs
+- implements a Web Application Firewall (WAF)
+- Encrypt session cookies
+- If the cookie originated from the client-side such as a referrer, it should not be used to make any security decisions
+- Avoid including parameters in the query string
+
+
+### 14.16 CLICKJACKING
+
+#### CLICKJACKING
+- Clickjacking aims to capture a user action through a UI trick
+- A user is fooled into clicking a web page link that is different from where they had intended to land
+- The link redirects the victim to a pharming page or other malicious page
+	- The visitor things they are clicking a button to close window
+	- Instead the action of clicking the "x" button prompts the computer to download a Trojan horse, transfer money from a bank account or turn on the computer's built in microphone some well-known site
+	- The attacker tricks users into visiting the site through social engineering
+
+#### CLICKJACKING COUNTERMEASURES
+- Prevent the browser from loading the page in frame using:
+	- x-frame-options
+	- Content security Policy (frame-ancestors) HTTP headers
+- Prevent session cookies from being included when the page is loaded in a frame
+	- Use the `samesite` cookie attribute
+- Implement JavaScript "Frame-buster" code in the page. Prevent it from being loaded in a frame.
+
+
+### 14.17 SQL INJECTION
+#### SQL INJECTION (SQLI)
+- A type of command injection
+- The attacker modifies SQL statements before they are processed by the database management DBMS
+- The database is manipulated by injecting malicious SQL queries into web app input fields
+- SQL by itself has no way of validating input
+- The web app must be designed to filter out the injection
+- Attacks can be executed via (address bar, App fields , Search / queries)
+
+
+##### SQL and web APPS
+- The developer pre-creates a SQL query as part of a web page
+- The query just needs some user input to be complete
+- The user inputs the missing information into a form
+- The web app takes the input from the form and uses it to complete the query
+- The query is then sent to the database for processing
+
+#### INJECTING A MALICIOUS SQL COMMAND
+- Instead of the expected input, the attacker enters a partial SQL statement
+	- `select fname, lname, ccard from customers where cust_id = var_from_web_input`
+	- attacker enters` var_from_web_input = haha or 1=1`
+- The database sees that the query contains an OR statement
+- because 1 is equal to 1 , this statement is evaluated against each row in table and because it 1 is equal to 1, the database returns every row, including customers names and credit card numbers
+
+##### What can attacker do with SQLi?
+- Steal / modify / delete data
+- Delete whole tables
+- (Sometimes) run operating system commands
+##### SQLi Tools
+#sqlmap #sqlninja #havij #SQLBrute #Pangolin #SQLExec #Absinthe #BobCAt 
+
+#### SQL INJECTION COUNTERMEASURES
+- The preferred options is to use safe API
+	- Avoid using the interpreter entirely
+	- Use parameterized queries
+	- Migrate to Object Relational mapping tools (ORMs)
+- Note: 
+	- Even when parameterized, stored procedures can still introduces SQL injection if PL/SQL or T-SQL
+		- Concatenates queries and data
+		- Executes hostile data with execute immediate or Exec()
+- Use positive server-side input validation
+	- Note: this is not a complete defence
+	- Many applications require special characters such as text areas or APIs for mobile applications
+- For any residual dynamic queries, escape special characters using the specific escape syntax for that interpreter
+	- Note: SQL structures such as table names, columns, and so on cannot be escaped
+	- Thus user-supplied structures names are dangerous
+	- This is a common issue in report-writing software
+- Use LIMIT and other SQL controls within queries to prevent mass disclosure of records in case of SQL injection
+
+### 14.18 INSECURE DESERIALIZATION ATTACKS
+
+#### SERIALIZATION
+- Serialization is the process of taking an object out of memory and converting it into a steam of bytes
+- The bytes can now be transmitted across the network as well as stored on disk.
+- When an app performs the serialization of an object, we say that object is serialized
+- Serialization can be performed in most any programming language
+- Class, propertie (object) ==> stream of Bytes ==> Memory , Database, files (storage)
+- Serialized JSON object example: 
+	- `{ "employee":{ "name":"mukesh" , "salary":90000, "profile": "PSVE" } } ` 
+	- ;`a:1:{s:8: "employee"; a:3:{s:4: "name" ; s:3:"Mukesh"; s:6:"salary" ; :90000 ; s:7:"profile";p:"PSVE"; } }`
+
+
+#### DESERIALIZATION
+- Consists of converting serialized data into an in-memory representation which the app can then manipulate
+	- Concept:
+		- A Game want to retrieve the state of the serialized character object. It needs to DE serialize it first
+		- An attacker stores a serialized file representing a malicious payload
+		- If the developer doesn't perform a verification before deserialization, the insecure deserialization will trigger the attacker's code
+		- A malicious version of the object will be created and used by the game
+	- Example:
+		- In this example: PHP object serialization is used for PHP forum to save a "super" cookie loaded with data
+		- It contains the user id, role , password hash, and other states
+		- An attacker modifies the serialized object to obtain admin privileges and tamper with the data
+		- `a:4: { i:0; i:132; i:1; s:7:"MOO"; i:2;s:4:"user"; i:3:s:32:"32jgj345kl43j3l5l6343fgadaf"; }`
+		- The attacker changes the serialized object to give themselves admin privileges
+		- - `a:4: { i:0; i:132; i:1; s:7:"Mukesh"; i:2;s:4:"admin"; i:3:s:32:"32jgj345kl43j3l5l6343fgadaf"; }`
+
+
+#### INSECURE DESERIALIZATION COUNTERMEASURES
+- Use the OWASP insecure deserialization cheat sheet for guidance
+- Do not accept serialized objects from untrusted sources.
+- Encrypt the serialization process. Prevent hostile objet creation and data tampering
+- Run the deserialization code with limited access permissions
+- Strengthen your code's `Java.Io.ObjectInputStream`
+- Monitor the serialization process, catch any malicious code and breach attempts
+- Validate user input
+- Use a web application firewall. Detect malicious or unauthorized insecure deserialization.
+- Use non-standard data formats. something the attacker won't recognize
+- Only DE serialize digitally signed data 
+
+### 14.19 INSECURE DIRECT OBJECT REFERENCE #IDOR
+
+- A common access control vulnerability
+- Occurs when a reference to an internal  implementation object is exposed without any controls
+- The referenced object is typically displayed in a URL
+- The vulnerability is often easy to discover and allows attackers to access unauthorized data.
+	- Examples
+		- `http://examples.com/somepage?invoice=1001`
+		- `http://example.com/changepassword>user=mux`
+
+#### IDOR ATTACK TECHNIQUES
+- Try incrementing ID or account numbers
+- Try replacing a file name with a path such as /etc/passwd
+- Try abusing REST HTTP methods
+	- for example you seee GET /api/profile
+	- Try the following
+```
+	Get /api/profile/1
+	PUT /api/profile/1
+	Host: vulnerable
+	Content-Type: application/json
+	{"email" ; |mb@gmail.com}
+```
+
+
+#### IDOR COUNTERMEASURES
+- As a developer or tester, make sure to write integration tests which cover IDOR use cases
+- Register two accounts for each role the application supports
+	- Try to replace one with the other
+	- This tests lateral access control measures and privilege escalation
+- Discover as many features as you can, preferably with the role with the highest privilege
+	- If the application provides paid membership, try to get test accounts or purchase it.
+- Collect all the endpoint found and try to find a naming pattern.
+	- Then guess new endpoint names based on the pattern you discovered.
+- For DevOps engineers, make sure you set up a continuous integration / continuous delivery (CI/CD) pipeline which includes all automated tests.
+- Use GUIDs that are hard to guess.
+
+#### SCENARIO
+- Moo Cow system recently bought out its competitor. `Whamiedyne `Inc which web out of business due to series of data breaches.
+- As a cybersecurity analyst for Moo Cows, you are assessing `whamiedyne's`  existing application and infrastructure.
+- During you analysis, you discover the following URL is used to access an application.
+- `https://www.whamiedyne.com/app/accountinfo?acc=12345`
+- what is that an example of ?
+- This is an example of an insecure direct object reference. Direct object references are typically insecure when they do not verify whether a user is authorized to access a specific object.
+
+
+### 14.20 DIRECTORY TRAVERSAL
+
+#### DIRECTORY TRAVERSAL aka dot-dot-slash
+- Allows an attacker to navigate outside the web publishing directory
+- An attacker can:
+	- Request a file that should not be accessible from the web server
+	- Gain access to restricted directories and files
+	- Execute commands outside of the root directory of the server
+	- Manipulate variables related to ../files
+`http://www.example.com/../../../etc/passwd`
+`http://example.com/events.php?file=../../../etc/passwd`
+`http://TARGET/Scripts/..%255%255c../winnt/system32/cmd.exe>/c+dir+c:\`
+
+#### DIRECTORY TRAVERSAL COUNTERMEASURES
+- Avoid passing user-supplied input to filesystem APIs
+- Make the application validate the user before processing it.
+	- Either compare the input against a whitelist of permitted values.
+	- or verify that the input contains only permitted content - for example, alphanumeric characters.
+- After validating the user-supplied input, make the application verify that the canonicalized (absolute) path starts with the expected base directory
+	- Java snippet example to validate the canonical path of a file:
+```
+File file = new File (BASE_DIRECTORY, userInput);
+if(file.getCanonicalPath().startwith (BASE_DIRECTORY))
+{
+	process file
+}
+```
+
+
+### 14.24 SESSION MANAGEMENT ATTACKS
+
+#### SESSION MANAGEMENT
+- Each web session is given a session ID
+- Because HTTP is stateless, the session ID is attached to every request sent from the client to the server.
+#### SESSION MANAGEMENT MECHANISM
+- Unique identifier embedded in URL `http:/www.bank.com/accoun.php?sessionid=BM3434233`
+- Unique identifier in hidden from filed, submitted with HTTP POST command.
+	- `<FORM METHOD="POST" ACTION="/account.php">`
+	- `<INPUT TYPE="hidden NAME="sessionid" VALUE="BM2424233">`
+- Unique identifier in cookies
+	- `Set-Cookie: BA60012219' path="/" ; domain="www.bank.com"; expires = 2023-06-01 00:00:00GMT; version`
+
+#### COMMON SESSION MANAGEMENT ATTACKS
+
+| Attack            | Description |
+| ----------------- | ----------- |
+| Session Hijacking |             |
