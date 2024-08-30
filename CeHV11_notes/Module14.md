@@ -802,6 +802,287 @@ if(file.getCanonicalPath().startwith (BASE_DIRECTORY))
 
 #### COMMON SESSION MANAGEMENT ATTACKS
 
-| Attack            | Description |
-| ----------------- | ----------- |
-| Session Hijacking |             |
+| Attack                               | Description                                                                                                                                                                                                                        |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Session Hijacking ( aka sidejacking) | - Involve employing technique to tamper with or take over TCP and web application user sessions<br>- If the attacker successfully impersonates the user/client, they gain access to any sensitive information found in the session |
+| Cracking Apache IDs                  | - Some web application use the built-in cookie session id generation algorithm m that ship with the Apache Web server.<br>- An ID generated via the algorithm in mod_usertrack.c can be guessed using automated scripts.           |
+| sniffing session ids                 | - Sessions that use encrypted HTTP can be sniffed and their session ID extracted                                                                                                                                                   |
+| Session fixation                     | - Instead of stealing / hijacking the victim's session the attacker fixes the user's session ID before the user even logs into the target server<br>- Eliminates the need to obtain the user's session ID afterwards<br>           |
+| Credentials/ session prediction      | - If an app simply increments the IDS for each new session future IDs can be quickly predicted.                                                                                                                                    |
+
+#### COOKIE / SESSION POISIONING
+- Cookie maintain session state
+- Poisoning :
+	- Alters the cookie content
+	- Permits in injection of malicious content, alter user's experience, gather sensitive information
+	- Rewrites session data
+- Countermeasures:
+	- Set the `Secure` attributes on the cookie to protect its confidentiality
+	- Hash the cookie to protect its integrity
+
+#### OTHER SESSION VULNERABILITIES
+- Insufficient session expiration
+	- A web application takes a long time to time out
+	- If the user simply closes the browser, the session is still active
+	- If the user leaves ( such as at a public café) an attacker could take their place, open the site again , and automatically enter without authenticating.
+- Weak session cryptographic algorithms
+	- The common (and outdated) MD5 hashing algorithms can be attacked by a number of password brute forcer.
+- Insufficient session IDS length : the shorter the IDs the easier it is to crack (even if encrypted)
+- Proxies and caching : If the web app is accessed from behind a corporate proxy, whenever the session ID is passed the proxy will cache it.
+- Insecure server-site session ID storage
+	- Some frameworks use shared areas of the web server's disk to store session data
+	- In particular, PHP uses `/tmp` on UNIX, and `C:\windows\temp` on Windows by default 
+	- These areas provide no protection
+
+#### SESSION ATTACK COUNTERMEASURES
+- Make session IDs unpredictable
+- Encrypt session token
+- Change the session token after authentication
+- Use a message Authentication Code (MAC) to validate sensitive data
+	- A MAC function adds a secret key to a hashing function
+	- An attacker cannot generate a valid MAC without the key
+	- The server and browser will include the MAC for any data sent
+	- The server can verify the MAC using its secret key
+
+
+### 14.22 RESPONSE SPLITTING
+#### HTTP RESPONSE SPLITTING
+- A protocol manipulation attack similar to parameter Tampering
+- Uses CRLF (Carrier Return, Line feed) injection
+- An attacker adds header response data to an input field so the server splits the response
+- The web app must perfmit carriage return and line feed characters in its input.
+- Since HTML is stateless, neither the server nor the client notices the odd behavior
+- With HTTP Response splitting, it is possible to mount various kinds of attacks:
+	- Cross-site Scripting (XSS) attacks
+	- Cross User Defacement
+	- Web Cache Poisoning
+	- Page Hijacking
+	- Browser Cache Poisoning
+	- Browser Hijacking
+
+#### RESPONSE SPLITTING COUNTERMEASURES
+- To mount a successful exploit, the application must allow input that contains
+	- CR (carriage return, also given by `%0d` or `\r `)
+	- and LF (Line feed, also given by `%0a` or `\n` )characters into the header
+- AND the underlying platform must be vulnerable to the injection of such characters
+- Retire all old application servers.
+- This vulnerability has been fixed in most modern application servers. Regardless of what language the code has been written in.
+
+
+
+### 14.24 OVERFLOW ATTACKS
+#### Application memory structure
+- #Stack Temporarily stores variables created by a function when the task is complete, the memory is erased.
+- #heap Temporarily stores data created while the program is running.
+
+#### OVERFLOW TYPES
+
+| OVERFLOW TYPE    | Description                                                                                                                                                                          |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Integer Overflow | A condition that occurs when the result of an integer operation does not fit within its allocated memory space.                                                                      |
+| Buffer Overflow  | - An unexpected evern where a program, while writing data to a buffer, overruns the buffer's boundary<br>- Overwrites adjacent memory locations<br>- Can be a heap or stack overflow |
+| Heap Overflow    | - Less common and harder to execute<br>- Involves flooding the memory space allocated for a program beyond memory used to current runtime operations.                                |
+| Stack Overflow   | - More common type of buffer overflow<br>- Exceeds the stack memory that only exists during the execution time of a function.                                                        |
+|                  |                                                                                                                                                                                      |
+
+#### INTEGER OVERFLOW
+- A common cause of software errors
+- Occurs when the results of an integer operation does not fit within the allocated memory space.
+- Usually causes the result to be unexpected rather than an application error. The app could continue with wrong values.
+- In a "signed" integer half of the range is positive, the other half is negative.
+	- You can't exceeds either value
+	- An attacker could take advantages of this to get a refund, rather than having to pay
+	- `Inter.MAX_VALUE + 1` will show the integer overflow
+- In an "unsigned" integer the numbers are only positive 
+
+#### BUFFER OVERFLOW
+- App writes more data than a block of memory is designed to hold.
+	- Inputs more data than the buffer is allowed.
+- Allows attackers to change address space of target process.
+- Attackers direct program execution to memory locations containing malicious code.
+
+
+#### FUZZ TESTING
+- Fuzz testing is a quality and assurance checking technique that is used to identify coding errors and security loopholes in a targeted web applications.
+- Huge amounts of random data called "Fuzz" will be generated by the fuzz testing tools (Fuzzer)
+	- The hope is to crash the program, or get it to behave strangely
+- Fuzzing is also used against the target web application to discover vulnerabilities that can be exploited by various attacks
+- Can be used in all sorts of injection attacks
+- Typically used to discover buffer overflow vulnerabilies
+
+#### OVERFLOW COUNTERMEASURES
+- Perform static code analysis on the source code.
+- Use fuzzing to test running code dynamically
+- Place a "canary" (typically a small random integer) in your code
+	- Put it before the return carriage of the termination point of the buffer
+	- It will have to be overwritten first before the overflow can occur
+	- The system can monitor for this.
+
+### 14.25 XXE ATTACKS
+#### XML EXTERNAL ENTITIES ATTACK
+- AKA XXE OR XEE
+- An Attack against an application that uses XML for data exchange
+- If a web application uses XML data an attacker can interfere with the request and manipulate it 
+- The attacker could inject malicious code in the XML. Similar to SQL injection or command injection
+- 
+```
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE foo [
+<!ELEMENT foo ANY >
+
+//example1: The malicious code typically references an "external entity" such as an operating system file
+
+<!ENTITY xxe SYSTEM "file:///etc/passwd" >]>  
+
+//example2: probes the private network of the server by changing the entity line to an IP address
+<!ENTITY xxe SYSTEM "https://192.168.1.100:8080" >]>
+
+//example3: the attackers include a potentially endless file to create a denial of service attack & /dev/random is an interface to the kernel' random generator
+<!ENTITY xxe SYSTEM "file:///dev/random" >]> 
+<foo>&xxe;</foo>
+]
+
+```
+
+#### HOW TO PREVENT XXE ATTACKS
+Use simple data formats such as JSON whenever possible
+Avoid sensitive data serialization
+Upgrade or patch all XML libraries and processors used by the underlying operating system or the application.
+Prefer to use dependency checker and upgrade to SOAP 1.2 or higher
+Disable DTD processing of XML external entity in all applications iin all XML parsers. Document type Definition defines the tree structure of HTML and XML (and other ) documents
+Implement whitelisting or positive server-side input validation, sanitization or filtering
+Perform manual code review.
+Scan code using Static application security Testing ( #SAST) tools.
+
+
+### 14.23 WEB APP DOS
+#### Denial of service (DOS)
+- Attackers overload server resource by sending hundreds of requests
+- JavaScript-based DDoS attacks are a growing problem on the Internet
+- App-level attacks are hard to detect
+- App vulnerabilities susceptible to DoS include:
+	- Poor validation of data
+	- Flaws in implementation
+	- Reasonable use of expectations
+	- Bottlenecks in the application environment
+
+
+- Billion Laughs XXE Dos : DOS attack that takes up an exponential amount of space or time . each string expands to ten of previous string, or ultimately this small block contains $10^9$ (a billion) lols
+- JavaScript DoS attack: This script sends floods of request to victim websites 
+- Example:
+```
+function imgflood(){
+	var TARGET = "victimsite.com"
+	var URI ='index.php>'
+	var pic = new image()
+	var rand = Math.floor(Math.random() * 1000)
+	pic.src = "http://'+target+URI_RAND+'=val"
+}
+setInterval(imgflood, 10)
+
+Explaination: Script creates an image tag on the page 100 times per second. The iamge points with random number queries (From 0 to 999). Every visitor to this site that contains this script become a unwitting participant in the DDoS attack againt this site. This message sent by the browser are valid HTTP requests. This will clog up the pipes with lot of network traffic, the web server and backend to become overloaded with work
+```
+
+#### DOS COUNTERMEASURES
+- Carefully review and test your code to look for vulnerabilities that can lead to DoS / DDoS attacks
+- Load Balance critical services so they can absorb an attack
+- Consider using an online service to filter / buffer your website traffic against DDoS attacks.
+
+### 14.26 SOAP ATTACKS
+SIMPLE OBJECT ACCESS PROTOCOL (SOAP)
+- A light weight data interchange protocol
+	- Exchange data between web services
+	- Provides a structured model for messaging
+	- Mainly used for web services and APIs
+- Based on XML
+- Built on top of HTTP
+- Designed to be OS and platform independent
+
+#### SOAP VULNERABILITIES
+Because SOAP uses XML and HTTP, it is vulnerable to many web app attakcs
+	Code Injection
+	Leaked / breached access
+	Distributed Denial of Services
+	Cross-site scripting
+	Session Hijacking
+
+
+#### MALICIOUS SOAP REQUEST EXAMPLE:
+An attacker changes the delivery address of an item bought at an online store
+The request is still considered valid because the part that was "signed" by security is still there.
+
+#### HOW to Secure SOAP
+- Ensure that SOAP message are shown to authorized users only 
+- Add a security credential to the SOAP header
+	- Includes username and password as variables
+	- When SOAP messages are generated these credentials are also generated, and the username and password will be required when a user calls the web service
+- Valid input
+- Limit SOAP message length and volume to mitigate DOS attacks
+- Monitor application requests
+- Regularly test the app
+- Implement redundant security
+
+#### 14.27 AJAX ATTACKS
+#### ASYNCHRONOUS JAVASCRIPT TECHNOLOGY AND XML (AJAX)
+- AJAX is a collection of technologies (XML , HTML, DOM , CSS, JavaScript)
+	- They are used together on the client side to increase interactivity speed and usability
+- Web apps are designed to provide a rich user experience and imitate "traditional" desktop applications.
+	- Examples : Google Docs, Google Sheets, Google Maps, Yahoo Mail
+#### AJAX VULNERABILITIES
+- Increased attack surface with many more inputs to secure. Internal functions of the application can become exposed
+- Client has access to third-party resources with no built-in security
+- Failure to protect authentication information and sessions.
+	- An attacker might be able to use hidden URLs to hijack servers requests to back-end applications.
+- Blurred line between client-site and server-side code, possible resulting in security mistakes.
+- AJAX is particularly vulnerable to
+	- SQL injection
+	- XSS 
+	- CSRF
+	- DoS
+
+#### AJAX and XSS
+- Browser and AJAX requests look identical - a server can't tell the difference
+- A javaScript program can use AJAX to request a resource in the background without the user's knowledge 
+	- The browser will automatically add the necessary authentication or state-keeping information such as cookie to the request
+	- JavaScript code can then access the response to this hidden request and then send more requests
+	- This expansion of JavaScript functionality increases the possible damage of XSS
+- A XSS attack could send request for specific pages other than page the user is currently looking at. This allow the attacker to actively look for certain content, potentially accessing the data.
+
+#### Defending AJAX-Enable Web Apps
+- Sanitize input and whitelist allowed characters
+- Properly encode all output to strip metacharacters of any special meaning
+- Consider using an automated tool to scan JavaScript files and identify vulnerable AJAX call in running code.
+- Tools include
+	- FireBug
+	- Acunetix Web Vulnerability Scanner
+	- OWASP ZAP AJAX Spider
+
+### 14.30 WEB APP HACKING TOOLS
+1. #GRABBER : Simple , portable vulnerability scanner, suitable for small websites, [link](http://rgaucher.info/beta/grabber)
+2. #Vega : Open source web scanner and testing platform. Can be used for automated, manual or hybrid security testing, [link](https://subgraph.com/vega)
+3. `Zed Attack Proxy` (#ZAP) : Automated web app scanner and intercepting proxy for manual tests on specific pages. [link](https://github.com/zaproxy/zaproxy)
+4. #Wapiti: Scan web pages and inject data [link](https://www.sourceforge.net)
+5. #W3af: Web app attack and audit framework [Link](http://w3af.org) 
+6. #WebScarab : Java-based security framework/intercepting proxy. Analyze web app using http or HTTPS [link ](https://www.owasp.org/index.php/category:OWASP_WebScarab_project)
+7. #SQLMAP: Automated finding the exploiting SQL injecting vulnerabilities in a websites database [Link](https://github.com/sqlmapproject/sqlmap) 
+8. #RatProxy : Web app security audit tool, Can distinguish between CSS stylesheets and JavaScript codes. Also support the SSL man-in-the-middle attack. You can also see data passing through SSL. [Link](http://code.google.com/p/ratproxy)
+9. #Grendel-scan: Automatic tool for finding security vulnerabilities in web applications. Many features are also available for manual penetration testing. This tool is available for windows, linux and Macintosh and was developed in Java. [Link]( http://www.sourceforge.net/projects/grendel)
+10. #Skipfish: Web site crawler/page checker . available in #kali distribution
+11. #BurpSuite: 
+	- A graphical tool used for testing web application security
+	- Helps you identify vulnerabilities and verify attack vectors that are affecting web applications
+	- While browsing the target applications a penetration tester can configure its internet browser to route traffic through the Burp Suite proxy server
+	- Burp suite then acts as a `Man in the Middle` 
+	- It captures and analyzes each request to an from the target application so that htey can be analyzed
+	- Burp suite testers can pause, manipulate and replay individual HTTP requests in order to analyze potential parameter or injection points.
+12. #Arachni: Detect various vulnerabilities like SQL injection, XSS, local file inclusion, remote file include, invalidated redirect and many others.
+13. #metasploit  WMAP Web Scanner: The most-used penetration testing framework. Comes pre-installed in kali Linux
+14. #watcher :
+	- Add-on to fiddler (web debugging proxy tool)
+	- Passive web security scanner. It does not attack with loads of requests or crawl the target website
+	-  [link](http://websecuritytool.codeplex.com)
+- #Nikto: performs over 6000 tests against a website
+- #WPScan : Scans you wordpress website and checks the vulnerabilities within the core version plugins, themes, etc.
+- #Netsparker web vulnerability scanner: uses proof -based scanning to automatically verify false positive and save time.
+
+## 
