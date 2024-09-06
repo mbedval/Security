@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "e458fcb0c4276430",
+        "id": "07cd729b04ce097f",
         "type": "tabs",
         "children": [
           {
-            "id": "1e408977ef4f0aa7",
+            "id": "c36a5bca109d8db1",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -44,7 +44,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#SimpleKarmaAttack",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -65,7 +65,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "4b1b3f083f9676b8",
@@ -139,12 +140,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "1e408977ef4f0aa7",
+  "active": "c36a5bca109d8db1",
   "lastOpenFiles": [
+    "CeHV11_notes/Module16.md",
     "CeHV11_notes/Module15.md",
     "CeHV11_notes/Module14.md",
     "CeHV11_notes/Module13.md",
-    "CeHV11_notes/Module16.md",
     "CeHV11_notes/Module20.md",
     "CeHV11_notes/Module19.md",
     "CeHV11_notes/Module18.md",
