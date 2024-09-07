@@ -4,20 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "0d977811936db590",
+        "id": "d459ebc322c7df04",
         "type": "tabs",
         "children": [
           {
-            "id": "0bdfba68c1900468",
+            "id": "3833bdd93dcbd8aa",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "CeHV11_notes/Module17.md",
-                "mode": "source",
-                "backlinks": true,
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -49,7 +44,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#SimpleKarmaAttack",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -86,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CeHV11_notes/Module17.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CeHV11_notes/Module17.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "CeHV11_notes/Module17.md"
-              }
+              "state": {}
             }
           }
         ],
@@ -148,16 +139,17 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "0bdfba68c1900468",
+  "active": "3833bdd93dcbd8aa",
   "lastOpenFiles": [
-    "CeHV11_notes/Module16.md",
-    "CeHV11_notes/Module15.md",
     "CeHV11_notes/Module14.md",
+    "CeHV11_notes/Module15.md",
+    "CeHV11_notes/Module17.md",
+    "CeHV11_notes/Module16.md",
+    "^b0f31b.md",
     "CeHV11_notes/Module13.md",
     "CeHV11_notes/Module20.md",
     "CeHV11_notes/Module19.md",
     "CeHV11_notes/Module18.md",
-    "CeHV11_notes/Module17.md",
     "CeHV11_notes/Module11.md",
     "CeHV11_notes/Module12.md",
     "Pasted image 20240824132452.png",
@@ -176,7 +168,6 @@
     "Cehv12_ec_notes/M01_Introduction to ethical hacking/00_index.md",
     "Cehv12_ec_notes/M02_Footprinting and Reconnaissance/00_index.md",
     "Cehv12_ec_notes/M04_Enumeration/01 NetBIOS Enumeration.md",
-    "Cehv12_ec_notes/M03_ScanningNetworks/00_index.md",
     "images/Pasted image 20240616164702.png",
     "Cehv12_ec_notes/M20_Cryptography",
     "Cehv12_ec_notes/M19_CloudComputing",

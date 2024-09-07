@@ -1085,4 +1085,3 @@ The request is still considered valid because the part that was "signed" by secu
 - #WPScan : Scans you wordpress website and checks the vulnerabilities within the core version plugins, themes, etc.
 - #Netsparker web vulnerability scanner: uses proof -based scanning to automatically verify false positive and save time.
 
-## 

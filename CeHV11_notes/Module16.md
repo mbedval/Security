@@ -588,7 +588,7 @@ example : `bully mon0 -b host-mac-address -e mendela2 -c 9`
 - Social engineering / false SMS messages
 - Unauthorized calls / using the victim's airtime
 
-BLUEToOTH ATTACK TYPES
+BLUEToOTH ATTACK TYPES #BluetoothAttacks ^b0f31b
 - Blueborne attack
 	- Collectoion of overflow attack that could result in arbitrary code execution
 	- An attack virus that spreads through air
@@ -829,42 +829,6 @@ RFID / NFC
 - RFID and NFC Badges and tokens can be cloned from a short distance
 - There are several NFC hacking apps you can use to crack the NFC key.
 - There are a number of vulnerability scanners you can use to test Wi-Fi networks
-- There are also a number of Wi-fi security tools and IPSes available to protect the wireless network
+- There are also a number of Wi-fi security tools and IPSec available to protect the wireless network
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-- 
-
-
-
-
-
-
-
-
-# P1980
