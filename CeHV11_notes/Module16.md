@@ -536,9 +536,315 @@ WPA2 ENTERPRISE
 - CVE-2019-9494 : Timing-based side-channel attack against WPA3 Dragonfly handshake. The amount of times it takes for an AP to respond to client commit frames may leak information about the password
 - CVE-2019-9494 : Cache-based side-channel-attack against WPA3 Dragonfly handshake
 	- Memory access patterns reveal information about the password being used
-	- Leaked patterns can be used to perform
-	- 
+	- Leaked patterns can be used to perform a dictionary attack
+	- Performed by simulating the memory access patterns associated to a password
+- CERT ID #VU871675 Resource consumption attack (DoS) against WPA3's Dragonfly handshake
+	- Causes high CPU usage on the AP drains its battery, prevents or delays other devices from connecting to the AP using WPA3
+	- May also halt or slow down other functionality of the AP as well
+- Dictionary brute force attack
+	- It is possible to brute force the password of a WPA3 access point
+	- Use a tool such as Wacker or other Python scripts
+- `python wacker.py -h`
+
+### 16.8 WPS CRACKING
+- A method for setting up a secure Wi-Fi network at home with minimum effort
+- Eliminates the need for the user to enter a WPA/WPA2 pre-shared key on the wireless client device.
+- Can be implemented in several ways
+	- The user presses a button the Wi-Fi Access point
+		- The psk is transmitted to the client device long enough for a connection to be made
+	- The user enters a PIN (on a sticker pasted to the WAP)
+		- Key exchange is protected by the PIN
+	- Devices use Near Field Communication (NFC)
+		- Key exchange is performed "out of band " using NFC
+	- A USB flash drive or cable is used to exchange the key between the device and the WAP.
+
+#### WPS ATTACK
+- If a Pin is used 
+	- Each PIN half is calculated separately
+	- There are only 11,000 possible values
+	- Easy to crack within hours
+- Lockout policies on the WAP/router can hamper PIN Cracking online
+	- Might take a couple weeks, but still feasible
+	- Lockout may look for MAC address, so spoofing could be used to bypass
+	- Brute forcing may trigger DoS on certain WAPs
+- Automated brute-forcing tools can be used to ultimately crack WPS
+
+##### BULLY WPS ATTACK
+example : `bully mon0 -b host-mac-address -e mendela2 -c 9`
+
+### 16.9 BLUETOOTH HACKING
+- Discoverable Modes;
+	- Discoverable:  The devices broadcasts its presence and is able to be seen (detected) to other Bluetooth devices in range
+	- Limited Discoverable: The device is discoverable for only short period of time
+	- Non-Discoverable: Prevents the devices from being listed when another devices search for bluetooth-enabled devices. Does not actually turn bluetooth off. A Non-Discoverable device can still be attacked if its MAC address is known or determined by brute force.
+- Paring Modes
+	- Non-Pairable
+	- Pariable
+
+
+#### BLUETOOTH THREATS
+- Personal information disclosure
+- Remote code execution
+- Social engineering / false SMS messages
+- Unauthorized calls / using the victim's airtime
+
+BLUEToOTH ATTACK TYPES
+- Blueborne attack
+	- Collectoion of overflow attack that could result in arbitrary code execution
+	- An attack virus that spreads through air
+	- Gets into a device via bluetooth
+	- Takes full control of the device
+	- Does not requires pairing
+	- The device need not be in discoverable mode
+- Bluejacking
+	- Sending unsolicited messages to Bluetooth-enabled devices
+	- Can include a malicious payload such as a trojan horse
+- Bluesnarfing
+	- Unauthorized access to emails, messages, contacts, etc on the target 
+	- Command `bt stiff # btobex` #kali
+- Bluebugging
+	- Remote access to phone features such as the microphone or camera
+- Bluesmacking
+	- Denial of service attack
+- Bluesniffing
+	- Locate Bluetooth devices
+- Blueprinting
+	- Enumerate details about bluetooth-enabled devices
+- MAC Spoofing Attack
+	- Used to cloen or MITM Bluetooth devices
+- Man-In-the-Middle Attack
+	- Manipulate communications between Bluetooth devices
+	- Often uses MAC spoofing
+	- Commonly used against Bluetooth Low energy IoT devices and their smartphone app.
+
+#### BLUETOOTH HACKING TOOLS
+#Blueborne: Bluebprne exploit framework available on GitHub
+#spooftooph Automates spoofing or cloning of Bluetooth device
+#BlueScanner #btscanner Bluetoothdevice scanners designed to extract as much information as possible from bluetooth devices without pairing 
+#btCrawler Scans for visible Bluetooth devices
+#Bluedriving Bluetooth wardriving utility
+#phoneSnoop allows you to turn a Blackberry into a room bugging devices
+#BHBlueJack Open-source bluejacking software
+#Bluesnarfer, #btobex Bluetooth bluesnarfing utility
+#BlooverII bluebug / bluejack / bluesnarfer
+#Bluediving is tool suite that can spoof, Bluebug, bluesnarf and BlueSmack
+#GATTacker #BtleJuice Bluetooth low energy eavesdropping and MITM tools. Conduct attack against BLE peripherals (such as IoT wearables) and a phone
+
+#### BLUETOOTH MOBILE APP TOOLS
+#bluesniff Bluetooth scanner that runs on Iphone
+#BLEScanner Bluetooth scanner that runs on Android
+#SuperBluetoothHack is bluesnarfer that run on Android
+#CIHwBT Bluetooth exploit suite (BlueSnarf, BlueJack, DoS) that runs on Windows Mobile
+
+### 16.10 OTHER WIRELESS HACKING
+#### Attack Againsts NEW Cellular ; 4G 5G networks
+- #TorpedoAttack 
+	- Exploits a weakness in the cell tower paging system
+	- Allows an attacker to track a phone's location
+	- Spoof, inject or block emergency alerts such a severe weather warnings and Amber alerts
+- Piercer Attack
+	- An attacker can determine an international mobile subscriber Identify (IMSI) number
+- IMSI-Cracking Attack: An attacker can crack the encrypted IMSI number in order to clone it
+- `StingRay` Cell Tower Simulator
+	- Cell phone surveillance and eavesdropping
+#### CELL TOWER SIMULATORS
+- aka IMSI catcher
+- Device masquerades as a legitimate cell phone tower
+- Tricks phones within a certain radius (up to 500 meters) into connecting to its rather than a legitimate tower
+- Can be used to intercept call information
+	- Cell phone's International mobile Subscriber Identity (IMSI) number
+	- Metadata about calls (number dialed, duration of call)
+	- Content of SMS and voice calls
+	- Data usage and websites visited
+- Can also spoof text messages and callerID
+- Currently only worker on 3G and 4G networks
+	- However many 5G carries also provides 4G parallel capability
+	- A victim could be forced to downgraded to 4G for particular call
+- Popular products include Stingray, #DRTBox
+
+ #### RFID BADGE CLONING
+ - Badge cloning is the act of copying authentication data from an RFID badge's microchip to another badge
+ - The attacker can obtain authorization credential without actually stealing a physical badge from the organization.
+ - The older RFID badge technology uses the unencrypted 125 kHz EM4100 protocol . Device will begin transmitting data to any receivers that are nearby.
+- #PRoxmark3 
+	- The swiss army knife of badge cloners
+	- NFC and RFID badge cloner
+	- You can attack High and Low Frequency as well as long-range antennas
+- iCopy-X 
+	- Hand-held rapid cloner
+	- Built on proxmark3
+- You can hide everything in a backpack
+	- Just get within a foot or two from the victim
+	- Crowded elevator, food counter, checkout line, go up and talk to them.
+#### NFC BADGE / TAG CLONING
+- NFC badges / tags use MIFARE encrypted 13.56 MHz 
+- You can buy an NFC RFID reader / writer tool . There are several models available online and software setup of latpop
+- An Android phone provides an easier way to clone NFC
+	- Android has built in NFC capabilities
+	- Download the MiFARE classic Tool app
+		- Key brute force cracker
+		- Also comes with NFC card manufacturer default keys
+		- Many organizations do not bother to change the default key, allowing you to easily you to easily clone the badge
+- #MTools #Mkeys is another mobile app NFC key cracker
+- Performs dictionary attacks
+- https://why-yuyeye.cc/post/mtools-guide
+
+### 16.11 WIRELESS SECURITY TOOLS
+- #KISMET
+	- Wi-Fi device detector, sniffer, WIDS framework
+	- Detectors 802.11a/b/g/n Aps
+	- Runs on Linux
+- #Solar Winds Network Performance Monitor / Rogue AP Detection
+	- All in one network monitor
+- #OSWA -Assistant 
+	- Free standalone wireless auditing toolkit
+- #Mooncherhunter Geolocate unauthorized wireless clients (moochers and hackers)
+- Rapid 7 #Nexpose
+	- Network vulnerability scanner
+	- Can scan wireless networks and devices as easily wired
+- #WiFishFinder (sourceforge)
+	- Open source testing tools to see if active wireless devices are vulnerable to 'Wi-Fishing' attacks
 - 
+
+#### WIRELESS IPS TOOLS
+- Extreme network intrusion prevention system
+- AirMagnet Enterprise
+- Dell SonicWall Clean Wireless
+- HP TippingPoint NX platform NGIPs
+- MoJo AirTight WIPS
+- Network Box IDP
+- NEtwork Box IDP
+- AirMobile Server
+- Wireless Policy MAnager (WPM)
+- ZENWorks Endpoint security MAnagement
+- FortiWiFi
+
+
+#### MOBILE WI-FI Security Tools
+- Armis BlueBorne Vulnerability Scanner
+	- Check if your device, or the devices around you, are at risk
+- Acrylic Bluetooth Low Energy Analyzer
+	- Can identify Bluetooth devices including new IOT devices around you
+- WiFi Protector : Wireless VPN
+- #SoftPerfectWiFiGuard Network scanner that runs at set intervals and reports any unrecognized connected devices
+- Xirrus Wifi Inspector : Realtime monitor of traffic performance and clients, rogue detector
+
+#### BLUETOOTH SECURITY TOOLS
+- BlueAuditor
+- Frontline BlueTooth protocol Analyzer
+- Ellisys Bluetooth Tracker
+- Acrylic LE Analyzer
+- BLE Scanner for PC
+- BlueMaho
+
+### 16.12 WIRELESS HACKINGCOUNTER MEASURES
+### Wi-Fi Router configuration Best Practices
+- Strategically place antennas to always point inward into the building /complex
+- If Possible, maintain low power levels on WAPs , And more WAPs to make up for coverage gaps
+- Ensure remote router login is disabled
+- Ensure router access password is set and firewall protection is enabled
+- Ensure MAC address filtering is enabled on routers / access points. WAP won't respond to connection request from clients  that are not on the approved list
+- Ensure SSID broadcasts are disabled at access points and passphrase is changed frequently
+
+
+#### SSID SETTINGS BEST PRACTICES
+- Change the default SSID
+- Hide the SSID when practical
+- Keep passphrases free of SSID, network / company name , or anything that is easy to figure out.
+- Ensure there is firewall/ packet filter between AP and Internet
+- Keep wireless network strength low enough avoid detection outside organization
+- Regularly ensure there are no issues with setup/ configuration
+- Use extra traffic encryption
+
+#### AUTHENTICATION BEST PRACTICES
+- When practical, implement MAC filtering on the Access Point
+- Use captive portals for legal protection and to enforce user/ device registration
+- Use the highest security standard possible
+	- WPA3 for SOHO use
+	- 802 .1x for enterprise use
+- Ensure access points are in secure locations
+- Ensure all wireless drivers are up-to-date
+- Ensure network is disabled when it isn't needed.
+
+#### ADDITIONAL WIRELESS SECURITY BEST PRACTICES
+- Use different SSIDs and VLANs to isolate users/ devices by security level : Guests , Wireless Clients
+- Enroll devices (including BYOD) into Mobile Device Management to:
+	- Implement Geofencing
+	- Enforce end point protection
+	- Enforce separation of business and personal data
+	- Disallow jailbroken or rooted devices on the network
+- Educate users on the risks of using public / free wi-fi
+>Realize the MDM and endpoint security software is not used to protect the mobile device, but instead used to protect the network from mobile devices.
+
+
+#### BLUETOOTH HACKING COUNTERMEASURES
+- Ensures PIN keys use non-regular patterns
+- Ensure device is always in hidden mode
+- Keep track of all past paired devices and delete suspicious devices
+- Ensure BT is kept disabled unless required
+- Never accept pairing requests from unknown devices
+- Ensure encryption is enabled when connecting to a PC
+- Keep device network range at its lowest
+- Only pair with other devices in a secure area
+- Ensure antivirus is installed
+- Ensure default security setting are changed to the best possible standard
+- Ensure all BT connections use Link Encryption
+- Ensure encryption is empowered for multiple wireless communications
+
+#### OTHER WIRELESS ATTACK COUNTERMEASURES
+Celluar:
+	Upgrade to 5G
+	Use encryption when making Wi-Fi calls
+	Prefer encryption messaging platforms over unencrypted SMS
+RFID / NFC
+	Upgrade older 125 KHz RFID systems to newer 13.56 MHz NFC systems
+	Change default keys on NFC systems
+	Use RFID blocking sleeves or cards to protect the card from RFID pickpocketing
+
+### 16.13 HACKING WIRELESS NETWORKS REVIEW
+- Wi-Fi infrastructure is made of software and hardware
+- the SSID is friendly name for a Wi-Fi network
+- The BSSID is the MAC address of a wireless access point
+- A BSS is a Wi-Fi network with one AP
+- An ESS is a Wi-Fie network with multiple APs
+- The APs typically use the same SSID
+- WEP uses a 24-bit IV, stream cipher RC4 , and CRC-32 checksum
+- Because WEP has no digital signature or anti-replay capability, you can use `aireplay-ng` perform a replay attack against the AP. This speeds up collecting IVs for cracking the password
+- You can also use a fragmentation attack against WEP to collect keying information from the header of a captured packet
+- You can use that to quickly obtain more keying material from the AP until you have the PRGA
+- You can use the PRGA with `packetforge-ng` to create a custom packet to quickly obtain IVs for password cracking
+- WPA introduced TKIP to change the encryption key for every packet
+- It also uses sequence numbers to guard against replay attacks
+- The IV is 48-bit and the key is 128-bit
+- WPA2 introduced CCMP-AES for encryption
+- Both WPA and WPA2 have an imperfect 4-way handshake that can be captured and cracked
+- Both WPA and WPA2 offer an enterprise version that uses 802.1x and RADIUS to centralized authentication
+- The user or client's authentication is forwarded to the RADIUS server
+- If authentication is successful, the client can enter the network
+- 802.1x uses the extensible Authentication Protocol (EAP) to allow a wide range of authentication factors including MS-CHAPv2 passwords, certificates and tokens and biometrics
+- WPA3 has been recently introduced. It is possible to brute force a WPA3 key
+- Bluetooth has a variety of vulnerabilities and exploits that allow you to:
+	- Send spam messages to the victim, read the Victim's messages and contact list, and remotely execute code on the device
+- Cellular devices are susceptible to #StrinRay and #DRTBox MITM attacks
+- RFID and NFC Badges and tokens can be cloned from a short distance
+- There are several NFC hacking apps you can use to crack the NFC key.
+- There are a number of vulnerability scanners you can use to test Wi-Fi networks
+- There are also a number of Wi-fi security tools and IPSes available to protect the wireless network
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

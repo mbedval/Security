@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "07cd729b04ce097f",
+        "id": "0d977811936db590",
         "type": "tabs",
         "children": [
           {
-            "id": "c36a5bca109d8db1",
+            "id": "0bdfba68c1900468",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -65,8 +65,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "4b1b3f083f9676b8",
@@ -140,7 +139,7 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "c36a5bca109d8db1",
+  "active": "0bdfba68c1900468",
   "lastOpenFiles": [
     "CeHV11_notes/Module16.md",
     "CeHV11_notes/Module15.md",
