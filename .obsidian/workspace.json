@@ -4,15 +4,20 @@
     "type": "split",
     "children": [
       {
-        "id": "d459ebc322c7df04",
+        "id": "328a9a7933462c1d",
         "type": "tabs",
         "children": [
           {
-            "id": "3833bdd93dcbd8aa",
+            "id": "92c757028eb90abc",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "CeHV11_notes/Module18.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              }
             }
           }
         ]
@@ -81,6 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "CeHV11_notes/Module18.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,6 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "CeHV11_notes/Module18.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +125,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "CeHV11_notes/Module18.md"
+              }
             }
           }
         ],
@@ -139,13 +148,13 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "3833bdd93dcbd8aa",
+  "active": "92c757028eb90abc",
   "lastOpenFiles": [
+    "^b0f31b.md",
     "CeHV11_notes/Module14.md",
     "CeHV11_notes/Module15.md",
     "CeHV11_notes/Module17.md",
     "CeHV11_notes/Module16.md",
-    "^b0f31b.md",
     "CeHV11_notes/Module13.md",
     "CeHV11_notes/Module20.md",
     "CeHV11_notes/Module19.md",
