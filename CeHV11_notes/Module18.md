@@ -842,8 +842,7 @@ PLC and RTU have many overlapping functionality
 	- Un-remediated vulnerabilities in legacy systems
 	- Human Social Engineering
 
-- #### ICS / SCADA Attack Tools
-- 
+#### ICS / SCADA Attack Tools
 - ICS Exploitation Framework / ICSPLOIT : Test for PLC and ICS software vulnerabilities
 - PLCinject : used to inject code into PLCs
 - MODBUS Penetration Testing Framework (SMOD) : A full-featured framework for penetesting the ModBus (PCL Data communicatins) protocol
@@ -893,7 +892,7 @@ nmap -Pn -sT -p 1962 --script pcworx <target IP>
 
 ```
 
-### SNIFFER / VULNERABILITY SCANNERS
+#### SNIFFER / VULNERABILITY SCANNERS
 - #Skybox : 
 	- Detailed path analysis across OT-IT networks
 	- Provides insight into vulnerablilities attack vectors
@@ -905,34 +904,299 @@ nmap -Pn -sT -p 1962 --script pcworx <target IP>
 	- Display over-the-air packets of zigbee, Easylink, BLE 
 - #Cyberx : IoT / ICS vulnerability Scanner
 - 
--
-p2279
 
 
+#### COMMON PLC TCP PORTS BY PRODUCT
+- Allen Bradley - Newer Rockwell PLC : 44818
+- Allen Bradely - Older Rockwell PLCs : TCP
+- BECKHOFF Embedded PC : 48898
+- C-More HMI programming : 9999
+- Danfoss ECL APEX : 5050
+- FATEK FB Series : 500
+- GE FANUS SERIES 90-30 : 18245
+- GE SRTP Uses TCP Ports 18245 and 18246
+- GE QuickPanels Use TCP port : 57176
+- HITACHI EHV SEries 3004
+- KEYENCE KV 5000 8501
+- Korenix 6550 : 502
+- Koyo Ethernet : 28784
+- LS GLOFA FENet : 2004
+- LS XGB FENet : 2004
+- LS XGK FEnet : 2004
+- Memobus (Yaskawa MP Series Controller) : 502
+- Mitsubishi FX : 1025
+- Mitsubishi FX3u (Ethernet) : 5001
+- Mitsubishi MELSEC-Q  (Ethernet ) : 4999
+- Mitsubishi MR-MQ100 (Ethernet) : 4999
+- Mitsubishi QJ71E71 (Ethernet) : 5002
+- MODBUS TCP / IP (Ethernet) : 502
+- MODBUS Server (ModBus RTU Slave) : 502
+- OMRON PCC : 9600
+- Panasonic FP (Ethernet) : 9094
+- Panasonic FP2 (Ethernet) : 8500
+- Parker Drives Using MODBUS TCP/IP (Ethernet): 502
+- RED Lion HMIs 789
+- SAIA S-BUS (Ethernet) : 5050
+- SChelecher XCX 300 : 20547
+- Simemens S5 Protocol Uses TCP port : 102
+- Toshiba Series PLCs uses Modbus Port : 502
+- Unitronics Socket1 - TCP : 20256
+- Unitronics Socket2 - TCP Slave : 502
+- UnitronicsSW Socket3 - TCP Slave 20257
+- WAGo CODESYS - TCP :2455
+- YAMAHA NETWORK BOARD ETHERNET RCX SEries use telnet port :23
+- YASKAWA MP Series Ethernet : 10000
+- YASKAWA MP2300Siec : 44818
+- YASKAWA SMC 3010 Ethernet : 23
+- YOkogawa FA-M3 (Ethernet): 12289
 
 
+#### #OT PENETRATION AND CONTROL
 
--
-
-
-$$
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
+- OT is subject to all IoT attacks, an many of the dame attacks on regular IT network
+- Spear phishing
+- Unauthorized access
+- Password cracking
+- malware / trojan / bots
+- Protocol Abuse
+- Potential Destruction of Resources
+- Denial-of-Service
+- Side-channel attacks
+- Hardware-specific attacks
+#### #OT Attack tools
+- MITRE ATT&CK lists 79 techniques for attacking ICS [link](https://attack.mitre.org/techniques/ics)
+- Metasploit lists 72 modules to attack ICS/SCADA. 18 exploits with a rank of great or excellent
+- Github lists about a dozen ICS/SCADA/PLC /RTU exploits
+- Exploit-DB lists 25 verified SCADA exploits
+- Shodan.io returns 2700+ results for ICS , 1300+ results for SCADA
 
 
+#### OT FILELESS MALEWARE
+- MegaCortext
+	- Fileless OT ransomeware
+	- Distributed by QakBot (QBot) . Emotet, or Reitspoof trojan
+	- Uses psExec to execute malicious commands
+- Other File less OT Malware
+	- Disruptionware
+	- LockerGoga
+	- Triton
+	- Olymptoc Destroyer
+	- SamSam
+	- Shamoon3
+	- VPNFilter
+	- Havex
+#### #HMI ATTACKS
+- HMI is the local control station a human operator uses to manage a particular ICS/ SCADA devices
+- OS is typically {Windows IoT core, Linux Core}
+- It is especially subject to:
+	- Memory corruption
+	- Credential Management
+	- Lack of authentication / Authorization
+	- Insecure Defaults
+	- Code Injection
+
+#### #PLC Attack
+- PLC Rootkit Attack
+- PLC code tampering
+- Payload sabotage attacks
+- Worms and Trojan such as 
+	- PLC Blaster 
+		- Siemens s7 PLCs
+		- TC 102
+	- Stuxnet
+		- Considered the first cyber weapon
+		- Destroys uranium enrichment centrifuges by causing them to spin erratically
+		- Targeted attack causing extensive damage to Iran's nuclear program
+		- [link](https://github.com/loneicewolf/Stuxnet-source)
 	
-	
+#### SIDE-CHANNEL ATTACKS
+Timing Analysis , Power Analysis 
+- Input Ciphertext , 
+- Use of Side Channel Information like {Power consumption, Electromagnetic Radiation, Injection of faults, Acoustic Sounds} ==> Side Channel Analysis ==> Output plaintext
+
+#### #RTU Attacks
+- Direct dial to RTU modems
+	- Most have default or no authentications
+	- Most will identify themselves on answer
+	- Attacker can then research and use its commands
+		- Attacker can then research and use its commands
+	- Target Modbus communications
+		- Crafted #modbus / TCP packet exceeding MTU of 260 bytes can cause DoS
+		- Clear text makes it easy to sniff
+	- Target update packages
+
+#### CRITICAL #RTU ATTACK EXAMPLES
+CVE-02019-14931
+	Unauthenticated remote OS Command Injection
+	Complete CIA comprosmise
+	Mitsubishi Electric ME-RTU devices through 2.02
+	INEA ME-RTU devices through 30.
+	CVSS 10.0
+CVE-2017-12739
+	Unauthenticated RCE
+	Siemens SICAM RTUs SM-2556 COM Modules
+	Integrated Web Werver (port 80 / TCP) of affected devices could allow unauthenticated remote attackers to execute arbitrary code on the affected device
+	CVSS 10.0
+
+#### #RF Control Hacking
+- Radio frequency (RF) protocol are often used to control
+- Used for simple operation such as turning on a motor (drills), lifting a load (cranes) , or maneuvering a heavy-duty vehical
+- They are fixed codes that can be sniffed and replayed
+- CVE-2018-17935, CVE-2018-19023: Authentication Bypass by capture-Replay CVSS 801
+#### #RF Remote Control Attack Types
+- Replay attack
+- Command Injection / Command Spoofing
+- Abusing Emergency Stop (E-Stop)
+	- An attacker can replay emergency stop commands indefinitely to engage a persistent denial-of-service condition
+	- Its also possible for an attacker to turn a machine back on, even though the operator issued and emergency stop
+- Re-pairing with malicious RF controller
+- Cloning a remote controller
+- Malicious Reprogramming Attack
+- DDoS
+- RF Remote Control Example 
+	- Attacker Record the Command from Transmitter
+	- Captures the data and processed for commands
+	- Attacker than Transmit recorded command to misuse it.
+#### #Requack
+- Practical POC for RF Control Attacks
+- Batter-powered, pocket-sized embedded device for remote access
+- Attacker against temporary physical access to the facility
+- Hides device in an inconspicuous place
+- Device must be in RF range of the machines
+- Device is remote controlled by the attacker
+- Built by TrendMicro Researchers (2019)
+
+### 18.11 #OT Hacking Counter Measures
+#### #UEBA USER and Entity Behavior Analysis
+- ICS, SCADA and IoT devices often run proprietary , inaccessible  or uncatchable operating systems
+- Traditionally tools used to detect the presence of malicious cyber activity in normal enterprise networks will not function properly
+- User and entity behavior analytics (UEBA) is best suited to detect and classify known-good behavior from these systems to create as baseline
+	- Once a known-good baseline is established, deviations can be detected and analyzed
+	- May be heavily dependent on artificial intelligence and machine learning
+	- May also have higher false-positive rate
+- UEBA is now evolving into Extended Detection and Response (XDR)
+- Tools include
+- Rapid7 InsightIDR
+- Splunk
+- Aruba IntroSpect
+#### CONSIDERATION FOR APPLYING ANTIVIRUS UPDATES AND PATCHING
+- A SCADA workstation might be isolated from the internet
+- infections are often caused by removal media
+- Once the system is cleaned, and anti-malware solution will need to be manually updated to ensure it has the latest virus definitions
+- The same goes for applying security patches
+- Without the latest virus definitions or patches, the system can easily become re-infected
+#### ICS / SCADA Protection Recommendations
+As recommended by the US Department of Energy , CISA , NSA and FBI:
+- Isolate ICS / SCADA systems and networks from corporate and Internet networks
+	- Use Strong perimeter controls
+	- Limit any communications entering or leaving ICS / SCADA perimeters
+- Enforce multifactor authentication for all remote access to ICS networks and device whenever possible
+- Have a cyber incident response plan. Exercise it regularly with stakeholders in IT, Cybersecurity and Operations
+- Change all passwords to ICS/ SCADA devices and systems on a consistent schedule
+- Ensure Open Platform Communications / Unified Architecture (OPC UA) Security is correctly configured
+	- Application authentication enabled
+	- Explicit trust lists
+- Ensures the OPC UA certificate private keys and user passwords are stored securely
+- Maintain known-good offline backups for faster recovery upon a disruptive attack. Conduct hashing and integrity checks on firmware and controller configuration files to ensure backup validity
+- Li9mit ICS/ SCADA systems network connections to only specifically allowed management and engineering workstations
+- Robustly protect management systems by configuring:
+	- Device guard
+	- Credential Guard
+	- Hypervisor code integrity (HVCI)
+- Install Endpoint Detection and Response (EDR) solutions on these subnets
+- Ensure Strong anti-virus file reputation settings are configured
+- Implement robust log collection and retention from ICS / SCADA systems and management subnets.
+- Leverage a continuous OT monitoring solution to alert on malicious indicators and behaviors
+	- Watch internal systems and communications for known hostile actions and lateral movement
+	- For enhanced network visibility to potentially identify abnormal traffic, consider using CISA's open source industrial control system network protocol parsers (ICSNPP)
+- Ensure all applications are only installed when necessary for operations
+- Enforce principle of least privilege, Only use admin accounts when required for tasks, such as installing software updates.
+- Investigate symptoms of denial of service or connection severing
+	- These exhibit as delays in communications processing, loss of function requiring a reboot, and delayed actions to operator comments as signs of potential malicious activity
+- Monitor systems for loading of unusual drivers, especially for #ASROck driver if no ASRock driver is normally used on the system
+
+#### #OT Security Best Practices
+- Implement a dedicated VPN gateway or jump host, within the enterprise DMZ.
+	- This should be the only access point into the plant environment for remote users
+	- Remote access should never be enabled by default
+- Implement a default "deny all" access policy across the external-to-internal communication boundary
+- Establish remote access multi-factor authentication #MFA were possible
+- Implement enhanced logging and monitoring
+	- across the IT / OT boundary
+	- For any highly critical assets within the OT environment
+	- This helps you identify traffic from rogue device that may have gained access to the OT network.
+- Implement network micro-segmentation
+	- Physical air-gapping
+	- Separate VLANs for distinct groups of assets
+	- Reduces the risk ofr wide-scale compromise
+
+#### IDS / IPS for OT
+- ICS / SCADA machine utilize very specific commands to control equipment
+- You could set up strict IDS / IPS rules to detect and prevent unknown types of actions from being allowed to occur
+- Tools include:
+	- #SPLUNK #AlienVaultSIEM #Dragos #McAfee #SecurityOnion #Nessus 
+#### OT Security Tools
+- Indegy Industrial Cybersecurity Suite
+- Tenable Industrial Security
+- Flowmon
+- Singtel
+- Forecount
+- PA-220R
+#### IOT/ OT Monitoring TOOLS
+- (Princeton) IoT inspector
+	- Open source tool to watch network interactions of your SOHO / Home IoT devices
+	- Currently under major revision -re launch slated for spring 2023
+	- https://inspector.engineering.nyu.edu
+- #Domotz : remote monitoring and management
+- #Splunk Industrial for IoT : Monitoring and problem root cause analysis
+- #Datadog IoT Monitoring : Performance and security monitoring
+- #TeamView IoT : Remote Monitoring and management
+- #AWS IoT Device Management : Cloud-based IoT monitoring and Management
+
+#### OT Security Organizations
+- Operations Technology Cybersecurity Alliance (www.otcsalliance.org)
+- Operational Technology Information Sharing and analysis Center (www.otisac.org)
+- International Operation Technology Security Association ( #iosta)
+
+### 18.12 IOT AND OT HACKING REVIEW
+- The internet of Things refers to everyday devices that 
+	- can connect to a network to transmit data
+	- are not considered transitional computers
+- IoT devices can use a very wide range of networking protocols and transmission types. Most use some form of wireless communication (Bluetooth, Cellular, ZigBee, Z-Wave, Wi-Fi)
+- The vast majority of IoT devices are:
+	- purpose built for a specific task
+	- Smaller with few security task
+- IoT devices may or may not use IP addresses . They may use MAC addresses or some other identifier
+- IoT hacking can include:
+	- Physically or logically attacking the device itself
+	- Intercepting, modifying, spoofing or replaying its transmissions
+	- Attacking the phone / web / router app that it connects to 
+	- Connecting to unsecured devices that are directly exposed to the internet
+- OT is subset of IoT
+	- IT is the hardware and software, OT attacks tend to focus or industrial control systems (ICS and SCADA)
+	- OT attacks an not only shut down company equipment that affect only a company, but some equipment can be connected to and affect human life
+- Both IoT and OT present a new , uncharted frontier in cyber security
+- OT uses security zones to keep the business IT network separate from the manufacturing / industrial network
+	- Ideally there should be no connection between the two
+	- Attackers can compromise either network , and then pivot to the other network
+- OT components include IIoT , ICS , SCADA , DCS , RTU , PLC , BPCS and SIS 
+- OT's biggest challenge is that ICS and SCADA systems are difficult to retrofit with modern security
+- OT countermeasures should include all the typical ones used to protect IoT and IT , as well as OT device-specific vulnerability
+
+
+	- 
+
+	- Mo
+
+- 
+
+
+
+- 
+
+- 
+
+
+
+
+
