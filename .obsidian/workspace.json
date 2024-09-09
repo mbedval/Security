@@ -4,20 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "328a9a7933462c1d",
+        "id": "629ce0a4e3ae774e",
         "type": "tabs",
         "children": [
           {
-            "id": "92c757028eb90abc",
+            "id": "ab3984e41cf41a2b",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "CeHV11_notes/Module18.md",
-                "mode": "source",
-                "backlinks": true,
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -86,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CeHV11_notes/Module18.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CeHV11_notes/Module18.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "CeHV11_notes/Module18.md"
-              }
+              "state": {}
             }
           }
         ],
@@ -148,8 +139,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "92c757028eb90abc",
+  "active": "ab3984e41cf41a2b",
   "lastOpenFiles": [
+    "CeHV11_notes/Module19.md",
+    "CeHV11_notes/Module18.md",
     "^b0f31b.md",
     "CeHV11_notes/Module14.md",
     "CeHV11_notes/Module15.md",
@@ -157,8 +150,6 @@
     "CeHV11_notes/Module16.md",
     "CeHV11_notes/Module13.md",
     "CeHV11_notes/Module20.md",
-    "CeHV11_notes/Module19.md",
-    "CeHV11_notes/Module18.md",
     "CeHV11_notes/Module11.md",
     "CeHV11_notes/Module12.md",
     "Pasted image 20240824132452.png",
