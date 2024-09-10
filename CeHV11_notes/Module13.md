@@ -194,7 +194,7 @@ env x = `() { : ; }; echo exploit ` bash -c `cat/etc/passwd`
 		- Tricks the computer at the other end into divulging content from its memory
 		- Leaked information can include private keys, secret keys password, credit card numbers, etc.
 
-- POODLE
+- #POODLE 
 	- Padding oracle on Downgraded legacy encryption
 	- POODLE attacks make use of web browser and server fallback to SSLv3
 		- Happens if negotiating a TLS session fails
@@ -373,7 +373,7 @@ sudo a2dismod module_name
 	- Web cache poisioning
 	- TLS Downgrade MITM
 	- Shellshock
-	- Heartbleed
+	- #Heartbleed
 	- POODLE
 	- DROWN
 
