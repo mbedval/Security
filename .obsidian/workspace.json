@@ -11,8 +11,13 @@
             "id": "9e7620b2ad2619ff",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "Lab_Excercise.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              }
             }
           }
         ]
@@ -81,6 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Lab_Excercise.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,6 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Lab_Excercise.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +125,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Lab_Excercise.md"
+              }
             }
           }
         ],
@@ -141,6 +150,7 @@
   },
   "active": "9e7620b2ad2619ff",
   "lastOpenFiles": [
+    "Lab_Excercise.md",
     "Security/OSI.md",
     "Security/Popular Ports.md",
     "Security/images/OSI-model-layers-attacks-Stackscale.jpg.avif",
